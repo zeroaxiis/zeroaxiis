@@ -1,0 +1,16 @@
+.scroll-float {
+  /* clip vertically so initial off-screen chars are hidden,
+     but let the text extend to its natural width horizontally */
+  overflow-y: clip;
+  overflow-x: visible;
+  width: 100%;
+}
+
+.scroll-float-text {
+  display: block;
+  white-space: nowrap; /* force single line regardless of font size */
+}
+
+.char {
+  display: inline-block;
+}

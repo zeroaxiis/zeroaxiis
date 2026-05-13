@@ -1,26 +1,223 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ─── Surface colors ─────────────────────────────────────── */
+  --color-background: #141313;
+  --color-surface: #141313;
+  --color-surface-dim: #141313;
+  --color-surface-bright: #3a3939;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1c1b1b;
+  --color-surface-container: #201f1f;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353434;
+  --color-surface-variant: #353434;
+  --color-surface-tint: #c6c6c7;
+
+  /* Component-level surfaces (inset / card / raised) */
+  --color-canvas: #080808;
+  --color-surface-layer: #111111;
+  --color-surface-layer-raised: #161616;
+
+  /* ─── On-surface colors ───────────────────────────────────── */
+  --color-on-background: #e5e2e1;
+  --color-on-surface: #e5e2e1;
+  --color-on-surface-variant: #c4c7c8;
+
+  /* ─── Primary ─────────────────────────────────────────────── */
+  --color-primary: #ffffff;
+  --color-on-primary: #2f3131;
+  --color-primary-container: #e2e2e2;
+  --color-on-primary-container: #636565;
+  --color-primary-fixed: #e2e2e2;
+  --color-primary-fixed-dim: #c6c6c7;
+  --color-on-primary-fixed: #1a1c1c;
+  --color-on-primary-fixed-variant: #454747;
+  --color-inverse-primary: #5d5f5f;
+
+  /* ─── Secondary ───────────────────────────────────────────── */
+  --color-secondary: #c7c6c6;
+  --color-on-secondary: #303031;
+  --color-secondary-container: #464747;
+  --color-on-secondary-container: #b5b5b5;
+  --color-secondary-fixed: #e3e2e2;
+  --color-secondary-fixed-dim: #c7c6c6;
+  --color-on-secondary-fixed: #1b1c1c;
+  --color-on-secondary-fixed-variant: #464747;
+
+  /* ─── Tertiary ────────────────────────────────────────────── */
+  --color-tertiary: #ffffff;
+  --color-on-tertiary: #2f3131;
+  --color-tertiary-container: #e2e2e2;
+  --color-on-tertiary-container: #636565;
+  --color-tertiary-fixed: #e2e2e2;
+  --color-tertiary-fixed-dim: #c6c6c7;
+  --color-on-tertiary-fixed: #1a1c1c;
+  --color-on-tertiary-fixed-variant: #454747;
+
+  /* ─── Error ───────────────────────────────────────────────── */
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  /* ─── Outline / inverse ───────────────────────────────────── */
+  --color-outline: #8e9192;
+  --color-outline-variant: #444748;
+  --color-inverse-surface: #e5e2e1;
+  --color-inverse-on-surface: #313030;
+
+  /* Component stroke (border) colors */
+  --color-stroke: #333333;
+  --color-stroke-hover: #444444;
+
+  /* Dim / ghost text (inputs, placeholders) */
+  --color-ghost-text: #444448;
+
+  /* ─── Legacy aliases ──────────────────────────────────────── */
+  --color-foreground: #e5e2e1;
+  --color-muted: #201f1f;
+  --color-muted-foreground: #c4c7c8;
+  --color-border: #444748;
+  --color-accent: #c6c6c7;
+  --color-accent-foreground: #1a1c1c;
+  --color-primary-foreground: #2f3131;
+
+  /* ─── Font families ───────────────────────────────────────── */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-body-sm: "Inter", sans-serif;
+  --font-headline-lg: "Geist", sans-serif;
+  --font-headline-lg-mobile: "Geist", sans-serif;
+  --font-display: "Geist", sans-serif;
+  --font-label-mono: "JetBrains Mono", monospace;
+
+  /* ─── Spacing / layout ────────────────────────────────────── */
+  --spacing-container-max: 1200px;
+  --spacing-footer-max: 1400px;
+  --spacing-gutter: 24px;
+  --spacing-unit: 4px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 80px;
+
+  /* ─── Border radius ───────────────────────────────────────── */
+  --radius: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  /* ─── Font sizes ──────────────────────────────────────────── */
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.5;
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 1.2;
+  --text-headline-lg-mobile: 24px;
+  --text-headline-lg-mobile--line-height: 1.2;
+  --text-display: 64px;
+  --text-display--line-height: 1.1;
+  --text-label-mono: 12px;
+  --text-label-mono--line-height: 1.4;
+
+  /* ─── Component heights ───────────────────────────────────── */
+  --height-card-image-xs: 7.5rem;
+  --height-card-image-sm: 10rem;
+  --height-card-image-md: 12rem;
+  --height-card-image-lg: 12.5rem;
+
+  /* ─── Component min-heights ───────────────────────────────── */
+  --min-height-card: 25rem;
+
+  /* ─── Component gaps ──────────────────────────────────────── */
+  --gap-section: 1.5rem;
+  --gap-grid: 1.5rem;
+  --gap-card: 2rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glass-effect {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  .glow-top {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  }
+
+  .hero-grid-mask {
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      black 20%,
+      transparent 70%
+    );
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  }
+
+  .gradient-divider {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--color-stroke) 50%,
+      transparent 100%
+    );
+    height: 1px;
+    width: 100%;
+  }
+
+  .card-surface {
+    background-color: var(--color-surface-layer);
+    border: 1px solid var(--color-stroke);
+  }
+
+  .card-surface:hover {
+    background-color: var(--color-surface-layer-raised);
+    border-color: var(--color-stroke-hover);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .tech-tag {
+    background-color: var(--color-canvas);
+    border: 1px solid var(--color-stroke);
+  }
+
+  .glass-panel {
+    background: color-mix(in srgb, var(--color-surface-layer) 80%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-stroke);
+  }
+
+  .glow-hover:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    border-color: var(--color-stroke-hover);
+  }
+
+  .input-focus-ring:focus-within {
+    border-color: var(--color-primary);
+  }
 }
