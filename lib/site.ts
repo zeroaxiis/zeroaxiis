@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "zeroaxiis",
+  name: "ZeroAxiis",
   tagline: "Helping Businesses Grow!",
   description:
     "A digital agency helping businesses grow through scalable software solutions, creative design, and high-performance engineering.",
