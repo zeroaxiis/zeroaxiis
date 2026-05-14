@@ -20,6 +20,7 @@ export const siteConfig = {
     facebook: "https://facebook.com/zeroaxiis",
   },
   nav: [
+    { label: "Home", href: "/" },
     { label: "Services", href: "#services" },
     { label: "Workflow", href: "#workflow" },
     { label: "Projects", href: "/projects" },
