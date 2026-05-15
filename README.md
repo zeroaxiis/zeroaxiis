@@ -1,7 +1,5 @@
 # Zeroaxiis
 
-A modern, modular marketing site built with **Next.js 16**, **React 19**, and **Tailwind CSS 4**. Designed for scalability, maintainability, and ease of understanding.
-
 ## 🚀 Quick Start
 
 ### Prerequisites
