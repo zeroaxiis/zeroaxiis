@@ -4,7 +4,7 @@
  * These are high-level organizational components for page structure
  */
 
-export { Hero } from "./hero";
+export { Hero } from "./hero/index";
 export { Features } from "./features";
 export { CTA } from "./cta";
 export { Testimonials } from "./testimonials";
