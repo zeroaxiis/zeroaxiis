@@ -26,11 +26,7 @@ export function HeroNav() {
         {/* Nav Links — driven by siteConfig */}
         <div className={styles.navLinks}>
           {navItems.slice(1).map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={item.label === "Services" ? styles.navLinkActive : styles.navLink}
-            >
+            <a key={item.href} href={item.href} className={styles.navLink}>
               {item.label}
             </a>
           ))}

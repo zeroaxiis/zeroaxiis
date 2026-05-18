@@ -52,7 +52,12 @@ export function HeroContent({
             {headlineParts.map((part, i) => (
               <span key={i}>
                 {part}
-                {i < headlineParts.length - 1 && <br className={styles.brDesktop} />}
+                {i < headlineParts.length - 1 && (
+                  <>
+                    {" "}
+                    <br className={styles.brDesktop} />
+                  </>
+                )}
               </span>
             ))}
           </h1>

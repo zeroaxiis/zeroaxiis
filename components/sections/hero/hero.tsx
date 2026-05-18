@@ -27,11 +27,11 @@ export function Hero() {
 
       <HeroContent
         badge="Modern Identity Platform"
-        badgeHref="#platform"
+        badgeHref="#services"
         headline={"Plan and navigate\nfrom idea to launch."}
         description="Create a clear roadmap and smoothly guide your project from idea to successful launch."
         ctaLabel="Get Started For Free"
-        ctaHref="#get-started"
+        ctaHref="#workflow"
       >
         <ClientLogos />
       </HeroContent>

@@ -41,6 +41,7 @@ export function HeroBackground() {
           priority
           quality={85}
           placeholder="blur"
+          sizes="(max-width: 768px) 90vw, 55vw"
           className={styles.globeImage}
         />
       </div>

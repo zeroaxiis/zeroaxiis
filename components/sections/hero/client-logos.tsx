@@ -49,9 +49,8 @@ const DropboxIcon = () => (
 const DEFAULT_LOGOS: ClientLogo[] = [
   { name: "NETFLIX", className: styles.clientNetflix },
   { name: "Buffer", icon: <BufferIcon />, className: styles.clientBuffer },
-  { name: "stripe", className: styles.clientStripe },
+  { name: "Stripe", className: styles.clientStripe },
   { name: "Framer", icon: <FramerIcon />, className: styles.clientFramer },
-  { name: "Buffer", icon: <BufferIcon />, className: styles.clientBuffer },
   { name: "HubSpot", className: styles.clientHubspot },
   { name: "Dropbox", icon: <DropboxIcon />, className: styles.clientDropbox },
 ];
