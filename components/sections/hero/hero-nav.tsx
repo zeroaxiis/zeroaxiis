@@ -29,7 +29,7 @@ export function HeroNav() {
             <a
               key={item.href}
               href={item.href}
-              className={item.label === "Services" ? styles.navLinkActive : styles.navLink}
+              className={styles.navLink}
             >
               {item.label}
             </a>

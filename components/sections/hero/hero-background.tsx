@@ -1,6 +1,6 @@
 import Image from "next/image";
-import galaxyBg from "@/assets/glaxay-bg.png";
-import globeImg from "@/assets/hero-bg.png";
+import galaxyBg from "@/assets/glaxay-bg.webp";
+import globeImg from "@/assets/hero-bg.webp";
 import styles from "./hero.module.css";
 
 /**
@@ -38,7 +38,6 @@ export function HeroBackground() {
         <Image
           src={globeImg}
           alt="Glowing wireframe sphere"
-          priority
           quality={85}
           placeholder="blur"
           className={styles.globeImage}

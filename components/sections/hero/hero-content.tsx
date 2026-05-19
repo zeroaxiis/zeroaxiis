@@ -43,10 +43,17 @@ export function HeroContent({
       <div className={styles.contentInner}>
         {/* Left column */}
         <div className={styles.left}>
-          <a href={badgeHref} className={styles.badge}>
-            <span>{badge}</span>
-            <span className={styles.badgeArrow}>→</span>
-          </a>
+          {badgeHref ? (
+            <a href={badgeHref} className={styles.badge}>
+              <span>{badge}</span>
+              <span className={styles.badgeArrow}>→</span>
+            </a>
+          ) : (
+            <span className={styles.badge}>
+              <span>{badge}</span>
+              <span className={styles.badgeArrow}>→</span>
+            </span>
+          )}
 
           <h1 className={styles.headline}>
             {headlineParts.map((part, i) => (
@@ -61,9 +68,15 @@ export function HeroContent({
         {/* Right column */}
         <div className={styles.right}>
           <p className={styles.description}>{description}</p>
-          <a href={ctaHref} className={styles.cta}>
-            {ctaLabel}
-          </a>
+          {ctaHref ? (
+            <a href={ctaHref} className={styles.cta}>
+              {ctaLabel}
+            </a>
+          ) : (
+            <button className={styles.cta}>
+              {ctaLabel}
+            </button>
+          )}
         </div>
       </div>
 
