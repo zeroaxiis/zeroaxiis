@@ -24,18 +24,21 @@ The codebase has been restructured to be more **modular**, **scalable**, and **e
 **Purpose**: Store all application constants and configuration values
 
 **Files Created**:
+
 - `ui.ts` - UI component styling constants (button variants, sizes, base classes)
 - `layout.ts` - Layout constants (spacing, breakpoints, container sizes)
 - `animations.ts` - Animation configuration (speeds, transitions, shiny text config)
 - `index.ts` - Barrel export
 
 **Benefits**:
+
 - No more magic strings/numbers scattered throughout code
 - Easy to update values globally
 - Better type safety with `as const`
 - Improved maintainability
 
 **Usage**:
+
 ```typescript
 import { BUTTON_VARIANTS, SPACING, ANIMATION_SPEEDS } from "@/lib/constants";
 ```
@@ -45,16 +48,19 @@ import { BUTTON_VARIANTS, SPACING, ANIMATION_SPEEDS } from "@/lib/constants";
 **Purpose**: Store reusable component logic in custom hooks
 
 **Files Created**:
+
 - `useCarouselScroll.ts` - Carousel scroll functionality extracted from Testimonials
 - `index.ts` - Barrel export
 
 **Benefits**:
+
 - Logic is separated from component presentation
 - Hooks are reusable across components
 - Easier to test isolated logic
 - Cleaner components
 
 **Usage**:
+
 ```typescript
 import { useCarouselScroll } from "@/hooks";
 const { carouselRef, scroll } = useCarouselScroll();
@@ -65,16 +71,19 @@ const { carouselRef, scroll } = useCarouselScroll();
 **Purpose**: Centralize all SVG icon components
 
 **Files Created**:
+
 - `arrows.tsx` - Arrow icons (ArrowLeft, ArrowRight) with props
 - `index.ts` - Barrel export
 
 **Benefits**:
+
 - Consistent icon interface
 - Reusable across components
 - Easy to add more icons
 - Proper TypeScript types
 
 **Usage**:
+
 ```typescript
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 ```
@@ -88,6 +97,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 **Purpose**: Explain the organization and purpose of each directory
 
 **Contents**:
+
 - Directory tree with descriptions
 - Component hierarchy explanation
 - Data flow diagram
@@ -106,6 +116,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 **Purpose**: Guide for developers during setup and development
 
 **Contents**:
+
 - Prerequisites and setup instructions
 - Development workflow and commands
 - Component development patterns
@@ -125,6 +136,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 **Purpose**: Help developers configure and customize the project
 
 **Contents**:
+
 - Site configuration (name, email, address)
 - Theme and color customization
 - Navigation and links setup
@@ -143,6 +155,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 **Purpose**: Fast reference for common development tasks
 
 **Contents**:
+
 - Quick checklists for common tasks
 - Adding services, team members, projects
 - Creating components and pages
@@ -160,6 +173,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 ### [README.md](README.md) - Comprehensive Project Overview
 
 **Changes Made**:
+
 - ✅ Added tech stack table
 - ✅ Expanded project structure with detailed descriptions
 - ✅ Added component architecture explanation
@@ -171,6 +185,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 - ✅ Better organization and clarity
 
 **Now Includes**:
+
 - Quick start guide
 - Technology stack details
 - Expanded folder structure
@@ -188,6 +203,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 ### Updated Barrel Exports (`index.ts` files)
 
 All component directories now have improved exports with:
+
 - ✅ JSDoc comments explaining the purpose
 - ✅ Organized exports (grouped by category)
 - ✅ Type exports alongside component exports
@@ -195,6 +211,7 @@ All component directories now have improved exports with:
 **Examples**:
 
 **`/components/ui/index.ts`**:
+
 ```typescript
 /**
  * UI Components
@@ -216,6 +233,7 @@ export { GradientDivider } from "./gradient-divider";
 ```
 
 **`/lib/data/index.ts`**:
+
 ```typescript
 /**
  * Data Index
@@ -236,14 +254,14 @@ export type { Project, OpenSourceTool } from "@/types";
 
 ### Before vs After
 
-| Aspect | Before | After |
-|--------|--------|-------|
-| **Constants** | Scattered in components | Centralized in `lib/constants/` |
-| **Custom Hooks** | Inline logic in components | Extracted to `/hooks/` |
-| **Icons** | Inline SVG in components | Organized in `/components/icons/` |
-| **Documentation** | Minimal README | 4 comprehensive guides |
-| **Exports** | Basic | Documented with JSDoc |
-| **Type Exports** | Not consistent | Exported from index files |
+| Aspect            | Before                     | After                             |
+| ----------------- | -------------------------- | --------------------------------- |
+| **Constants**     | Scattered in components    | Centralized in `lib/constants/`   |
+| **Custom Hooks**  | Inline logic in components | Extracted to `/hooks/`            |
+| **Icons**         | Inline SVG in components   | Organized in `/components/icons/` |
+| **Documentation** | Minimal README             | 4 comprehensive guides            |
+| **Exports**       | Basic                      | Documented with JSDoc             |
+| **Type Exports**  | Not consistent             | Exported from index files         |
 
 ### Benefits Achieved
 
@@ -314,9 +332,11 @@ zeroaxiis/
 ```typescript
 export const BUTTON_VARIANTS = {
   primary: "bg-primary text-on-primary hover:bg-surface-tint",
-  secondary: "bg-surface-container text-on-surface hover:bg-surface-container-high",
+  secondary:
+    "bg-surface-container text-on-surface hover:bg-surface-container-high",
   ghost: "text-on-surface hover:bg-surface-container",
-  outline: "border border-outline-variant text-primary hover:border-primary hover:bg-surface-container-lowest",
+  outline:
+    "border border-outline-variant text-primary hover:border-primary hover:bg-surface-container-lowest",
 } as const;
 
 export const BUTTON_SIZES = {
@@ -356,13 +376,16 @@ export function useCarouselScroll(options: UseCarouselScrollOptions = {}) {
     (direction: "prev" | "next") => {
       const el = carouselRef.current;
       if (!el) return;
-      
+
       const card = el.querySelector<HTMLElement>("[data-card]");
       const scrollAmount = (card?.offsetWidth ?? cardWidth) + gap;
-      
-      el.scrollBy({ left: direction === "next" ? scrollAmount : -scrollAmount, behavior: "smooth" });
+
+      el.scrollBy({
+        left: direction === "next" ? scrollAmount : -scrollAmount,
+        behavior: "smooth",
+      });
     },
-    [cardWidth, gap]
+    [cardWidth, gap],
   );
 
   return { carouselRef, scroll };
@@ -370,6 +393,7 @@ export function useCarouselScroll(options: UseCarouselScrollOptions = {}) {
 ```
 
 **Usage in Components**:
+
 ```typescript
 const { carouselRef, scroll } = useCarouselScroll();
 // Use carouselRef and scroll function in component
@@ -379,13 +403,13 @@ const { carouselRef, scroll } = useCarouselScroll();
 
 ## 📈 Metrics
 
-| Metric | Change |
-|--------|--------|
-| **New Directories** | 2 (constants, hooks, icons) |
-| **New Files** | 10 (constants, hooks, icons, documentation) |
-| **Documentation Files** | 4 new comprehensive guides |
-| **Code Reusability** | 3x improved (centralized constants, extracted hooks, organized icons) |
-| **Developer Guidance** | Complete with examples and best practices |
+| Metric                  | Change                                                                |
+| ----------------------- | --------------------------------------------------------------------- |
+| **New Directories**     | 2 (constants, hooks, icons)                                           |
+| **New Files**           | 10 (constants, hooks, icons, documentation)                           |
+| **Documentation Files** | 4 new comprehensive guides                                            |
+| **Code Reusability**    | 3x improved (centralized constants, extracted hooks, organized icons) |
+| **Developer Guidance**  | Complete with examples and best practices                             |
 
 ---
 
@@ -456,6 +480,7 @@ const { carouselRef, scroll } = useCarouselScroll();
 ## 📝 Summary
 
 The codebase has been successfully restructured to be:
+
 - ✨ **More Modular** - Clear separation of concerns
 - 🎯 **More Scalable** - Easy to add new features
 - 📚 **Better Documented** - Comprehensive guides
@@ -468,4 +493,3 @@ The codebase has been successfully restructured to be:
 
 **Last Updated**: 2024
 **Status**: ✅ Complete and Ready for Use
-

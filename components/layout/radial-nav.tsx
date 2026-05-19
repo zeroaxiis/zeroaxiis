@@ -10,7 +10,6 @@ export function RadialNav() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Derive active index from pathname (no setState in effect)
   const pathnameIndex = useMemo(() => {
     let index = items.findIndex((item) => item.href === pathname);
     if (index === -1) {
@@ -18,7 +17,7 @@ export function RadialNav() {
         (item) =>
           pathname.startsWith(item.href) &&
           item.href !== "/" &&
-          !item.href.startsWith("#")
+          !item.href.startsWith("#"),
       );
     }
     return index !== -1 ? index : 0;
@@ -27,19 +26,16 @@ export function RadialNav() {
   const [activeIndex, setActiveIndex] = useState(pathnameIndex);
   const [currentIndex, setCurrentIndex] = useState(pathnameIndex);
   const isScrollingRef = useRef(false);
-  const prevPathnameIndexRef = useRef(pathnameIndex);
-
   const radius = 250;
   const angleSpacing = 0.35;
+  const [prevPathnameIndex, setPrevPathnameIndex] = useState(pathnameIndex);
 
-  // Sync when pathnameIndex changes (after navigation completes)
-  if (prevPathnameIndexRef.current !== pathnameIndex) {
-    prevPathnameIndexRef.current = pathnameIndex;
+  if (prevPathnameIndex !== pathnameIndex) {
+    setPrevPathnameIndex(pathnameIndex);
     setActiveIndex(pathnameIndex);
     setCurrentIndex(pathnameIndex);
   }
 
-  // Fade back in when pathname changes
   useEffect(() => {
     const main = document.querySelector("main");
     if (main) {
@@ -84,20 +80,19 @@ export function RadialNav() {
 
   const navigateWithFade = (href: string, newIndex: number) => {
     setActiveIndex(newIndex);
-    
-    const isHash = href.startsWith('#');
-    
+
+    const isHash = href.startsWith("#");
+
     if (isHash) {
       router.push(href);
       return;
     }
 
-    // Fade out main content
-    const main = document.querySelector('main');
+    const main = document.querySelector("main");
     if (main) {
-      main.style.transition = 'opacity 0.4s ease';
-      main.style.opacity = '0';
-      
+      main.style.transition = "opacity 0.4s ease";
+      main.style.opacity = "0";
+
       setTimeout(() => {
         router.push(href);
       }, 400);

@@ -4,7 +4,8 @@ const posts: BlogPost[] = [
   {
     slug: "hello-world",
     title: "Hello World",
-    excerpt: "Welcome to the Zeroaxiis blog. This is where we share updates, insights, and stories.",
+    excerpt:
+      "Welcome to the Zeroaxiis blog. This is where we share updates, insights, and stories.",
     date: "2026-05-13",
     author: "Zeroaxiis Team",
     tags: ["announcement"],

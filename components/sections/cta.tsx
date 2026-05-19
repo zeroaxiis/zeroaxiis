@@ -20,7 +20,10 @@ export function CTA() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
             {workflowSteps.map((step) => (
-              <div key={step.number} className="flex flex-col items-center text-center">
+              <div
+                key={step.number}
+                className="flex flex-col items-center text-center"
+              >
                 <div
                   className={`w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-6 ${
                     step.highlight

@@ -48,8 +48,6 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
     const scroller = scrollContainerRef?.current ?? window;
     const charElements = el.querySelectorAll<HTMLElement>(".char");
 
-    // gsap.context scopes all animations to this element so .revert()
-    // only kills what this instance created — not other ScrollTriggers.
     const ctx = gsap.context(() => {
       gsap.fromTo(
         charElements,
@@ -76,12 +74,19 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
             end: scrollEnd,
             scrub: 1,
           },
-        }
+        },
       );
     }, el);
 
     return () => ctx.revert();
-  }, [scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
+  }, [
+    scrollContainerRef,
+    animationDuration,
+    ease,
+    scrollStart,
+    scrollEnd,
+    stagger,
+  ]);
 
   return (
     <h2 ref={containerRef} className={`scroll-float ${containerClassName}`}>

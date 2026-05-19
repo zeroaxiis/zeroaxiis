@@ -1,6 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════
-   HERO SECTION — Scoped Module
-   ═══════════════════════════════════════════════════════════════ */
+
 
 /* ── Section Root ───────────────────────────────────────────── */
 
@@ -40,8 +38,16 @@
   margin-top: 3%;
   object-fit: contain;
   mix-blend-mode: screen;
-  -webkit-mask-image: radial-gradient(ellipse 55% 55% at center 45%, black 40%, transparent 72%);
-  mask-image: radial-gradient(ellipse 55% 55% at center 45%, black 40%, transparent 72%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 55% 55% at center 45%,
+    black 40%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    ellipse 55% 55% at center 45%,
+    black 40%,
+    transparent 72%
+  );
 }
 
 .bgGradient {
@@ -50,7 +56,12 @@
   left: 0;
   right: 0;
   height: 40%;
-  background: linear-gradient(to top, #000000 0%, rgba(0,0,0,0.7) 45%, transparent 100%);
+  background: linear-gradient(
+    to top,
+    #000000 0%,
+    rgba(0, 0, 0, 0.7) 45%,
+    transparent 100%
+  );
   z-index: 2;
 }
 

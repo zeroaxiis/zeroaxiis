@@ -52,11 +52,7 @@ export const openSourceTools: OpenSourceTool[] = [
     stars: "4.2k",
     forks: "328",
     updated: "Updated 2 days ago",
-    contributors: [
-      { initials: "JB" },
-      { initials: "AL" },
-      { initials: "+5" },
-    ],
+    contributors: [{ initials: "JB" }, { initials: "AL" }, { initials: "+5" }],
   },
   {
     name: "zeroaxiis/go-router",

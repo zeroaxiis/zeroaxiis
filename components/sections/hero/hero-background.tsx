@@ -3,23 +3,10 @@ import galaxyBg from "@/assets/glaxay-bg.webp";
 import globeImg from "@/assets/hero-bg.webp";
 import styles from "./hero.module.css";
 
-/**
- * HeroBackground — Server Component
- *
- * Renders the composited background as two independent layers:
- *   1. Galaxy starfield (full-cover)
- *   2. Globe wireframe (centered, blend-mode: screen)
- *   3. Bottom gradient fade for text readability
- *
- * Both images are statically imported so Next.js can:
- *   - Generate blur placeholders at build time
- *   - Hash filenames for aggressive CDN caching
- *   - Tree-shake unused imports
- */
 export function HeroBackground() {
   return (
     <>
-      {/* Layer 1 — Galaxy: covers full viewport */}
+      {}
       <div className={styles.bgGalaxy}>
         <Image
           src={galaxyBg}
@@ -33,18 +20,19 @@ export function HeroBackground() {
         />
       </div>
 
-      {/* Layer 2 — Globe: centered, independently sized */}
+      {}
       <div className={styles.bgGlobe}>
         <Image
           src={globeImg}
           alt="Glowing wireframe sphere"
           quality={85}
           placeholder="blur"
+          sizes="(max-width: 768px) 90vw, 55vw"
           className={styles.globeImage}
         />
       </div>
 
-      {/* Layer 3 — Bottom gradient fade */}
+      {}
       <div className={styles.bgGradient} />
     </>
   );

@@ -1,8 +1,3 @@
-/**
- * Card Components
- * Composite components for displaying content in card format
- */
-
 export { ProjectCard } from "./project-card";
 export { OpenSourceCard } from "./open-source-card";
 export { TeamMemberCard } from "./team-member-card";

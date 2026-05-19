@@ -1,8 +1,3 @@
-/**
- * Layout Constants
- * Centralized layout and spacing configuration
- */
-
 export const CONTAINER_SIZES = {
   sm: "max-w-sm",
   md: "max-w-md",

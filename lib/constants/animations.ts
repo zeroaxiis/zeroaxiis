@@ -1,8 +1,3 @@
-/**
- * Animation & Motion Constants
- * Centralized animation configuration
- */
-
 export const ANIMATION_SPEEDS = {
   slow: 3,
   normal: 2,

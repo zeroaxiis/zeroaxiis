@@ -73,7 +73,10 @@ export default async function BlogPostPage({ params }: Props) {
               );
             }
             return (
-              <p key={i} className="mb-4 leading-7 text-[var(--color-muted-foreground)]">
+              <p
+                key={i}
+                className="mb-4 leading-7 text-[var(--color-muted-foreground)]"
+              >
                 {paragraph}
               </p>
             );

@@ -4,12 +4,24 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import ScrollFloat from "@/components/ui/scroll-float";
 
-/* ─── Social icon components ──────────────────────────────────────── */
-
 function IconInstagram() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" strokeWidth="1.8" />
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect
+        x="2"
+        y="2"
+        width="20"
+        height="20"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
       <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
       <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
     </svg>
@@ -17,47 +29,127 @@ function IconInstagram() {
 }
 function IconTwitter() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   );
 }
 function IconFacebook() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function IconLinkedIn() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <rect x="2" y="9" width="4" height="12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <rect
+        x="2"
+        y="9"
+        width="4"
+        height="12"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <circle cx="4" cy="4" r="2" stroke="currentColor" strokeWidth="1.8" />
     </svg>
   );
 }
 function IconBehance() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M2 7h6.5C10.4 7 12 8.3 12 10s-1.1 3-3 3H2V7zM2 13h7c2.2 0 4 1.3 4 3s-1.8 3-4 3H2v-6z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M15.5 9h6M15 14.5h7c0-1.4-1.1-2.5-2.5-2.5S17 13.1 17 14.5c0 1.4 1.1 2.5 2.5 2.5A2.5 2.5 0 0 0 22 14.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M2 7h6.5C10.4 7 12 8.3 12 10s-1.1 3-3 3H2V7zM2 13h7c2.2 0 4 1.3 4 3s-1.8 3-4 3H2v-6z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M15.5 9h6M15 14.5h7c0-1.4-1.1-2.5-2.5-2.5S17 13.1 17 14.5c0 1.4 1.1 2.5 2.5 2.5A2.5 2.5 0 0 0 22 14.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function IconDribbble() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
     </svg>
   );
 }
 function ArrowUpRight() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="shrink-0">
-      <path d="M2.5 11.5l9-9M4 2.5h7.5V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path
+        d="M2.5 11.5l9-9M4 2.5h7.5V10"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -70,8 +162,6 @@ const socialItems = [
   { name: "Behance", href: siteConfig.links.behance, Icon: IconBehance },
   { name: "Dribbble", href: siteConfig.links.dribbble, Icon: IconDribbble },
 ];
-
-/* ─── Sub-components ──────────────────────────────────────────────── */
 
 function FooterTop() {
   return (
@@ -126,7 +216,7 @@ function FooterSocials() {
 function FooterNav() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 py-10 border-b border-outline-variant/20">
-      {/* Explore */}
+      {}
       <div>
         <h3 className="font-label-mono text-label-mono uppercase tracking-widest text-on-surface mb-5">
           Explore
@@ -145,7 +235,7 @@ function FooterNav() {
         </ul>
       </div>
 
-      {/* Connect */}
+      {}
       <div>
         <h3 className="font-label-mono text-label-mono uppercase tracking-widest text-on-surface mb-5">
           Connect
@@ -166,7 +256,7 @@ function FooterNav() {
         </ul>
       </div>
 
-      {/* Get In Touch */}
+      {}
       <div>
         <h3 className="font-label-mono text-label-mono uppercase tracking-widest text-on-surface mb-5">
           Get In Touch
@@ -182,7 +272,7 @@ function FooterNav() {
         </Link>
       </div>
 
-      {/* Office */}
+      {}
       <div>
         <h3 className="font-label-mono text-label-mono uppercase tracking-widest text-on-surface mb-5">
           Office
@@ -240,8 +330,6 @@ function FooterBottom() {
     </div>
   );
 }
-
-/* ─── Main Footer ─────────────────────────────────────────────────── */
 
 export function Footer() {
   return (

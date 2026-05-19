@@ -2,7 +2,7 @@
 import type { TeamMember } from "@/types";
 import { IconButton } from "@/components/ui";
 
-type TeamMemberCardProps = TeamMember;
+export type TeamMemberCardProps = TeamMember;
 
 export function TeamMemberCard({
   name,
