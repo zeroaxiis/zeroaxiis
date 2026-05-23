@@ -3,7 +3,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 180px; 
+  width: 180px;
   height: 600px;
   display: flex;
   align-items: center;
@@ -20,14 +20,18 @@
 
 /* Premium dark gradient overlay that fades in on hover */
 .navHitbox::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   right: 0;
   width: 450px; /* Wide enough to cover the radial dial */
   height: 150vh; /* Taller than the screen for a smooth radial fade */
   transform: translateY(-50%);
-  background: radial-gradient(ellipse at right center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 70%);
+  background: radial-gradient(
+    ellipse at right center,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: -1;
@@ -43,7 +47,9 @@
   right: 40px;
   font-size: 1.1rem;
   color: var(--text-muted);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -51,7 +57,7 @@
 }
 
 .navTriggerText::after {
-  content: '';
+  content: "";
   display: block;
   width: 8px;
   height: 8px;
@@ -69,7 +75,9 @@
   height: 500px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
 }
 
 .navHitbox:hover .navDial {
@@ -97,10 +105,13 @@
   user-select: none;
   font-size: 1.05rem;
   font-weight: 500;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  transition: transform 0.5s var(--transition-spring), 
-              opacity 0.5s var(--transition-spring), 
-              background 0.3s, color 0.3s, border-color 0.3s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.5s var(--transition-spring),
+    opacity 0.5s var(--transition-spring),
+    background 0.3s,
+    color 0.3s,
+    border-color 0.3s;
   text-decoration: none;
 }
 

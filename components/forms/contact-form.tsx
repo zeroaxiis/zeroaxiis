@@ -18,7 +18,7 @@ export function ContactForm() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -61,7 +61,13 @@ export function ContactForm() {
           className="w-full font-label-mono text-label-mono uppercase px-6 py-4 border border-stroke hover:bg-white/5 hover:border-primary transition-all duration-200 rounded"
           type="submit"
         >
-          <ShinyText text="Transmit Signal" color="#c4c7c8" shineColor="#ffffff" speed={3} spread={140} />
+          <ShinyText
+            text="Transmit Signal"
+            color="#c4c7c8"
+            shineColor="#ffffff"
+            speed={3}
+            spread={140}
+          />
         </button>
       </form>
     </div>

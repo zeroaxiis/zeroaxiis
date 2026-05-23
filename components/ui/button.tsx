@@ -11,12 +11,10 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary:
-    "bg-primary text-on-primary hover:bg-surface-tint",
+  primary: "bg-primary text-on-primary hover:bg-surface-tint",
   secondary:
     "bg-surface-container text-on-surface hover:bg-surface-container-high",
-  ghost:
-    "text-on-surface hover:bg-surface-container",
+  ghost: "text-on-surface hover:bg-surface-container",
   outline:
     "border border-outline-variant text-primary hover:border-primary hover:bg-surface-container-lowest",
 };
@@ -40,7 +38,7 @@ export function Button({
     "inline-flex items-center justify-center gap-2 rounded font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 disabled:pointer-events-none disabled:opacity-50",
     variantClasses[variant],
     sizeClasses[size],
-    className
+    className,
   );
 
   if (asChild && React.isValidElement(children)) {
@@ -50,9 +48,9 @@ export function Button({
         className: cn(
           classes,
           (children as React.ReactElement<{ className?: string }>).props
-            .className
+            .className,
         ),
-      }
+      },
     );
   }
 

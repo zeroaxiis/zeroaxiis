@@ -40,7 +40,9 @@ export default function BlogPage() {
                 <h2 className="text-xl font-semibold group-hover:text-[var(--color-accent)] transition-colors">
                   {post.title}
                 </h2>
-                <p className="text-[var(--color-muted-foreground)]">{post.excerpt}</p>
+                <p className="text-[var(--color-muted-foreground)]">
+                  {post.excerpt}
+                </p>
               </article>
             </Link>
           </li>

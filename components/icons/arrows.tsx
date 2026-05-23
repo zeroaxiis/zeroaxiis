@@ -1,8 +1,3 @@
-/**
- * Arrow Icons
- * Directional arrow SVG components
- */
-
 interface ArrowIconProps {
   width?: number;
   height?: number;

@@ -1,8 +1,3 @@
-/**
- * UI Constants
- * Centralized styling and layout configuration
- */
-
 export const BUTTON_VARIANTS = {
   primary: "bg-primary text-on-primary hover:bg-surface-tint",
   secondary:

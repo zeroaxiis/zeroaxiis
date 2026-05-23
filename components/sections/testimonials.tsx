@@ -64,7 +64,7 @@ export function Testimonials() {
   return (
     <Section id="testimonials" className="border-t border-outline-variant/20">
       <Container>
-        {/* Header */}
+        {}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
           <div>
             <p className="font-label-mono text-label-mono text-secondary uppercase tracking-widest mb-4">
@@ -97,7 +97,7 @@ export function Testimonials() {
         </div>
       </Container>
 
-      {/* Carousel */}
+      {}
       <div className="max-w-container-max mx-auto px-gutter">
         <div
           ref={carouselRef}
@@ -110,7 +110,7 @@ export function Testimonials() {
               data-card
               className="glass-panel rounded-lg p-8 min-w-[320px] max-w-[360px] shrink-0 flex flex-col glow-hover transition-all duration-300 group"
             >
-              {/* Card header */}
+              {}
               <div className="flex items-center justify-between mb-6">
                 <Image
                   src={t.avatar}
@@ -125,7 +125,7 @@ export function Testimonials() {
                 </span>
               </div>
 
-              {/* Quote */}
+              {}
               <p className="font-display text-4xl font-bold text-primary leading-none mb-3 select-none">
                 &ldquo;
               </p>
@@ -133,10 +133,10 @@ export function Testimonials() {
                 {t.quote}
               </p>
 
-              {/* Divider */}
+              {}
               <div className="border-t border-outline-variant/30 mb-5" />
 
-              {/* Author */}
+              {}
               <div>
                 <p className="font-body-sm font-semibold text-primary mb-1">
                   {t.name}

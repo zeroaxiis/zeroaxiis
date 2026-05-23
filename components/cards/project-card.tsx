@@ -2,7 +2,7 @@
 import type { Project } from "@/types";
 import { TechTag, IconButton } from "@/components/ui";
 
-type ProjectCardProps = Project;
+export type ProjectCardProps = Project;
 
 export function ProjectCard({
   title,

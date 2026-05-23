@@ -1,0 +1,395 @@
+
+
+/* ── Section Root ───────────────────────────────────────────── */
+
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+/* ── Background Layers ──────────────────────────────────────── */
+
+.bgGalaxy {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bgGlobe {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.globeImage {
+  width: auto !important;
+  height: auto !important;
+  max-width: 55%;
+  max-height: 80%;
+  margin-top: 3%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(
+    ellipse 55% 55% at center 45%,
+    black 40%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    ellipse 55% 55% at center 45%,
+    black 40%,
+    transparent 72%
+  );
+}
+
+.bgGradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(
+    to top,
+    #000000 0%,
+    rgba(0, 0, 0, 0.7) 45%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* ── Navigation ─────────────────────────────────────────────── */
+
+.nav {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 20px 40px;
+}
+
+.navInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navLogo {
+  flex-shrink: 0;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.navLogo:hover {
+  opacity: 1;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navLink {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.navLinkActive {
+  composes: navLink;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.navConnect {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 9999px;
+  padding: 10px 28px;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.navConnect:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Content Layout ─────────────────────────────────────────── */
+
+.content {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 40px 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contentInner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 60px;
+  padding-bottom: 48px;
+}
+
+.left {
+  flex: 1;
+  max-width: 620px;
+}
+
+.right {
+  flex-shrink: 0;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+  padding-bottom: 8px;
+}
+
+/* ── Badge ──────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.badge:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: white;
+}
+
+.badgeArrow {
+  font-size: 14px;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.badge:hover .badgeArrow {
+  transform: translateX(3px);
+}
+
+/* ── Headline ───────────────────────────────────────────────── */
+
+.headline {
+  font-family: "Geist", "Inter", sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: white;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.brDesktop {
+  display: block;
+}
+
+/* ── Description ────────────────────────────────────────────── */
+
+.description {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  max-width: 300px;
+}
+
+/* ── CTA Button ─────────────────────────────────────────────── */
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  background: transparent;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Client Logos ────────────────────────────────────────────── */
+
+.clients {
+  padding: 32px 0 28px;
+}
+
+.clientsInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.clientLogo {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.clientNetflix {
+  composes: clientLogo;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.clientStripe {
+  composes: clientLogo;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  font-style: italic;
+}
+
+.clientHubspot {
+  composes: clientLogo;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+}
+
+.clientDropbox {
+  composes: clientLogo;
+  font-size: 15px;
+}
+
+.clientFramer {
+  composes: clientLogo;
+  font-size: 15px;
+}
+
+.clientBuffer {
+  composes: clientLogo;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .nav {
+    padding: 16px 24px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .content {
+    padding: 0 24px 0;
+  }
+
+  .contentInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .right {
+    max-width: 100%;
+  }
+
+  .clientsInner {
+    gap: 16px;
+    justify-content: flex-start;
+  }
+
+  .clientLogo {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 640px) {
+  .headline {
+    font-size: 32px;
+  }
+
+  .brDesktop {
+    display: none;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 6px 16px;
+  }
+
+  .nav {
+    padding: 12px 16px;
+  }
+
+  .content {
+    padding: 0 16px 0;
+  }
+}

@@ -1,7 +1,7 @@
 import type { OpenSourceTool } from "@/types";
 import { Badge } from "@/components/ui";
 
-type OpenSourceCardProps = OpenSourceTool;
+export type OpenSourceCardProps = OpenSourceTool;
 
 export function OpenSourceCard({
   name,
