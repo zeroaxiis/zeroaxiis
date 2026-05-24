@@ -1,6 +1,7 @@
 import { TextareaHTMLAttributes } from "react";
 
-interface FormTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface FormTextareaProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
 }
@@ -14,20 +15,23 @@ export function FormTextarea({
   ...props
 }: FormTextareaProps) {
   return (
-    <div className="input-focus-ring border border-stroke rounded bg-canvas transition-colors duration-200">
+    <div className="input-focus-ring border-b border-stroke bg-transparent transition-all duration-300 group">
       {label && (
-        <label className="sr-only" htmlFor={id}>
+        <label
+          className="block font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone-mute mb-2 group-focus-within:text-accent transition-colors"
+          htmlFor={id}
+        >
           {label}
         </label>
       )}
       <textarea
-        className="w-full bg-transparent border-none text-primary font-label-mono text-label-mono p-4 placeholder-ghost-text focus:ring-0 resize-none"
+        className="w-full bg-transparent border-none text-bone font-body-md text-body-md pb-4 placeholder-bone-low focus:outline-none focus:ring-0 resize-none"
         id={id}
         placeholder={placeholder}
         rows={rows}
         {...props}
       />
-      {error && <p className="text-error text-xs mt-1 px-4 pb-2">{error}</p>}
+      {error && <p className="text-error text-xs mt-1 pb-2">{error}</p>}
     </div>
   );
 }

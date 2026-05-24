@@ -1,40 +1,81 @@
+"use client";
+
+import { motion } from "motion/react";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { services } from "@/lib/data/services";
+import { Reveal, RevealStagger, revealItem } from "@/components/ui/reveal";
+import { ArrowDiagonalIcon } from "@/components/icons";
 
 export function Features() {
   return (
-    <Section id="services" className="relative bg-surface-container-lowest">
+    <Section
+      id="services"
+      className="relative bg-surface-container-lowest overflow-hidden"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)]"
+      />
       <Container>
-        <div className="mb-16">
-          <h2 className="font-label-mono text-label-mono text-secondary uppercase tracking-widest mb-4">
-            Core Competencies
-          </h2>
-          <h3 className="font-headline-lg text-headline-lg text-primary">
-            Services
-          </h3>
-        </div>
+        <Reveal className="mb-20 flex items-end justify-between flex-wrap gap-8">
+          <div className="max-w-2xl">
+            <p className="font-label-mono text-label-mono text-bone-mute uppercase tracking-[0.22em] mb-5 flex items-center gap-3">
+              <span className="inline-block w-7 h-px bg-accent" />
+              Core Competencies / 01
+            </p>
+            <h2 className="font-display text-[clamp(40px,6vw,80px)] leading-[0.95] text-bone tracking-[-0.03em] text-balance">
+              Six disciplines.{" "}
+              <span className="italic text-bone-dim">One craft.</span>
+            </h2>
+          </div>
+          <div className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em] max-w-xs">
+            From low-level systems to UI — we ship the entire stack with the
+            same standard of care.
+          </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <div
+        <RevealStagger
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-stroke -mr-px -mb-px"
+          stagger={0.06}
+        >
+          {services.map((service, i) => (
+            <motion.article
               key={service.title}
-              className="group bg-surface-container border border-outline-variant/30 rounded-lg p-8 glow-top hover:bg-surface-layer-raised hover:border-outline-variant transition-all duration-300 flex flex-col h-full"
+              variants={revealItem}
+              className="group relative p-10 border-r border-b border-stroke hover:bg-surface-layer transition-colors duration-500"
             >
-              <div className="w-12 h-12 rounded bg-surface border border-outline-variant/50 flex items-center justify-center mb-6 group-hover:border-primary/50 transition-colors">
-                <span className="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">
+              <span
+                aria-hidden="true"
+                className="absolute top-6 right-6 font-label-mono text-[10px] text-bone-mute opacity-70"
+              >
+                / 0{i + 1}
+              </span>
+
+              <div className="mb-10 flex items-center gap-4">
+                <span className="material-symbols-outlined text-3xl text-bone-mute group-hover:text-accent transition-colors duration-500">
                   {service.icon}
                 </span>
+                <span className="h-px w-10 bg-stroke group-hover:bg-accent group-hover:w-16 transition-all duration-500" />
               </div>
-              <h4 className="font-body-md font-bold text-primary mb-3">
+
+              <h3 className="font-display text-3xl text-bone mb-4 tracking-[-0.02em] leading-tight">
                 {service.title}
-              </h4>
-              <p className="font-body-sm text-body-sm text-on-surface-variant mt-auto">
+              </h3>
+
+              <p className="font-body-sm text-body-sm text-bone-mute leading-relaxed max-w-sm">
                 {service.description}
               </p>
-            </div>
+
+              <span
+                aria-hidden="true"
+                className="absolute bottom-10 right-10 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-500 text-bone-mute"
+              >
+                <ArrowDiagonalIcon />
+              </span>
+            </motion.article>
           ))}
-        </div>
+        </RevealStagger>
       </Container>
     </Section>
   );

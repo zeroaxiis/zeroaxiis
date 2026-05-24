@@ -1,63 +1,74 @@
 import { Container, Section } from "@/components/layout";
-import { SectionHeader, GradientDivider } from "@/components/ui";
-import { ProjectCard, OpenSourceCard } from "@/components/cards";
+import { OpenSourceCard } from "@/components/cards";
+import { Reveal } from "@/components/ui/reveal";
+import { ProjectsGrid } from "@/components/sections/projects-grid";
 import { projects, openSourceTools } from "@/lib/data";
 
 export const metadata = {
-  title: "zeroaxiis - Projects & Open Source",
+  title: "Projects & Open Source",
 };
 
 export default function ProjectsPage() {
   return (
-    <main className="pt-30 pb-32">
-      <Section className="mb-20">
+    <main className="pt-40 pb-40 relative overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-grid-pattern-lg opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_10%,transparent_60%)]"
+      />
+
+      <Section className="!py-0 mb-32 relative">
         <Container>
-          <div className="max-w-3xl">
-            <h1 className="font-display text-display mb-6 text-primary">
-              Engineered Systems.
-            </h1>
-            <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl leading-relaxed">
-              A curated selection of high-performance technical architectures
-              and open-source tooling developed by our collective. Built for
-              scale, precision, and longevity.
+          <Reveal>
+            <p className="font-label-mono text-label-mono text-bone-mute uppercase tracking-[0.22em] mb-6 flex items-center gap-3">
+              <span className="inline-block w-7 h-px bg-accent" />
+              Index / Selected Work
             </p>
-          </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h1 className="font-display text-[clamp(56px,9vw,140px)] leading-[0.92] text-bone tracking-[-0.04em] mb-10 text-balance">
+              Engineered{" "}
+              <span className="italic text-bone-dim">artefacts</span>
+              <br />
+              that stand still.
+            </h1>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="font-body-md text-body-md text-bone-mute max-w-2xl leading-relaxed">
+              A curated selection of technical systems and open-source tooling
+              shipped by the collective. Built for scale, precision, and
+              longevity — not the news cycle.
+            </p>
+          </Reveal>
         </Container>
       </Section>
 
-      <Container className="mb-20">
-        <GradientDivider />
-      </Container>
-
-      <Section id="projects" className="mb-32">
+      <Section id="projects" className="!py-0 mb-40 relative">
         <Container>
-          <SectionHeader
-            title="Commercial Projects"
-            label="01 // Selected Work"
-            compact
-          />
+          <Reveal className="flex items-end justify-between mb-16 gap-8 flex-wrap pb-6 border-b border-stroke">
+            <h2 className="font-display text-[clamp(32px,4vw,56px)] tracking-[-0.025em] text-bone">
+              Commercial work
+            </h2>
+            <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em]">
+              01 · {String(projects.length).padStart(2, "0")} entries
+            </span>
+          </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} {...project} />
-            ))}
-          </div>
+          <ProjectsGrid projects={projects} />
         </Container>
       </Section>
 
-      <Container className="mb-32">
-        <GradientDivider />
-      </Container>
-
-      <Section id="open-source" className="mb-20">
+      <Section id="open-source" className="!py-0 relative">
         <Container>
-          <SectionHeader
-            title="Open Source Tools"
-            label="02 // Internal Libraries"
-            compact
-          />
+          <Reveal className="flex items-end justify-between mb-16 gap-8 flex-wrap pb-6 border-b border-stroke">
+            <h2 className="font-display text-[clamp(32px,4vw,56px)] tracking-[-0.025em] text-bone">
+              Open source
+            </h2>
+            <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em]">
+              02 · {String(openSourceTools.length).padStart(2, "0")} repos
+            </span>
+          </Reveal>
 
-          <div className="flex flex-col border border-stroke rounded-sm bg-canvas">
+          <div className="flex flex-col border border-stroke bg-surface-container-lowest">
             {openSourceTools.map((tool) => (
               <OpenSourceCard key={tool.name} {...tool} />
             ))}

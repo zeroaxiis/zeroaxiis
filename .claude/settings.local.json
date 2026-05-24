@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(findstr /n \"^\")",
+      "Bash(npm install *)"
+    ]
+  }
+}

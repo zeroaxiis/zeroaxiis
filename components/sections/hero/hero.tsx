@@ -1,7 +1,6 @@
 import { HeroBackground } from "./hero-background";
 import { HeroNav } from "./hero-nav";
 import { HeroContent } from "./hero-content";
-import { ClientLogos } from "./client-logos";
 import styles from "./hero.module.css";
 
 export function Hero() {
@@ -11,15 +10,20 @@ export function Hero() {
       <HeroNav />
 
       <HeroContent
-        badge="Modern Identity Platform"
-        badgeHref="#services"
-        headline={"Plan and navigate\nfrom idea to launch."}
-        description="Create a clear roadmap and smoothly guide your project from idea to successful launch."
-        ctaLabel="Get Started For Free"
+        eyebrow="Zeroaxiis — Digital Atelier"
+        headlineLead="Engineering systems"
+        headlineSlant="that scale beautifully."
+        description="A small collective shipping high-craft software, brand systems, and infrastructure for teams who care about how it feels — not just what it does."
+        ctaLabel="Start a project"
         ctaHref="#workflow"
-      >
-        <ClientLogos />
-      </HeroContent>
+        secondaryLabel="See selected work"
+        secondaryHref="/projects"
+      />
+
+      <div className={styles.scrollHint}>
+        <span>Scroll</span>
+        <span className={styles.scrollHintLine} />
+      </div>
     </section>
   );
 }

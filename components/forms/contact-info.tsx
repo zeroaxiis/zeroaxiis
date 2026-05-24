@@ -7,16 +7,24 @@ interface ContactInfoProps {
 export function ContactInfo({ items }: ContactInfoProps) {
   return (
     <div>
-      <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-8">
-        Get in Touch
+      <p className="font-label-mono text-label-mono text-bone-mute uppercase tracking-[0.22em] mb-5 flex items-center gap-3">
+        <span className="inline-block w-7 h-px bg-accent" />
+        Coordinates
+      </p>
+      <h3 className="font-display text-[clamp(36px,5vw,64px)] text-bone leading-[0.95] tracking-[-0.025em] mb-10 text-balance">
+        Send a signal —{" "}
+        <span className="italic text-bone-dim">we&apos;ll listen.</span>
       </h3>
-      <div className="space-y-6">
+      <div className="space-y-8 pt-8 border-t border-stroke">
         {items.map((item) => (
-          <div key={item.label}>
-            <p className="font-label-mono text-label-mono text-secondary uppercase mb-2">
+          <div
+            key={item.label}
+            className="flex items-baseline justify-between gap-6"
+          >
+            <p className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em] shrink-0">
               {item.label}
             </p>
-            <p className="font-body-md text-body-md text-primary">
+            <p className="font-body-md text-body-md text-bone text-right">
               {item.value}
             </p>
           </div>
