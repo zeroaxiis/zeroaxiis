@@ -67,7 +67,7 @@ export function Preloader() {
                 filter: ["blur(0px)", "blur(0px)", "blur(0px)", "blur(10px)", "blur(10px)"],
               }}
               transition={{
-                times: [0, 0.3, 0.6, 0.85, 1],
+                times: [0, 0.3, 0.6, 0.85, 1], 
                 duration: 5,
                 ease: ["linear", "linear", [0.76, 0, 0.24, 1], "linear"],
               }}
