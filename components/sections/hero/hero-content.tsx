@@ -1,75 +1,112 @@
+"use client";
+
+import { motion } from "motion/react";
 import { type ReactNode } from "react";
+import { Magnetic, TextReveal } from "@/components/ui";
+import { ArrowUpRightSmallIcon, ArrowLongRightIcon } from "@/components/icons";
 import styles from "./hero.module.css";
 
 interface HeroContentProps {
-  badge?: string;
-
-  badgeHref?: string;
-
-  headline: string;
-
+  eyebrow?: string;
+  headlineLead: string;
+  headlineSlant: string;
   description: string;
-
   ctaLabel?: string;
-
   ctaHref?: string;
-
+  secondaryLabel?: string;
+  secondaryHref?: string;
   children?: ReactNode;
 }
 
+const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 export function HeroContent({
-  badge = "Modern Identity Platform",
-  badgeHref = "#platform",
-  headline,
+  eyebrow = "Zeroaxiis · Digital Atelier",
+  headlineLead,
+  headlineSlant,
   description,
-  ctaLabel = "Get Started For Free",
-  ctaHref = "#get-started",
+  ctaLabel = "Start a project",
+  ctaHref = "#workflow",
+  secondaryLabel = "See selected work",
+  secondaryHref = "/projects",
   children,
 }: HeroContentProps) {
-  const headlineParts = headline.split("\n");
-
   return (
     <div className={styles.content}>
-      <div className={styles.contentInner}>
-        {}
-        <div className={styles.left}>
-          {badgeHref ? (
-            <a href={badgeHref} className={styles.badge}>
-              <span>{badge}</span>
-              <span className={styles.badgeArrow}>→</span>
-            </a>
-          ) : (
-            <span className={styles.badge}>
-              <span>{badge}</span>
-              <span className={styles.badgeArrow}>→</span>
-            </span>
-          )}
+      <motion.div
+        className={styles.eyebrowRow}
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.2, ease: easeOut }}
+      >
+        <span className={styles.eyebrow}>
+          <span className={styles.eyebrowAccent} />
+          {eyebrow}
+        </span>
+        <span className={styles.metaCluster}>
+          <span className={styles.metaItem}>
+            <strong>EST</strong>2021
+          </span>
+          <span className={styles.metaItem}>
+            <strong>BASE</strong>Mumbai / Remote
+          </span>
+          <span className={styles.metaItem}>
+            <strong>v</strong>4.0
+          </span>
+        </span>
+      </motion.div>
 
-          <h1 className={styles.headline}>
-            {headlineParts.map((part, i) => (
-              <span key={i}>
-                {part}
-                {i < headlineParts.length - 1 && (
-                  <>
-                    {" "}
-                    <br className={styles.brDesktop} />
-                  </>
-                )}
-              </span>
-            ))}
-          </h1>
-        </div>
+      <div className={styles.headlineWrap}>
+        <h1 className={styles.headline}>
+          <TextReveal
+            text={headlineLead}
+            as="span"
+            splitBy="word"
+            stagger={0.07}
+            delay={0.35}
+          />
+          <br />
+          <span className={styles.headlineSlant}>
+            <TextReveal
+              text={headlineSlant}
+              as="span"
+              splitBy="word"
+              stagger={0.07}
+              delay={0.6}
+            />
+          </span>
+        </h1>
 
-        {}
-        <div className={styles.right}>
-          <p className={styles.description}>{description}</p>
-          {ctaHref ? (
-            <a href={ctaHref} className={styles.cta}>
-              {ctaLabel}
+        <div className={styles.subRow}>
+          <motion.p
+            className={styles.description}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 1.1, ease: easeOut }}
+          >
+            {description}
+          </motion.p>
+
+          <motion.div
+            className={styles.ctaCluster}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 1.25, ease: easeOut }}
+          >
+            <Magnetic strength={0.35}>
+              <a href={ctaHref} className={styles.cta}>
+                <span>{ctaLabel}</span>
+                <span className={styles.ctaArrow}>
+                  <ArrowUpRightSmallIcon />
+                </span>
+              </a>
+            </Magnetic>
+
+            <a href={secondaryHref} className={styles.ctaSecondary}>
+              {secondaryLabel}
+              <ArrowLongRightIcon />
             </a>
-          ) : (
-            <button className={styles.cta}>{ctaLabel}</button>
-          )}
+          </motion.div>
         </div>
       </div>
 

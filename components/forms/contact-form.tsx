@@ -3,7 +3,8 @@
 import { useState, FormEvent } from "react";
 import { FormInput } from "./form-input";
 import { FormTextarea } from "./form-textarea";
-import ShinyText from "@/components/ui/shiny-text";
+import { Magnetic } from "@/components/ui/magnetic";
+import { ArrowUpRightSmallIcon } from "@/components/icons";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -25,14 +26,13 @@ export function ContactForm() {
   };
 
   return (
-    <div className="glass-panel p-8 rounded-lg relative">
-      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-white/10 to-transparent" />
-      <form className="space-y-6" onSubmit={handleSubmit}>
+    <div className="relative">
+      <form className="space-y-10" onSubmit={handleSubmit}>
         <FormInput
           id="email"
           name="email"
-          label="Email Address"
-          placeholder="ADDRESS@DOMAIN.COM"
+          label="Email"
+          placeholder="address@domain.com"
           type="email"
           value={formData.email}
           onChange={handleChange}
@@ -42,7 +42,7 @@ export function ContactForm() {
           id="subject"
           name="subject"
           label="Subject"
-          placeholder="SUBJECT / INTENT"
+          placeholder="What are you building?"
           value={formData.subject}
           onChange={handleChange}
           required
@@ -51,24 +51,23 @@ export function ContactForm() {
           id="message"
           name="message"
           label="Message"
-          placeholder="PAYLOAD..."
+          placeholder="Tell us the shape of the problem..."
           rows={5}
           value={formData.message}
           onChange={handleChange}
           required
         />
-        <button
-          className="w-full font-label-mono text-label-mono uppercase px-6 py-4 border border-stroke hover:bg-white/5 hover:border-primary transition-all duration-200 rounded"
-          type="submit"
-        >
-          <ShinyText
-            text="Transmit Signal"
-            color="#c4c7c8"
-            shineColor="#ffffff"
-            speed={3}
-            spread={140}
-          />
-        </button>
+        <Magnetic strength={0.3}>
+          <button
+            type="submit"
+            className="group inline-flex items-center gap-4 px-8 py-4 rounded-full bg-bone text-ink font-body-sm text-body-sm font-medium hover:bg-accent transition-colors duration-300"
+          >
+            Transmit signal
+            <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ink text-bone group-hover:rotate-[-45deg] transition-transform duration-500">
+              <ArrowUpRightSmallIcon />
+            </span>
+          </button>
+        </Magnetic>
       </form>
     </div>
   );

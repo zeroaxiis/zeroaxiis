@@ -1,39 +1,32 @@
-import Image from "next/image";
-import galaxyBg from "@/assets/glaxay-bg.webp";
-import globeImg from "@/assets/hero-bg.webp";
+"use client";
+
+import dynamic from "next/dynamic";
 import styles from "./hero.module.css";
+
+const HeroScene = dynamic(
+  () => import("./hero-scene").then((m) => m.HeroScene),
+  { ssr: false },
+);
 
 export function HeroBackground() {
   return (
     <>
-      {}
-      <div className={styles.bgGalaxy}>
-        <Image
-          src={galaxyBg}
-          alt=""
-          fill
-          priority
-          quality={80}
-          placeholder="blur"
-          sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center center" }}
-        />
+      {/* Subtle grid base */}
+      <div className={styles.bgGrid} aria-hidden="true" />
+
+      {/* 3D scene */}
+      <div className={styles.bgScene} aria-hidden="true">
+        <HeroScene />
       </div>
 
-      {}
-      <div className={styles.bgGlobe}>
-        <Image
-          src={globeImg}
-          alt="Glowing wireframe sphere"
-          quality={85}
-          placeholder="blur"
-          sizes="(max-width: 768px) 90vw, 55vw"
-          className={styles.globeImage}
-        />
-      </div>
+      {/* Ambient radial glow */}
+      <div className={styles.bgGlow} aria-hidden="true" />
 
-      {}
-      <div className={styles.bgGradient} />
+      {/* Bottom fade into page */}
+      <div className={styles.bgGradient} aria-hidden="true" />
+
+      {/* Edge vignette */}
+      <div className={styles.bgVignette} aria-hidden="true" />
     </>
   );
 }
