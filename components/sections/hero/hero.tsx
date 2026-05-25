@@ -19,11 +19,6 @@ export function Hero() {
         secondaryLabel="See selected work"
         secondaryHref="/projects"
       />
-
-      <div className={styles.scrollHint}>
-        <span>Scroll</span>
-        <span className={styles.scrollHintLine} />
-      </div>
     </section>
   );
 }
