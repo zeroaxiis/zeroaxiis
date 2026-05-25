@@ -1,5 +1,5 @@
 import { Hero } from "@/components/sections/hero";
-import { Vision } from "@/components/sections/vision";
+import { About } from "@/components/sections/about";
 import { Features } from "@/components/sections/features";
 import { Testimonials } from "@/components/sections/testimonials";
 import { CTA } from "@/components/sections/cta";
@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Vision />
+      <About />
       <Features />
       <Testimonials />
       <CTA />

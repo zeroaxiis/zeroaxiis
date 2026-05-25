@@ -22,7 +22,7 @@ export function Vision() {
       className="relative min-h-[100vh] py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-background flex flex-col items-center justify-center overflow-hidden"
       id="vision"
     >
-      {/* Deep Aesthetic Background */}
+      {/* Background */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         {/* Glowing Orb */}
         <div className="absolute w-[80vw] h-[80vw] max-w-[1000px] max-h-[1000px] bg-accent/5 rounded-full blur-[140px]" />
