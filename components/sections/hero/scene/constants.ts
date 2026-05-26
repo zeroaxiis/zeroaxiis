@@ -8,6 +8,6 @@ export const DIM = new THREE.Color("#5a564d");
 export const AXIAL_TILT = (23.4 * Math.PI) / 180;
 
 /** Visible globe sphere radius */
-export const GLOBE_R = 1.15;
+export const GLOBE_R = 1;
 
 export const EASE_OUT_QUART = [0.16, 1, 0.3, 1] as const;

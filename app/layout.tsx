@@ -4,6 +4,7 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { TopBar } from "@/components/layout/top-bar";
 import { Preloader } from "@/components/ui/preloader";
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default function RootLayout({
       </head>
       <body>
         <Preloader />
+        <TopBar />
         <Header />
         <main>{children}</main>
         <Footer />
