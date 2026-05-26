@@ -39,6 +39,38 @@ function fullMeridianGeometry(
   return new THREE.BufferGeometry().setFromPoints(points);
 }
 
+function LatitudeLine({ lat }: { lat: { y: number; geom: THREE.BufferGeometry } }) {
+  const lineObj = useMemo(() => {
+    return new THREE.Line(
+      lat.geom,
+      new THREE.LineBasicMaterial({
+        color: LIME,
+        transparent: true,
+        opacity: 0.7,
+        depthWrite: false,
+      })
+    );
+  }, [lat.geom]);
+
+  return <primitive object={lineObj} position={[0, lat.y, 0]} />;
+}
+
+function MeridianLine({ geom }: { geom: THREE.BufferGeometry }) {
+  const lineObj = useMemo(() => {
+    return new THREE.Line(
+      geom,
+      new THREE.LineBasicMaterial({
+        color: LIME,
+        transparent: true,
+        opacity: 0.6,
+        depthWrite: false,
+      })
+    );
+  }, [geom]);
+
+  return <primitive object={lineObj} />;
+}
+
 function Globe() {
   const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Group>(null);
@@ -166,7 +198,7 @@ function Globe() {
       const velBoost = winVelocity.current * 0.3;
       limeLinesRef.current.traverse((obj) => {
         const line = obj as THREE.Line;
-        const mat = (line as { material?: THREE.LineBasicMaterial }).material;
+        const mat = (line as any).material;
         if (!mat || !("opacity" in mat)) return;
         const base = 0.7;
         const target = hovered
@@ -289,27 +321,11 @@ function Globe() {
         {/* Lime lat/long grid — the prominent overlay */}
         <group ref={limeLinesRef}>
           {limeLatitudes.map((lat) => (
-            <line key={lat.key} position={[0, lat.y, 0]}>
-              <primitive object={lat.geom} attach="geometry" />
-              <lineBasicMaterial
-                color={LIME}
-                transparent
-                opacity={0.7}
-                depthWrite={false}
-              />
-            </line>
+            <LatitudeLine key={lat.key} lat={lat} />
           ))}
           {limeMeridians.map((m) => (
             <group key={m.key} rotation={[0, m.rot, 0]}>
-              <line>
-                <primitive object={meridianGeom} attach="geometry" />
-                <lineBasicMaterial
-                  color={LIME}
-                  transparent
-                  opacity={0.6}
-                  depthWrite={false}
-                />
-              </line>
+              <MeridianLine geom={meridianGeom} />
             </group>
           ))}
         </group>

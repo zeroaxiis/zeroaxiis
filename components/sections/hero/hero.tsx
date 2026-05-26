@@ -8,7 +8,7 @@ export function Hero() {
       <HeroBackground />
 
       <HeroContent
-        eyebrow="Zeroaxiis — Digital Atelier"
+        eyebrow=""
         headlineLead="Engineering systems"
         headlineSlant="that scale beautifully."
         description="A small collective shipping high-craft software, brand systems, and infrastructure for teams who care about how it feels — not just what it does."
