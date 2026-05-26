@@ -77,12 +77,7 @@ export function About() {
               {/* Block 01 - Top Right */}
               <div className="absolute top-0 right-0 w-[75%] bg-background border border-stroke p-5 md:p-6 z-10 transition-all duration-300 hover:-translate-y-2 hover:-translate-x-2 hover:[box-shadow:8px_8px_0_theme(colors.accent.DEFAULT)]">
                 <div className="flex justify-between items-center mb-6 border-b border-stroke/30 pb-3">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] opacity-80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] opacity-80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f] opacity-80" />
-                  </div>
-                  <span className="font-label-mono text-[9px] text-bone-mute/50 uppercase tracking-widest"></span>
+                  <div className="w-1.5 h-1.5 bg-accent" />
                 </div>
                 <h3 className="font-display text-xl md:text-2xl text-bone uppercase leading-[1.1] mb-3">
                   Built with intention
@@ -95,12 +90,7 @@ export function About() {
               {/* Block 02 - Middle Left */}
               <div className="absolute top-[130px] md:top-[160px] left-0 w-[85%] bg-surface-container-lowest border border-stroke p-5 md:p-6 z-20 transition-all duration-300 hover:-translate-y-2 hover:-translate-x-2 hover:[box-shadow:8px_8px_0_theme(colors.accent.DEFAULT)]">
                 <div className="flex justify-between items-center mb-6 border-b border-stroke/30 pb-3">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] opacity-80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] opacity-80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f] opacity-80" />
-                  </div>
-                  <span className="font-label-mono text-[9px] text-bone-mute/50 uppercase tracking-widest"></span>
+                  <div className="w-1.5 h-1.5 bg-accent" />
                 </div>
                 <h3 className="font-display text-xl md:text-2xl text-bone uppercase leading-[1.1] mb-3">
                   Structured for scale
@@ -113,12 +103,7 @@ export function About() {
               {/* Block 03 - Bottom Right */}
               <div className="absolute bottom-0 right-[5%] w-[80%] bg-surface-layer/80 backdrop-blur-md border border-stroke p-5 md:p-6 z-30 transition-all duration-300 hover:-translate-y-2 hover:-translate-x-2 hover:[box-shadow:8px_8px_0_theme(colors.accent.DEFAULT)]">
                 <div className="flex justify-between items-center mb-6 border-b border-stroke/30 pb-3">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] opacity-80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] opacity-80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f] opacity-80" />
-                  </div>
-                  <span className="font-label-mono text-[9px] text-bone-mute/50 uppercase tracking-widest"></span>
+                  <div className="w-1.5 h-1.5 bg-accent" />
                 </div>
                 <h3 className="font-display text-xl md:text-2xl text-bone uppercase leading-[1.1] mb-3">
                   Uncompromising craft
