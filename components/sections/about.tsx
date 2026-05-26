@@ -14,7 +14,7 @@ export function About() {
           <Reveal>
             <p className="font-label-mono text-label-mono text-bone-mute uppercase tracking-[0.22em] flex items-center gap-3 mb-10">
               <span className="inline-block w-7 h-px bg-accent" />
-              The Mandate
+              
             </p>
             <h2 className="font-display text-[clamp(40px,7vw,96px)] leading-[0.92] text-bone tracking-tight max-w-4xl text-balance">
               We bridge the gap between uncompromised <span className="font-serif italic text-accent font-light">aesthetic vision</span> and bleeding-edge engineering.
@@ -28,8 +28,8 @@ export function About() {
             
             <motion.div variants={revealItem} className="flex flex-col gap-6">
               <div className="flex items-center gap-4 border-b border-stroke pb-4">
-                <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em]">/ The Method</span>
-                <span className="material-symbols-outlined text-xl text-accent">architecture</span>
+                <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em]"> </span>
+                <span className="material-symbols-outlined text-xl text-accent"></span>
               </div>
               <p className="font-body-md text-bone-mute leading-relaxed max-w-md">
                 Fusing high-end craftsmanship with scalable infrastructure. We employ rigorous architecture planning followed by precision execution from specialized domain experts, ensuring no detail is compromised.
@@ -38,8 +38,8 @@ export function About() {
 
             <motion.div variants={revealItem} className="flex flex-col gap-6">
               <div className="flex items-center gap-4 border-b border-stroke pb-4">
-                <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em]">/ The Output</span>
-                <span className="material-symbols-outlined text-xl text-accent">deployed_code</span>
+                <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em]"></span>
+                <span className="material-symbols-outlined text-xl text-accent"></span>
               </div>
               <p className="font-body-md text-bone-mute leading-relaxed max-w-md">
                 Immersive web applications, robust backend systems, and cohesive brand ecosystems. From low-level systems to front-end UI, we deliver the entire stack with the same standard of care.
