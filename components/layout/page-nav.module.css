@@ -1,0 +1,300 @@
+/* Vars */
+.hitbox {
+  --accent: #c8ff00;
+  --bone: #f5f1e8;
+  --bone-mute: rgba(245, 241, 232, 0.62);
+  --ink: #0a0a0a;
+  --surface: rgba(10, 10, 10, 0.62);
+  --border: rgba(245, 241, 232, 0.14);
+  --spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Hitbox ──────────────────────────────────────────────────── */
+
+.hitbox {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 100vh;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: width 0.4s var(--spring);
+}
+
+.open {
+  width: 760px;
+}
+
+/* ─── Shield ──────────────────────────────────────────────────── */
+
+.shield {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.shieldOpen {
+  opacity: 1;
+  pointer-events: auto;
+  background: radial-gradient(
+    circle at 100% 50%,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.35) 35%,
+    rgba(0, 0, 0, 0) 75%
+  );
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+/* ─── Resting edge rail ───────────────────────────────────────── */
+
+.edge {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 22px 14px;
+  z-index: 2;
+  pointer-events: none;
+  transition:
+    opacity 0.5s var(--spring),
+    transform 0.5s var(--spring);
+}
+
+.open .edge {
+  opacity: 0;
+  transform: translate(28px, -50%);
+}
+
+.edgeLabel,
+.edgeHint {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.edgeLabel {
+  color: var(--bone);
+}
+
+.edgeLabel::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 22px;
+  background: var(--accent);
+}
+
+.edgeHint {
+  color: var(--bone-mute);
+}
+
+.edgeCurrent {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 8px;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: rgba(10, 10, 10, 0.6);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.dots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--bone-mute);
+  opacity: 0.55;
+  transition:
+    background-color 0.4s var(--spring),
+    box-shadow 0.4s var(--spring),
+    transform 0.4s var(--spring),
+    opacity 0.4s var(--spring);
+}
+
+.dotActive {
+  background: var(--accent);
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(200, 255, 0, 0.6);
+  transform: scale(1.5);
+}
+
+/* ─── Italic serif preview ────────────────────────────────────── */
+
+.trigger {
+  position: absolute;
+  right: 380px;
+  top: 50%;
+  transform: translate(40px, -50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: "Instrument Serif", "Geist", serif;
+  font-style: italic;
+  font-size: 1.8rem;
+  color: var(--bone);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+  transition:
+    opacity 0.4s var(--spring),
+    transform 0.5s var(--spring);
+}
+
+.triggerDash {
+  display: block;
+  width: 44px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.open .trigger {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+/* ─── Radial dial ─────────────────────────────────────────────── */
+
+.dial {
+  position: absolute;
+  right: -250px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s var(--spring),
+    visibility 0.5s ease;
+}
+
+.open .dial {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pill {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: rgba(245, 241, 232, 0.04);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: rgba(245, 241, 232, 0.7);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  width: max-content;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.7s var(--spring),
+    opacity 0.5s var(--spring),
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.pill:hover {
+  background: rgba(245, 241, 232, 0.08);
+  border-color: rgba(245, 241, 232, 0.3);
+  color: var(--bone);
+}
+
+.pill:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--ink),
+    0 0 0 4px var(--accent);
+}
+
+/* Focused dial item (center of the arc) */
+.pillFocus {
+  color: var(--bone);
+}
+
+/* Current-page pill (lime fill) */
+.pillActive {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink);
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 0 32px rgba(200, 255, 0, 0.35);
+}
+
+.pillActive:hover {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+/* ─── Mobile ──────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hitbox {
+    width: 72px;
+  }
+  .open {
+    width: 100vw;
+  }
+  .edge {
+    width: 48px;
+    padding: 16px 10px;
+  }
+  .edgeLabel,
+  .edgeHint {
+    font-size: 11px;
+    letter-spacing: 0.26em;
+  }
+  .dial {
+    right: -300px;
+  }
+  .trigger {
+    right: 70px;
+    font-size: 1.4rem;
+  }
+}
