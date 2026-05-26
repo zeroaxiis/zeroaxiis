@@ -9,6 +9,8 @@
   overflow: hidden;
   background-color: var(--color-ink);
   isolation: isolate;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* ── Background Layers ──────────────────────────────────────── */
@@ -21,8 +23,16 @@
     linear-gradient(to right, rgba(245, 241, 232, 0.025) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(245, 241, 232, 0.025) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 30%, transparent 80%);
+  mask-image: radial-gradient(
+    ellipse 70% 80% at 50% 50%,
+    black 30%,
+    transparent 80%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 80% at 50% 50%,
+    black 30%,
+    transparent 80%
+  );
 }
 
 .bgScene {
@@ -81,7 +91,7 @@
   position: relative;
   z-index: 20;
   width: 100%;
-  padding: 28px 40px 0;
+  padding: 28px clamp(24px, 5vw, 80px) 0;
 }
 
 .navInner {
@@ -149,9 +159,18 @@
 }
 
 @keyframes heroNavPulse {
-  0% { transform: scale(0.9); opacity: 0.6; }
-  70% { transform: scale(1.7); opacity: 0; }
-  100% { transform: scale(1.7); opacity: 0; }
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
 }
 
 .navConnect {
@@ -202,7 +221,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 40px;
+  padding: 0 clamp(32px, 6vw, 96px);
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
@@ -266,13 +285,15 @@
 
 .headline {
   font-family: "Instrument Serif", "Geist", serif;
-  font-size: clamp(48px, 9vw, 132px);
+  font-size: clamp(44px, 7.6vw, 120px);
   font-weight: 400;
-  line-height: 1.08;
+  line-height: 1.12;
   color: var(--color-bone);
-  letter-spacing: -0.035em;
+  letter-spacing: 0.025em;
   margin: 0;
   text-wrap: balance;
+  overflow-wrap: break-word;
+  padding-inline: 0.02em;
 }
 
 .headlineSlant {
@@ -470,8 +491,12 @@
 }
 
 @keyframes scrollHintTravel {
-  0% { top: -100%; }
-  100% { top: 100%; }
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 100%;
+  }
 }
 
 /* ── Responsive ─────────────────────────────────────────────── */

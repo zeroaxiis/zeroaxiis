@@ -1,5 +1,4 @@
 import { HeroBackground } from "./hero-background";
-import { HeroNav } from "./hero-nav";
 import { HeroContent } from "./hero-content";
 import styles from "./hero.module.css";
 
@@ -7,7 +6,6 @@ export function Hero() {
   return (
     <section className={styles.section} id="hero">
       <HeroBackground />
-      <HeroNav />
 
       <HeroContent
         eyebrow="Zeroaxiis — Digital Atelier"
