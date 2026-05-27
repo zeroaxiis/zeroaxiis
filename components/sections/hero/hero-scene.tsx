@@ -165,8 +165,8 @@ function Globe() {
       let i = 0;
       const velBoost = winVelocity.current * 0.3;
       limeLinesRef.current.traverse((obj) => {
-        const line = obj as THREE.Line;
-        const mat = (line as { material?: THREE.LineBasicMaterial }).material;
+        const line = obj as any;
+        const mat = line.material;
         if (!mat || !("opacity" in mat)) return;
         const base = 0.7;
         const target = hovered
@@ -289,15 +289,17 @@ function Globe() {
         {/* Lime lat/long grid — the prominent overlay */}
         <group ref={limeLinesRef}>
           {limeLatitudes.map((lat) => (
-            <line key={lat.key} position={[0, lat.y, 0]}>
-              <primitive object={lat.geom} attach="geometry" />
-              <lineBasicMaterial
-                color={LIME}
-                transparent
-                opacity={0.7}
-                depthWrite={false}
-              />
-            </line>
+            <group key={lat.key} position={[0, lat.y, 0]}>
+              <line>
+                <primitive object={lat.geom} attach="geometry" />
+                <lineBasicMaterial
+                  color={LIME}
+                  transparent
+                  opacity={0.7}
+                  depthWrite={false}
+                />
+              </line>
+            </group>
           ))}
           {limeMeridians.map((m) => (
             <group key={m.key} rotation={[0, m.rot, 0]}>
