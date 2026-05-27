@@ -1,9 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Section } from "@/components/layout/section";
-import { Reveal, RevealStagger, revealItem } from "@/components/ui/reveal";
+import { Reveal } from "@/components/ui/reveal";
 
 const PILLARS = [
   {
