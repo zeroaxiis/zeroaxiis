@@ -15,7 +15,7 @@ export function Features() {
     >
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)]"
+        className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)]"
       />
       <Container>
         <Reveal className="mb-20 flex items-end justify-between flex-wrap gap-8">
