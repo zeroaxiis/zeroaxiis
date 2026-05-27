@@ -5,7 +5,7 @@ import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { services } from "@/lib/data/services";
 import { Reveal, RevealStagger, revealItem } from "@/components/ui/reveal";
-import { ArrowDiagonalIcon } from "@/components/icons";
+// import { ArrowDiagonalIcon } from "@/components/icons";
 
 export function Features() {
   return (
@@ -71,7 +71,7 @@ export function Features() {
                 aria-hidden="true"
                 className="absolute bottom-10 right-10 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-500 text-bone-mute"
               >
-                <ArrowDiagonalIcon />
+                {/* <ArrowDiagonalIcon /> */}
               </span>
             </motion.article>
           ))}

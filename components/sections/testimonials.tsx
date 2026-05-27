@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Section } from "@/components/layout/section";
@@ -10,24 +10,121 @@ import { Magnetic } from "@/components/ui/magnetic";
 import { Reveal } from "@/components/ui/reveal";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 
+const extendedTestimonials = [
+  ...testimonials,
+  ...testimonials,
+  ...testimonials,
+];
+
 export function Testimonials() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeIdx, setActiveIdx] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (isHovered) return;
+
+    const interval = setInterval(() => {
+      const el = carouselRef.current;
+      if (!el) return;
+      const card = el.querySelector<HTMLElement>("[data-card]");
+      const gap = 32;
+      const cardWidth = card?.offsetWidth || 420;
+      const amount = cardWidth + gap;
+
+      const currentIdx = Math.round(el.scrollLeft / amount);
+
+      if (currentIdx === testimonials.length * 2 - 1) {
+        el.scrollLeft = amount * (testimonials.length - 1);
+        setTimeout(() => {
+          el.scrollTo({ left: amount * testimonials.length, behavior: "smooth" });
+        }, 0);
+      } else {
+        el.scrollBy({ left: amount, behavior: "smooth" });
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isHovered, activeIdx]);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    const handleResize = () => {
+      const card = el.querySelector<HTMLElement>("[data-card]");
+      const gap = 32;
+      const cardWidth = card?.offsetWidth || 420;
+      const amount = cardWidth + gap;
+      el.scrollLeft = amount * (testimonials.length + activeIdx);
+    };
+
+    handleResize();
+    const timer = setTimeout(handleResize, 50);
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [activeIdx]);
+
+  const handleScroll = () => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-card]");
+    const gap = 32;
+    const cardWidth = card?.offsetWidth || 420;
+    const amount = cardWidth + gap;
+    const scrollLeft = el.scrollLeft;
+
+    const computedIdx = Math.round(scrollLeft / amount);
+    const relativeIdx = computedIdx % testimonials.length;
+
+    if (relativeIdx >= 0 && relativeIdx < testimonials.length && relativeIdx !== activeIdx) {
+      setActiveIdx(relativeIdx);
+    }
+
+    // Silent boundary reset for manual scrolling/swipe
+    const minScroll = amount * (testimonials.length - 1);
+    const maxScroll = amount * (testimonials.length * 2);
+
+    if (scrollLeft < minScroll) {
+      el.scrollLeft = scrollLeft + amount * testimonials.length;
+    } else if (scrollLeft > maxScroll) {
+      el.scrollLeft = scrollLeft - amount * testimonials.length;
+    }
+  };
 
   const scroll = (direction: "prev" | "next") => {
     const el = carouselRef.current;
     if (!el) return;
     const card = el.querySelector<HTMLElement>("[data-card]");
     const gap = 32;
-    const amount = (card?.offsetWidth ?? 420) + gap;
-    el.scrollBy({
-      left: direction === "next" ? amount : -amount,
-      behavior: "smooth",
-    });
-    setActiveIdx((prev) => {
-      if (direction === "next") return Math.min(prev + 1, testimonials.length - 1);
-      return Math.max(prev - 1, 0);
-    });
+    const cardWidth = card?.offsetWidth || 420;
+    const amount = cardWidth + gap;
+
+    const currentIdx = Math.round(el.scrollLeft / amount);
+
+    if (direction === "next") {
+      if (currentIdx === testimonials.length * 2 - 1) {
+        el.scrollLeft = amount * (testimonials.length - 1);
+        setTimeout(() => {
+          el.scrollTo({ left: amount * testimonials.length, behavior: "smooth" });
+        }, 0);
+      } else {
+        el.scrollBy({ left: amount, behavior: "smooth" });
+      }
+    } else {
+      if (currentIdx === testimonials.length) {
+        el.scrollLeft = amount * (testimonials.length * 2);
+        setTimeout(() => {
+          el.scrollTo({ left: amount * (testimonials.length * 2 - 1), behavior: "smooth" });
+        }, 0);
+      } else {
+        el.scrollBy({ left: -amount, behavior: "smooth" });
+      }
+    }
   };
 
   return (
@@ -77,15 +174,20 @@ export function Testimonials() {
         </Reveal>
       </Container>
 
-      <div className="max-w-container-max mx-auto px-gutter">
+      <div
+        className="max-w-container-max mx-auto px-gutter"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div
           ref={carouselRef}
+          onScroll={handleScroll}
           className="flex gap-8 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-none"
           style={{ scrollbarWidth: "none" }}
         >
-          {testimonials.map((t, i) => (
+          {extendedTestimonials.map((t, i) => (
             <motion.article
-              key={t.name}
+              key={`${t.name}-${i}`}
               data-card
               className="snap-start shrink-0 w-[88vw] sm:w-[440px] flex flex-col"
               initial={{ opacity: 0, y: 32 }}
@@ -93,13 +195,13 @@ export function Testimonials() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{
                 duration: 0.7,
-                delay: i * 0.06,
+                delay: (i % testimonials.length) * 0.06,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
               <div className="flex items-center justify-between mb-10">
                 <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em]">
-                  {String(i + 1).padStart(2, "0")} / {t.tag}
+                  {String((i % testimonials.length) + 1).padStart(2, "0")} / {t.tag}
                 </span>
                 <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.18em] border border-stroke rounded-full px-3 py-1.5">
                   {t.location}

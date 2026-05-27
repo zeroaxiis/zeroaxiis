@@ -197,8 +197,8 @@ function Globe() {
       let i = 0;
       const velBoost = winVelocity.current * 0.3;
       limeLinesRef.current.traverse((obj) => {
-        const line = obj as THREE.Line;
-        const mat = (line as any).material;
+        const line = obj as any;
+        const mat = line.material;
         if (!mat || !("opacity" in mat)) return;
         const base = 0.7;
         const target = hovered
