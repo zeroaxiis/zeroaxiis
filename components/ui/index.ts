@@ -14,3 +14,4 @@ export { Reveal, RevealStagger, revealItem } from "./reveal";
 export { Magnetic } from "./magnetic";
 export { Marquee } from "./marquee";
 export { TextReveal } from "./text-reveal";
+export { Preloader } from "./preloader";

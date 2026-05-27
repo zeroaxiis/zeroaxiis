@@ -10,7 +10,7 @@ const LIME = new THREE.Color("#c8ff00");
 const DIM = new THREE.Color("#5a564d");
 
 const AXIAL_TILT = (23.4 * Math.PI) / 180;
-const GLOBE_R = 1.15; // smaller than before
+const GLOBE_R = 1; // smaller — clears the sticky top bar
 
 /** Latitude ring around y-axis at given y/radius */
 function ringGeometry(radius: number, segments = 128): THREE.BufferGeometry {
@@ -37,6 +37,38 @@ function fullMeridianGeometry(
     );
   }
   return new THREE.BufferGeometry().setFromPoints(points);
+}
+
+function LatitudeLine({ lat }: { lat: { y: number; geom: THREE.BufferGeometry } }) {
+  const lineObj = useMemo(() => {
+    return new THREE.Line(
+      lat.geom,
+      new THREE.LineBasicMaterial({
+        color: LIME,
+        transparent: true,
+        opacity: 0.7,
+        depthWrite: false,
+      })
+    );
+  }, [lat.geom]);
+
+  return <primitive object={lineObj} position={[0, lat.y, 0]} />;
+}
+
+function MeridianLine({ geom }: { geom: THREE.BufferGeometry }) {
+  const lineObj = useMemo(() => {
+    return new THREE.Line(
+      geom,
+      new THREE.LineBasicMaterial({
+        color: LIME,
+        transparent: true,
+        opacity: 0.6,
+        depthWrite: false,
+      })
+    );
+  }, [geom]);
+
+  return <primitive object={lineObj} />;
 }
 
 function Globe() {
@@ -154,11 +186,11 @@ function Globe() {
     }
     if (wireRef.current) {
       const m = wireRef.current.material as THREE.LineBasicMaterial;
-      m.opacity = THREE.MathUtils.lerp(m.opacity, hovered ? 0.75 : 0.42, 0.12);
+      m.opacity = THREE.MathUtils.lerp(m.opacity, hovered ? 0.35 : 0.18, 0.12);
     }
     if (innerRef.current) {
       const m = innerRef.current.material as THREE.MeshBasicMaterial;
-      m.opacity = THREE.MathUtils.lerp(m.opacity, hovered ? 0.7 : 0.85, 0.12);
+      m.opacity = THREE.MathUtils.lerp(m.opacity, hovered ? 0.2 : 0.3, 0.12);
     }
     if (limeLinesRef.current) {
       // Pulse lime grid — base sine pulse, brighter on hover + with cursor velocity
@@ -198,10 +230,10 @@ function Globe() {
     [],
   );
 
-  // 5 lime latitudes (equator + 2 above + 2 below)
+  // Symmetric lime latitudes — equator + 3 above + 3 below
   const limeLatitudes = useMemo(() => {
     const arr: { y: number; geom: THREE.BufferGeometry; key: string }[] = [];
-    const steps = [-50, -25, 0, 25, 50];
+    const steps = [-75, -60, -45, -30, -15, 0, 25, 50, 70];
     for (const deg of steps) {
       const lat = (deg * Math.PI) / 180;
       const r = Math.cos(lat) * GLOBE_R;
@@ -214,11 +246,11 @@ function Globe() {
     return arr;
   }, []);
 
-  // 6 lime meridians evenly distributed (every 30°)
+  // 8 lime meridians evenly distributed (every 22.5°)
   const limeMeridians = useMemo(() => {
     const arr: { rot: number; key: string }[] = [];
-    for (let i = 0; i < 6; i++) {
-      arr.push({ rot: (i * Math.PI) / 6, key: `mer-${i}` });
+    for (let i = 0; i < 8; i++) {
+      arr.push({ rot: (i * Math.PI) / 8, key: `mer-${i}` });
     }
     return arr;
   }, []);
@@ -270,18 +302,18 @@ function Globe() {
           <lineBasicMaterial
             color={BONE}
             transparent
-            opacity={0.42}
+            opacity={0.18}
             depthWrite={false}
           />
         </lineSegments>
 
-        {/* Dark inner shell */}
+        {/* Dark inner shell — very translucent so far-side grid reads through */}
         <mesh ref={innerRef}>
           <sphereGeometry args={[GLOBE_R - 0.015, 64, 64]} />
           <meshBasicMaterial
             color={"#0a0a0a"}
             transparent
-            opacity={0.85}
+            opacity={0.3}
             depthWrite={false}
           />
         </mesh>
@@ -289,29 +321,11 @@ function Globe() {
         {/* Lime lat/long grid — the prominent overlay */}
         <group ref={limeLinesRef}>
           {limeLatitudes.map((lat) => (
-            <group key={lat.key} position={[0, lat.y, 0]}>
-              <line>
-                <primitive object={lat.geom} attach="geometry" />
-                <lineBasicMaterial
-                  color={LIME}
-                  transparent
-                  opacity={0.7}
-                  depthWrite={false}
-                />
-              </line>
-            </group>
+            <LatitudeLine key={lat.key} lat={lat} />
           ))}
           {limeMeridians.map((m) => (
             <group key={m.key} rotation={[0, m.rot, 0]}>
-              <line>
-                <primitive object={meridianGeom} attach="geometry" />
-                <lineBasicMaterial
-                  color={LIME}
-                  transparent
-                  opacity={0.6}
-                  depthWrite={false}
-                />
-              </line>
+              <MeridianLine geom={meridianGeom} />
             </group>
           ))}
         </group>
