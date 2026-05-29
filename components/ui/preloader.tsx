@@ -186,9 +186,14 @@ export function Preloader() {
   const zoom = seg(tMs, ZOOM_START, ZOOM_END);
   const zoomEase = easeInQuart(zoom);
 
-  const rotProgress = seg(tMs, 1500, ZOOM_END);
-  const rotY = rotProgress * Math.PI * 1.5 + zoomEase * Math.PI * 0.6;
-  const rotX = -0.32 + Math.sin(p * Math.PI) * 0.06;
+  // Freeze SVG properties during the zoom phase so the browser can composite the 50x 
+  // scale transform smoothly without repainting the complex SVG vectors every frame.
+  const tMsSvg = Math.min(tMs, ZOOM_START);
+  const pSvg = tMsSvg / TOTAL_MS;
+
+  const rotProgress = seg(tMsSvg, 1500, ZOOM_END);
+  const rotY = rotProgress * Math.PI * 1.5; // dropped zoomEase rotation to keep SVG static
+  const rotX = -0.32 + Math.sin(pSvg * Math.PI) * 0.06;
 
   const projected = VERTS.map((v) => project(v, rotY, rotX));
 
@@ -207,7 +212,8 @@ export function Preloader() {
 
   const ringColor = lerpColor(colorShift);
   const ringOpacity = ringIn;
-  const glow = (colorShift * 0.7 + buildup * 0.35) * (1 - zoom * 0.7);
+  const baseGlow = colorShift * 0.7 + buildup * 0.35;
+  const bgGlow = Math.max(0, baseGlow * (1 - zoom));
 
   const innerRx = lerp(O_INNER_START.rx, O_INNER_END.rx, buildup);
   const innerRy = lerp(O_INNER_START.ry, O_INNER_END.ry, buildup);
@@ -232,18 +238,20 @@ export function Preloader() {
         }}
       >
         <div className="absolute inset-0 bg-[#0a0a0a]" />
-        <div
-          className="absolute inset-0 pointer-events-none mix-blend-overlay"
-          style={{
-            opacity: 0.035,
-            backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
-          }}
-        />
+        {zoom < 1 && (
+          <div
+            className={`absolute inset-0 pointer-events-none ${zoom > 0 ? "" : "mix-blend-overlay"}`}
+            style={{
+              opacity: 0.035 * (1 - zoom),
+              backgroundImage:
+                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+            }}
+          />
+        )}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            opacity: glow,
+            opacity: bgGlow,
             background:
               "radial-gradient(circle at center, rgba(200,255,0,0.22) 0%, rgba(200,255,0,0.06) 28%, transparent 60%)",
           }}
@@ -260,7 +268,6 @@ export function Preloader() {
             fontWeight: 500,
             transform: `scale(${containerScale})`,
             transformOrigin: "center center",
-            willChange: "transform",
           }}
         >
           {/* O slot — square so the donut centers on the cap-height of the side text */}
@@ -283,7 +290,7 @@ export function Preloader() {
                 fillRule="evenodd"
                 fillOpacity={ringOpacity}
                 style={{
-                  filter: `drop-shadow(0 0 ${6 + glow * 14}px rgba(200,255,0,${glow * 0.75}))`,
+                  filter: (baseGlow > 0.01 && zoom === 0) ? `drop-shadow(0 0 ${6 + baseGlow * 14}px rgba(200,255,0,${baseGlow * 0.75}))` : 'none',
                 }}
               />
 
@@ -323,7 +330,7 @@ export function Preloader() {
                   const opacity = (0.45 + 0.55 * depth) * v;
                   return (
                     <g key={`n${i}`}>
-                      {depth > 0.55 && (
+                      {depth > 0.55 && zoom === 0 && (
                         <circle
                           cx={node.x}
                           cy={node.y}
