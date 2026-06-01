@@ -146,6 +146,8 @@
   --gap-section: 1.5rem;
   --gap-grid: 1.5rem;
   --gap-card: 2rem;
+
+  --transition-image-hover: transform 700ms ease-in-out;
 }
 
 @layer base {
