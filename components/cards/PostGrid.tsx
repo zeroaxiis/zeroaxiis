@@ -23,7 +23,7 @@ export function PostGrid({ posts, className, allowFeatured = true }: PostGridPro
   // Get all other posts, maintaining their original order minus the featured one
   const gridPosts = hasFeatured 
     ? posts.filter((_, idx) => idx !== featuredPostIndex)
-    : posts;
+    : posts.map(p => ({ ...p, featured: false }));
 
   return (
     <div className={cn("w-full flex flex-col gap-[var(--gap-grid)]", className)}>

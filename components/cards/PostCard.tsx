@@ -23,13 +23,14 @@ export function PostCard({ post, className }: PostCardProps) {
         <Image
           src={post.image}
           alt={post.title}
-          fill
-          className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          width={0}
+          height={0}
+          className="absolute inset-0 w-full h-full object-cover [transition:var(--transition-image-hover)] group-hover:scale-105"
+          sizes="(max-width: 768px) 100%, (max-width: 1200px) 50%, 33%"
         />
         {/* Type Badge */}
         <div className="absolute top-4 left-4 z-10">
-          <span className="glass-panel px-3 py-1.5 rounded-full text-[var(--text-label-mono)] font-mono text-on-surface uppercase tracking-wider shadow-sm">
+          <span className="glass-panel px-3 py-1.5 rounded-full text-label-mono font-mono text-on-surface uppercase tracking-wider shadow-sm">
             {post.type}
           </span>
         </div>
@@ -37,7 +38,7 @@ export function PostCard({ post, className }: PostCardProps) {
         {/* Featured Badge */}
         {post.featured && (
           <div className="absolute top-4 right-4 z-10">
-            <span className="bg-accent text-on-tertiary px-3 py-1.5 rounded-full text-[var(--text-label-mono)] font-mono uppercase tracking-wider font-semibold shadow-md">
+            <span className="bg-accent text-on-tertiary px-3 py-1.5 rounded-full text-label-mono font-mono uppercase tracking-wider font-semibold shadow-md">
               Featured
             </span>
           </div>
@@ -46,7 +47,7 @@ export function PostCard({ post, className }: PostCardProps) {
 
       {/* Content */}
       <div className="flex flex-col flex-grow p-6">
-        <div className="flex items-center gap-3 mb-4 text-[var(--text-label-mono)] font-mono text-on-surface-variant uppercase tracking-wider">
+        <div className="flex items-center gap-3 mb-4 text-label-mono font-mono text-on-surface-variant uppercase tracking-wider">
           <span className="text-accent">{post.category}</span>
           <span className="w-1 h-1 rounded-full bg-stroke"></span>
           <span>{formatDate(post.publishedAt)}</span>

@@ -23,14 +23,15 @@ export function FeaturedPostCard({ post, className }: FeaturedPostCardProps) {
         <Image
           src={post.image}
           alt={post.title}
-          fill
-          className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-          sizes="(max-width: 1024px) 100vw, 55vw"
+          width={0}
+          height={0}
+          className="absolute inset-0 w-full h-full object-cover [transition:var(--transition-image-hover)] group-hover:scale-105"
+          sizes="(max-width: 1024px) 100%, 55%"
           priority
         />
         {/* Type Badge */}
         <div className="absolute top-6 left-6 z-10">
-          <span className="glass-panel px-4 py-2 rounded-full text-[var(--text-label-mono)] font-mono text-on-surface uppercase tracking-wider shadow-sm">
+          <span className="glass-panel px-4 py-2 rounded-full text-label-mono font-mono text-on-surface uppercase tracking-wider shadow-sm">
             {post.type}
           </span>
         </div>
@@ -41,7 +42,7 @@ export function FeaturedPostCard({ post, className }: FeaturedPostCardProps) {
         <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[var(--color-surface-dim)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
         
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-6 text-[var(--text-label-mono)] font-mono text-on-surface-variant uppercase tracking-wider">
+          <div className="flex items-center gap-3 mb-6 text-label-mono font-mono text-on-surface-variant uppercase tracking-wider">
             <span className="text-accent font-semibold">{post.category}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-stroke"></span>
             <span>{formatDate(post.publishedAt)}</span>
