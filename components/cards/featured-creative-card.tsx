@@ -43,7 +43,7 @@ export function FeaturedCreativeCard({
     <Link
       href={href}
       className={cn(
-        "group flex flex-col md:flex-row w-full outline-none bg-surface-container-lowest border border-stroke p-6 lg:p-8 transition-colors duration-300 hover:border-white/20 relative z-10",
+        "group flex flex-col md:flex-row w-full bg-surface-container-lowest border border-stroke p-6 lg:p-8 transition-colors duration-300 hover:border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 relative z-10",
         className
       )}
     >
@@ -53,6 +53,7 @@ export function FeaturedCreativeCard({
           src={thumbnail}
           alt={title}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 60vw, 66vw"
           className="object-cover transition-all duration-500 ease-out group-hover:opacity-80"
           priority
         />

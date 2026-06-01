@@ -41,7 +41,7 @@ export function HeroContent({
         transition={{ duration: 1, delay: 0.2, ease: easeOut }}
       >
         <span className={styles.eyebrow}>
-          <span className={styles.eyebrowAccent} />
+          {eyebrow && <span className={styles.eyebrowAccent} />}
           {eyebrow}
         </span>
         <span className={styles.metaCluster}>

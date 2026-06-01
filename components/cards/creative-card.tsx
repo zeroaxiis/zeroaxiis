@@ -42,7 +42,7 @@ export function CreativeCard({
     <Link
       href={href}
       className={cn(
-        "group flex flex-col w-full outline-none bg-background border border-stroke p-4 md:p-5 transition-colors duration-300 hover:border-white/20 relative z-10",
+        "group flex flex-col w-full bg-background border border-stroke p-4 md:p-5 transition-colors duration-300 hover:border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 relative z-10",
         className
       )}
     >
