@@ -24,6 +24,7 @@ export const siteConfig = {
     { label: "Services", href: "#services" },
     { label: "Workflow", href: "#workflow" },
     { label: "Projects", href: "/projects" },
+    { label: "Creative", href: "/creative" },
     { label: "Open Source", href: "/projects#open-source" },
     { label: "Team", href: "/team" },
   ],
@@ -32,6 +33,7 @@ export const siteConfig = {
       { label: "About", href: "/about" },
       { label: "Services", href: "#services" },
       { label: "Case Studies", href: "/projects" },
+      { label: "Creative", href: "/creative" },
       { label: "Insights", href: "/blog" },
     ],
     connect: [

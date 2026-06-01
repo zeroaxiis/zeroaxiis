@@ -12,3 +12,6 @@ export type { TeamMember, ContactItem } from "@/types";
 
 export { testimonials } from "./testimonials";
 export type { Testimonial } from "./testimonials";
+
+export { creativeItems } from "./creative";
+export type { CreativeItem } from "@/types";

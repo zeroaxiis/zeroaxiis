@@ -18,10 +18,11 @@ interface HeroContentProps {
   children?: ReactNode;
 }
 
+
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function HeroContent({
-  eyebrow = "Zeroaxiis · Digital Atelier",
+  eyebrow = "",
   headlineLead,
   headlineSlant,
   description,

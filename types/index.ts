@@ -69,3 +69,16 @@ export type ContactItem = {
   label: string;
   value: string;
 };
+
+export type CreativeItem = {
+  id: string;
+  title: string;
+  description: string;
+  type: "Video" | "Podcast" | "Interview" | "Series";
+  thumbnail: string;
+  duration: string;
+  publishDate: string;
+  href: string;
+  featured?: boolean;
+  author?: string;
+};
