@@ -51,11 +51,11 @@ export default async function BlogPostPage({ params }: Props) {
           <header className="mb-16 flex flex-col gap-6">
             <Reveal>
               <div className="flex flex-wrap items-center gap-3 font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone-mute">
-                <time dateTime={post.date}>{formatDate(post.date)}</time>
+                <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
                 <span className="opacity-50">·</span>
                 <span>{post.author}</span>
                 <span className="opacity-50">·</span>
-                {post.tags.map((tag) => (
+                {(post.tags || []).map((tag) => (
                   <span
                     key={tag}
                     className="border border-stroke rounded-full px-3 py-1 normal-case tracking-[0.18em] text-[10px]"
@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           <Reveal delay={0.25}>
             <div className="prose prose-invert max-w-none">
-              {post.content.split("\n\n").map((paragraph, i) => {
+              {(post.content || "").split("\n\n").map((paragraph, i) => {
                 if (paragraph.startsWith("## ")) {
                   return (
                     <h2

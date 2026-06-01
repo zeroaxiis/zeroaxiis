@@ -12,7 +12,7 @@ interface PostCardProps {
 export function PostCard({ post, className }: PostCardProps) {
   return (
     <Link
-      href={`/posts/${post.slug}`}
+      href={`/blog/${post.slug}`}
       className={cn(
         "group flex flex-col h-full card-surface rounded-xl overflow-hidden glow-hover relative",
         className

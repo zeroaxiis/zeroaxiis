@@ -11,6 +11,7 @@ export interface Post {
   duration?: string;
   tags?: string[];
   featured?: boolean;
+  content?: string;
 }
 
 export type PostType = 
