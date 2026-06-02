@@ -10,8 +10,8 @@ export default function HomePage() {
       <Hero />
       <About />
       <Features />
-      <Testimonials />
       <CTA />
+      <Testimonials />
     </>
   );
 }

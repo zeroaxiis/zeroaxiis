@@ -9,6 +9,8 @@ export type WorkflowStep = {
   number: string;
   title: string;
   description: string;
+  /** Material Symbols Outlined icon name */
+  icon: string;
   highlight?: boolean;
 };
 

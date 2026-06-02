@@ -97,13 +97,7 @@
   color: var(--bone);
 }
 
-.edgeLabel::before {
-  content: "";
-  display: inline-block;
-  width: 1px;
-  height: 22px;
-  background: var(--accent);
-}
+/* edge label dash removed */
 
 .edgeHint {
   color: var(--bone-mute);

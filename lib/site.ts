@@ -6,7 +6,7 @@ export const siteConfig = {
   url: "https://zeroaxiis.com",
   email: "hello@zeroaxiis.com",
   address: {
-    city: "Mumbai, India",
+    city: "With ♥ from India",
     note: "By Appointment Only",
   },
   ogImage: "/images/og.png",

@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site";
+import { Container } from "@/components/layout/container";
+import { Magnetic } from "@/components/ui/magnetic";
 import ScrollFloat from "@/components/ui/scroll-float";
 import {
   InstagramIcon,
@@ -27,7 +30,6 @@ function FooterTop() {
     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-10 pb-14 border-b border-stroke">
       <div className="max-w-xl">
         <p className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em] mb-6 flex items-center gap-3">
-          <span className="inline-block w-7 h-px bg-accent" />
           Closing transmission
         </p>
         <p className="font-display text-[clamp(36px,5vw,64px)] leading-[0.95] text-bone tracking-[-0.025em] text-balance">
@@ -35,46 +37,51 @@ function FooterTop() {
           <span className="italic text-bone-dim">together.</span>
         </p>
       </div>
-      <Link
-        href={`mailto:${siteConfig.email}`}
-        className="group inline-flex items-center gap-3 pb-2 border-b border-bone hover:border-accent transition-colors duration-300 font-body-md text-body-md text-bone shrink-0"
-      >
-        {siteConfig.email}
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-bone text-ink group-hover:bg-accent transition-colors duration-300">
-          <ArrowUpRightIcon width={12} height={12} strokeWidth={1.4} />
-        </span>
-      </Link>
+      <Magnetic strength={0.25}>
+        <Link
+          href={`mailto:${siteConfig.email}`}
+          className="group inline-flex items-center gap-3 pb-2 border-b border-bone hover:border-accent transition-colors duration-500 font-body-md text-body-md text-bone shrink-0"
+        >
+          <span className="transition-[transform,color] duration-500 group-hover:text-accent group-hover:translate-x-0.5">
+            {siteConfig.email}
+          </span>
+          <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-bone text-ink group-hover:bg-accent group-hover:rotate-45 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-500">
+            <ArrowUpRightIcon width={12} height={12} strokeWidth={1.4} />
+          </span>
+        </Link>
+      </Magnetic>
     </div>
   );
 }
 
 function FooterSocials() {
   return (
-    <div className="py-12 border-b border-stroke">
-      <p className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone-mute mb-8">
+    <div className="py-14 border-b border-stroke">
+      <p className="font-label-mono text-[10px] uppercase tracking-[0.28em] text-bone-mute mb-10 flex items-center gap-3">
         Follow along
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12">
         {socialItems.map(({ name, href, Icon }) => (
-          <Link
-            key={name}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between py-4 border-b border-stroke last:border-b-0 sm:[&:nth-last-child(-n+1)]:border-b-0 lg:[&:nth-last-child(-n+3)]:border-b-0 hover:bg-surface-layer/30 px-3 -mx-3 transition-colors duration-300"
-          >
-            <div className="flex items-center gap-4">
-              <span className="text-bone-mute group-hover:text-accent transition-colors duration-300">
-                <Icon />
+          <Magnetic key={name} strength={0.22}>
+            <Link
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between gap-6 py-5 border-b border-stroke last:border-b-0 hover:border-accent/60 transition-colors duration-500"
+            >
+              <span className="flex items-center gap-5">
+                <span className="text-bone-mute group-hover:text-accent transition-colors duration-300 shrink-0">
+                  <Icon />
+                </span>
+                <span className="font-display text-[clamp(20px,2vw,28px)] tracking-[-0.015em] text-bone leading-none transition-[transform,color] duration-500 group-hover:text-accent group-hover:translate-x-1">
+                  {name}
+                </span>
               </span>
-              <span className="font-body-sm text-body-sm text-bone group-hover:text-bone transition-colors">
-                {name}
+              <span className="text-bone-mute/40 group-hover:text-accent group-hover:rotate-45 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-500 shrink-0">
+                <ArrowUpRightIcon width={16} height={16} strokeWidth={1.4} />
               </span>
-            </div>
-            <span className="text-bone-mute/40 group-hover:text-accent transition-colors duration-300">
-              <ArrowUpRightIcon width={12} height={12} strokeWidth={1.4} />
-            </span>
-          </Link>
+            </Link>
+          </Magnetic>
         ))}
       </div>
     </div>
@@ -83,7 +90,7 @@ function FooterSocials() {
 
 function FooterNav() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 py-14 border-b border-stroke">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 py-14 border-b border-stroke">
       <div>
         <h3 className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone mb-6">
           Explore
@@ -93,26 +100,6 @@ function FooterNav() {
             <li key={item.label}>
               <Link
                 href={item.href}
-                className="font-body-sm text-body-sm text-bone-mute hover:text-accent transition-colors duration-200"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h3 className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone mb-6">
-          Connect
-        </h3>
-        <ul className="space-y-4">
-          {siteConfig.footerNav.connect.map((item) => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="font-body-sm text-body-sm text-bone-mute hover:text-accent transition-colors duration-200"
               >
                 {item.label}
@@ -153,9 +140,14 @@ function FooterNav() {
 }
 
 function FooterBrand() {
+  // Key by pathname so ScrollFloat fully remounts after client-side nav —
+  // Footer lives in the root layout and would otherwise reuse stale
+  // ScrollTrigger positions from the previous page.
+  const pathname = usePathname();
   return (
     <div className="pt-12 pb-4 overflow-hidden">
       <ScrollFloat
+        key={pathname}
         animationDuration={1.2}
         ease="back.inOut(2)"
         scrollStart="top bottom"
@@ -198,13 +190,13 @@ function FooterBottom() {
 export function Footer() {
   return (
     <footer className="relative w-full bg-ink border-t border-stroke z-10">
-      <div className="max-w-container-max mx-auto px-gutter">
+      <Container>
         <FooterTop />
         <FooterSocials />
         <FooterNav />
         <FooterBrand />
         <FooterBottom />
-      </div>
+      </Container>
     </footer>
   );
 }

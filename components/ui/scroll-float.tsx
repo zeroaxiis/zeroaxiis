@@ -78,7 +78,23 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
       );
     }, el);
 
-    return () => ctx.revert();
+    // Recompute trigger positions after fonts settle + on resize. Without this
+    // ScrollTrigger captures positions at mount, before final layout, and the
+    // scrubbed tween parks at its start state (chars at opacity 0).
+    const refresh = () => ScrollTrigger.refresh();
+    let initRaf = requestAnimationFrame(() => {
+      initRaf = requestAnimationFrame(refresh);
+    });
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(refresh).catch(() => {});
+    }
+    window.addEventListener("resize", refresh);
+
+    return () => {
+      ctx.revert();
+      cancelAnimationFrame(initRaf);
+      window.removeEventListener("resize", refresh);
+    };
   }, [
     scrollContainerRef,
     animationDuration,
