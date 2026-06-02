@@ -5,20 +5,20 @@ import { Container } from "@/components/layout";
 import { Reveal } from "@/components/ui/reveal";
 import { ReadingProgress } from "@/components/ui/reading-progress";
 import { ChevronLeftIcon } from "@/components/icons";
-import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { getAllPosts, getPostById } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 };
 
 export async function generateStaticParams() {
-  return getAllPosts().map((post) => ({ slug: post.slug }));
+  return getAllPosts().map((post) => ({ id: post.id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { id } = await params;
+  const post = getPostById(id);
   if (!post) return {};
   return {
     title: post.title,
@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { id } = await params;
+  const post = getPostById(id);
 
   if (!post) notFound();
 

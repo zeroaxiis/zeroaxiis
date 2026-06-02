@@ -1,12 +1,3 @@
-export type BlogPost = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  author: string;
-  tags: string[];
-  content: string;
-};
 
 export type Service = {
   icon: string;
