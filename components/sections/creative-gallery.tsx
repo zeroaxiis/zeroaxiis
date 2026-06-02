@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { cn } from "@/lib/utils";
 import { CreativeCard, FeaturedCreativeCard } from "@/components/cards";
 import { Reveal } from "@/components/ui/reveal";
 import type { CreativeItem } from "@/types";
@@ -37,78 +38,80 @@ export function CreativeGallery({ items }: CreativeGalleryProps) {
     <>
       {/* Minimalist Filter Bar */}
       <Reveal delay={0.3}>
-        <div className="flex flex-wrap items-center gap-4 mb-16 border-b border-stroke/30 pb-6">
-          {FILTERS.map((filter) => (
-            <button
-              key={filter}
-              type="button"
-              aria-pressed={activeFilter === filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`relative px-1 pb-2 text-[12px] font-label-mono uppercase tracking-[0.1em] transition-colors duration-300 ${
-                activeFilter === filter 
-                  ? "text-accent" 
-                  : "text-bone-mute hover:text-bone"
-              }`}
-            >
-              <span className="relative z-10">{filter}</span>
-              {activeFilter === filter && (
-                <motion.div
-                  layoutId="active-filter-border"
-                  className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-accent z-20"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
-            </button>
-          ))}
+        <div className="flex flex-wrap items-center gap-3 mb-16">
+          {FILTERS.map((filter) => {
+            const isActive = activeFilter === filter;
+            return (
+              <button
+                key={filter}
+                type="button"
+                aria-pressed={isActive}
+                onClick={() => setActiveFilter(filter)}
+                className={cn(
+                  "relative px-5 md:px-6 py-2 md:py-2.5 text-[10px] md:text-[11px] font-label-mono uppercase tracking-[0.15em] transition-all duration-300 rounded-full border",
+                  isActive
+                    ? "bg-accent text-black border-accent font-bold shadow-[0_0_15px_rgba(200,255,0,0.2)]"
+                    : "bg-transparent text-bone-mute border-stroke hover:text-bone hover:border-bone-mute hover:bg-[#1a1a1a]"
+                )}
+              >
+                {filter}
+              </button>
+            );
+          })}
         </div>
       </Reveal>
 
-      <div className="flex flex-col gap-16 md:gap-24">
+      <div className="flex flex-col gap-16 md:gap-24 min-h-[600px]">
         {/* Featured Brutalist Hero */}
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
           {featuredItem && activeFilter === "All" && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="w-full origin-top"
+              key="featured"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="w-full"
             >
               <FeaturedCreativeCard {...featuredItem} />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Brutalist Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-              >
-                <CreativeCard {...item} priority={index < 3 && activeFilter === "All"} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-        
-        {/* Empty State */}
-        {filteredItems.length === 0 && activeFilter !== "All" && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="py-24 text-center border border-dashed border-stroke rounded-[24px]"
-          >
-            <p className="text-bone-mute font-body-md">
-              No {activeFilter} items found matching these criteria.
-            </p>
-          </motion.div>
-        )}
+        {/* Content Area - Fades as a single block based on activeFilter */}
+        <AnimatePresence mode="wait">
+          {filteredItems.length > 0 ? (
+            <motion.div 
+              key={`grid-${activeFilter}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12"
+            >
+              {filteredItems.map((item, index) => (
+                <CreativeCard 
+                  key={item.id} 
+                  {...item} 
+                  priority={index < 3 && activeFilter === "All"} 
+                />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div 
+              key={`empty-${activeFilter}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="py-24 text-center border border-dashed border-stroke rounded-[24px]"
+            >
+              <p className="text-bone-mute font-body-md">
+                No {activeFilter} items found matching these criteria.
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

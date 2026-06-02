@@ -25,7 +25,6 @@ export default function CreativePage() {
             <Reveal>
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="h-[2px] w-8 bg-accent" />
                   <span className="font-label-mono text-[10px] text-accent uppercase tracking-[0.2em]">
                     The Latest
                   </span>
