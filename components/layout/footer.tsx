@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import ScrollFloat from "@/components/ui/scroll-float";
@@ -154,9 +155,14 @@ function FooterNav() {
 }
 
 function FooterBrand() {
+  // Key by pathname so ScrollFloat fully remounts after client-side nav —
+  // Footer lives in the root layout and would otherwise reuse stale
+  // ScrollTrigger positions from the previous page.
+  const pathname = usePathname();
   return (
     <div className="pt-12 pb-4 overflow-hidden">
       <ScrollFloat
+        key={pathname}
         animationDuration={1.2}
         ease="back.inOut(2)"
         scrollStart="top bottom"
