@@ -36,7 +36,7 @@ export function PostGrid({ posts, className, allowFeatured = true }: PostGridPro
 
       {/* Grid of standard posts */}
       {gridPosts.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[var(--gap-grid)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[var(--gap-grid)]">
           {gridPosts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
