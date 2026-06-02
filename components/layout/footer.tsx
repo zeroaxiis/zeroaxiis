@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
+import { Container } from "@/components/layout/container";
 import ScrollFloat from "@/components/ui/scroll-float";
 import {
   InstagramIcon,
@@ -198,13 +199,13 @@ function FooterBottom() {
 export function Footer() {
   return (
     <footer className="relative w-full bg-ink border-t border-stroke z-10">
-      <div className="max-w-container-max mx-auto px-gutter">
+      <Container>
         <FooterTop />
         <FooterSocials />
         <FooterNav />
         <FooterBrand />
         <FooterBottom />
-      </div>
+      </Container>
     </footer>
   );
 }

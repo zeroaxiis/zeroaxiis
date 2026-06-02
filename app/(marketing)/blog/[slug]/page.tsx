@@ -33,10 +33,10 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <main className="relative pt-40 pb-32 overflow-hidden">
+    <Container className="relative max-w-3xl overflow-x-hidden pt-40 pb-32">
       <ReadingProgress />
 
-      <Container className="!max-w-3xl">
+      <div className="relative">
         <Reveal>
           <Link
             href="/blog"
@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </Reveal>
         </article>
-      </Container>
-    </main>
+      </div>
+    </Container>
   );
 }
