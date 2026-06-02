@@ -11,7 +11,7 @@ interface ContainerProps {
  * Shared layout wrapper. Centralizes width + horizontal padding for every
  * page and major section. Override via `className` for page-specific spacing.
  *
- * Base: `mx-auto max-w-360 px-2 sm:px-6 lg:px-8`
+ * Base: `mx-auto max-w-footer-max px-[clamp(1rem,6vw,7rem)]`
  */
 export function Container({
   children,
