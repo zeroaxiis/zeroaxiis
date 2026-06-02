@@ -17,7 +17,9 @@ export function InteractiveStar({ position, size }: InteractiveStarProps) {
   const haloRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const drift = useRef({
+    // eslint-disable-next-line react-hooks/purity
     phase: Math.random() * Math.PI * 2,
+    // eslint-disable-next-line react-hooks/purity
     speed: 0.3 + Math.random() * 0.6,
   });
 
@@ -136,14 +138,18 @@ export function InteractiveStarField({
   const stars = useMemo(() => {
     const arr: { pos: [number, number, number]; size: number }[] = [];
     for (let i = 0; i < count; i++) {
+      // eslint-disable-next-line react-hooks/purity
       const r = 3.5 + Math.random() * 6;
+      // eslint-disable-next-line react-hooks/purity
       const theta = Math.random() * Math.PI * 2;
+      // eslint-disable-next-line react-hooks/purity
       const phi = Math.acos(2 * Math.random() - 1);
       const x = r * Math.sin(phi) * Math.cos(theta);
       const y = r * Math.sin(phi) * Math.sin(theta);
       const z = r * Math.cos(phi) - 1;
       arr.push({
         pos: [x, y, z],
+        // eslint-disable-next-line react-hooks/purity
         size: 0.014 + Math.random() * 0.03,
       });
     }

@@ -1,7 +1,6 @@
 import { Container, Section } from "@/components/layout";
-import { TeamMemberCard } from "@/components/cards";
 import { ContactForm, ContactInfo } from "@/components/forms";
-import { Reveal, RevealStagger, revealItem } from "@/components/ui/reveal";
+import { Reveal } from "@/components/ui/reveal";
 import { teamMembers, contactItems } from "@/lib/data";
 import { TeamGrid } from "@/components/sections/team-grid";
 

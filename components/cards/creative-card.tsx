@@ -1,91 +1,93 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { PlayOverlay } from "@/components/ui/play-overlay";
+import { DurationBadge } from "@/components/ui/duration-badge";
 import type { CreativeItem } from "@/types";
 
 export type CreativeCardProps = CreativeItem & {
   className?: string;
+  priority?: boolean;
 };
 
-// Play Button SVG Overlay - Kept minimal and static
-function PlayOverlay() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-      <div className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all duration-300 ease-out group-hover:bg-accent group-hover:border-accent group-hover:scale-110">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="white"
-          className="ml-0.5 transition-colors duration-300 group-hover:fill-black"
-        >
-          <path d="M5 3l14 9-14 9V3z" />
-        </svg>
-      </div>
-    </div>
-  );
-}
+
 
 export function CreativeCard({
   title,
+  description,
   type,
   thumbnail,
   duration,
   publishDate,
+  author,
   href = "#",
   className,
+  priority = false,
 }: CreativeCardProps) {
   const isMedia = type === "Video" || type === "Podcast" || type === "Series" || type === "Interview";
 
   return (
     <Link
       href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       className={cn(
-        "group flex flex-col w-full bg-background border border-stroke p-4 md:p-5 transition-colors duration-300 hover:border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 relative z-10",
+        "group flex flex-col w-full bg-transparent transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 relative z-10 h-full",
         className
       )}
     >
       {/* 16:9 Thumbnail Container */}
-      <div className="relative w-full aspect-video overflow-hidden bg-surface-layer mb-5">
+      <div className="relative w-full aspect-video overflow-hidden bg-surface-layer mb-3 flex-shrink-0 rounded-xl">
         <Image
           src={thumbnail}
           alt={title}
           fill
+          priority={priority}
           className="object-cover transition-all duration-500 ease-out group-hover:opacity-80"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         
         {/* Play Overlay */}
-        {isMedia && <PlayOverlay />}
+        {isMedia && <PlayOverlay iconSize={20} />}
 
         {/* Duration Badge */}
-        {duration && (
-          <div className="absolute bottom-2 right-2 z-10">
-            <span className="bg-black/80 backdrop-blur-md px-2 py-1 text-[11px] font-label-mono text-bone tracking-wider">
-              {duration}
-            </span>
-          </div>
-        )}
+        <DurationBadge duration={duration} />
       </div>
 
-      {/* Brutalist Content Section */}
-      <div className="flex flex-col flex-grow">
-        <div className="flex justify-between items-center mb-4 border-b border-stroke/50 pb-3">
-          <div className="w-1.5 h-1.5 bg-accent" />
-          <span className="text-[10px] font-label-mono uppercase tracking-[0.2em] text-accent">
-            {type}
-          </span>
+      {/* YouTube-Style Content Section */}
+      <div className="flex gap-3 w-full flex-grow">
+        {/* Avatar */}
+        <div className="flex-shrink-0 mt-0.5">
+          <div className="w-9 h-9 rounded-full bg-surface-layer flex items-center justify-center overflow-hidden">
+            <span className="text-bone text-[14px] font-display uppercase">
+              {author ? author.charAt(0) : type.charAt(0)}
+            </span>
+          </div>
         </div>
 
-        <h3 className="text-[18px] md:text-[20px] font-display text-bone leading-[1.2] mb-4">
-          {title}
-        </h3>
-        
-        <div className="mt-auto">
-          <span className="text-[10px] font-label-mono uppercase tracking-[0.2em] text-bone-mute">
-            {publishDate}
-          </span>
+        {/* Text Content */}
+        <div className="flex flex-col w-full min-w-0">
+          <h3 
+            className="text-[16px] font-medium text-[#f1f1f1] leading-[1.4] mb-1 line-clamp-2 min-h-[45px]"
+            title={title}
+          >
+            {title}
+          </h3>
+          
+          {/* Metadata Row */}
+          <div className="flex flex-col text-[14px] text-[#aaaaaa] mt-0.5">
+            <span>{author || "ZeroAxiis"}</span>
+            <div className="flex items-center gap-x-1">
+              <span>{publishDate}</span>
+            </div>
+          </div>
+
+          {/* Description */}
+          {description && (
+            <p className="mt-2 text-[#aaaaaa] font-body text-[13px] leading-[1.4] line-clamp-2 min-h-[37px]">
+              {description}
+            </p>
+          )}
         </div>
       </div>
     </Link>

@@ -1,29 +1,7 @@
-"use client";
-
-import { useState } from "react";
 import { Section } from "@/components/layout/section";
 import { Reveal } from "@/components/ui/reveal";
 
-const PILLARS = [
-  {
-    id: "intention",
-    title: "Built with intention",
-    description: "Architecture-first thinking and refined technical execution at every layer.",
-  },
-  {
-    id: "scale",
-    title: "Structured for scale",
-    description: "Built for products as they grow in complexity and operational demand.",
-  },
-  {
-    id: "uncompromising",
-    title: "Uncompromising craft",
-    description: "Engineered to adapt, evolve, and outlast trends. Every decision intentional.",
-  },
-];
-
 export function About() {
-  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <Section id="about" className="relative w-full min-h-[100svh] flex flex-col justify-center bg-surface-container-lowest overflow-hidden py-12 md:py-16 px-6 md:px-12 lg:px-24">
@@ -47,7 +25,7 @@ export function About() {
               </div>
 
               <h2 className="font-display text-[clamp(40px,5vw,72px)] leading-[0.95] text-bone tracking-tight">
-                We design the systems behind tomorrow's <br className="hidden lg:block" />
+                We design the systems behind tomorrow&apos;s <br className="hidden lg:block" />
                 <span className="font-serif italic text-accent font-light">digital ecosystems.</span>
               </h2>
               

@@ -21,17 +21,16 @@ export const siteConfig = {
   },
   nav: [
     { label: "Home", href: "/" },
-    { label: "Services", href: "#services" },
-    { label: "Workflow", href: "#workflow" },
+    { label: "Services", href: "/services" },
     { label: "Projects", href: "/projects" },
     { label: "Creative", href: "/creative" },
-    { label: "Open Source", href: "/projects#open-source" },
+    { label: "Open Source", href: "/open-source" },
     { label: "Team", href: "/team" },
   ],
   footerNav: {
     explore: [
       { label: "About", href: "/about" },
-      { label: "Services", href: "#services" },
+      { label: "Services", href: "/services" },
       { label: "Case Studies", href: "/projects" },
       { label: "Creative", href: "/creative" },
       { label: "Insights", href: "/blog" },

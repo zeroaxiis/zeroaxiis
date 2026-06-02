@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { CreativeCard, FeaturedCreativeCard } from "@/components/cards";
 import { Reveal } from "@/components/ui/reveal";
@@ -15,17 +15,23 @@ const FILTERS = ["All", "Video", "Podcast", "Interview", "Series"];
 export function CreativeGallery({ items }: CreativeGalleryProps) {
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const featuredItemIndex = items.findIndex((item) => item.featured);
-  const hasFeatured = featuredItemIndex !== -1;
-  const featuredItem = hasFeatured ? items[featuredItemIndex] : null;
-  
-  const baseGridItems = hasFeatured 
-    ? items.filter((_, idx) => idx !== featuredItemIndex)
-    : items;
+  const { featuredItem, baseGridItems } = useMemo(() => {
+    const featuredItemIndex = items.findIndex((item) => item.featured);
+    const hasFeatured = featuredItemIndex !== -1;
+    const featured = hasFeatured ? items[featuredItemIndex] : null;
+    
+    const baseGrid = hasFeatured 
+      ? items.filter((_, idx) => idx !== featuredItemIndex)
+      : items;
 
-  const filteredItems = activeFilter === "All" 
-    ? baseGridItems 
-    : items.filter((item) => item.type === activeFilter);
+    return { featuredItem: featured, baseGridItems: baseGrid };
+  }, [items]);
+
+  const filteredItems = useMemo(() => {
+    return activeFilter === "All" 
+      ? baseGridItems 
+      : items.filter((item) => item.type === activeFilter);
+  }, [activeFilter, baseGridItems, items]);
 
   return (
     <>
@@ -76,7 +82,7 @@ export function CreativeGallery({ items }: CreativeGalleryProps) {
         {/* Brutalist Grid */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => (
+            {filteredItems.map((item, index) => (
               <motion.div
                 key={item.id}
                 layout
@@ -85,7 +91,7 @@ export function CreativeGallery({ items }: CreativeGalleryProps) {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
               >
-                <CreativeCard {...item} />
+                <CreativeCard {...item} priority={index < 3 && activeFilter === "All"} />
               </motion.div>
             ))}
           </AnimatePresence>
