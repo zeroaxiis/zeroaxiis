@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { Container } from "@/components/layout/container";
 
 export function Vision() {
   const containerRef = useRef<HTMLElement>(null);
@@ -19,7 +20,7 @@ export function Vision() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100vh] py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-background flex flex-col items-center justify-center overflow-hidden"
+      className="relative min-h-[100vh] py-32 md:py-48 bg-background flex flex-col items-center justify-center overflow-hidden"
       id="vision"
     >
       {/* Background */}
@@ -34,30 +35,32 @@ export function Vision() {
         />
       </div>
 
-      <motion.div
-        style={{ y, opacity, filter: blur }}
-        className="relative z-10 max-w-[1200px] mx-auto w-full flex flex-col items-center text-center gap-16 md:gap-24"
-      >
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-[1px] h-12 bg-accent/50" />
-          <span className="font-label-mono text-[10px] md:text-[12px] text-accent uppercase tracking-[0.3em]">
-            01 / Our Vision
-          </span>
-        </div>
+      <Container className="relative z-10 w-full">
+        <motion.div
+          style={{ y, opacity, filter: blur }}
+          className="flex flex-col items-center text-center gap-16 md:gap-24 w-full"
+        >
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-[1px] h-12 bg-accent/50" />
+            <span className="font-label-mono text-[10px] md:text-[12px] text-accent uppercase tracking-[0.3em]">
+              01 / Our Vision
+            </span>
+          </div>
 
-        <div className="flex flex-col items-center gap-8 md:gap-16 w-full">
-          {/* Mixed Typography Header */}
-          <h2 className="font-display text-[48px] md:text-[80px] lg:text-[110px] leading-[0.85] tracking-tight text-bone">
-            We forge immersive <br />
-            <span className="font-serif italic text-accent font-light tracking-normal pr-4">digital realms</span>
-          </h2>
+          <div className="flex flex-col items-center gap-8 md:gap-16 w-full">
+            {/* Mixed Typography Header */}
+            <h2 className="font-display text-[48px] md:text-[80px] lg:text-[110px] leading-[0.85] tracking-tight text-bone">
+              We forge immersive <br />
+              <span className="font-serif italic text-accent font-light tracking-normal pr-4">digital realms</span>
+            </h2>
 
-          {/* Supporting Statement */}
-          <p className="font-display text-[24px] md:text-[36px] lg:text-[48px] leading-[1.2] tracking-tight text-bone-mute max-w-[900px]">
-            because the web is not a static canvas. By fusing uncompromised aesthetic vision with <span className="text-bone">bleeding-edge engineering</span>, we transform utility into art.
-          </p>
-        </div>
-      </motion.div>
+            {/* Supporting Statement */}
+            <p className="font-display text-[24px] md:text-[36px] lg:text-[48px] leading-[1.2] tracking-tight text-bone-mute max-w-[900px]">
+              because the web is not a static canvas. By fusing uncompromised aesthetic vision with <span className="text-bone">bleeding-edge engineering</span>, we transform utility into art.
+            </p>
+          </div>
+        </motion.div>
+      </Container>
     </section>
   );
 }
