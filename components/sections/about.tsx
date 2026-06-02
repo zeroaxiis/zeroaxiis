@@ -1,17 +1,18 @@
 import { Section } from "@/components/layout/section";
+import { Container } from "@/components/layout/container";
 import { Reveal } from "@/components/ui/reveal";
 
 export function About() {
 
   return (
-    <Section id="about" className="relative w-full min-h-[100svh] flex flex-col justify-center bg-surface-container-lowest overflow-hidden py-12 md:py-16 px-6 md:px-12 lg:px-24">
+    <Section id="about" className="relative w-full min-h-[100svh] flex flex-col justify-center bg-surface-container-lowest overflow-hidden">
       {/* Background Grid Pattern */}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_100%)]"
       />
-      
-      <div className="w-full max-w-[1400px] mx-auto flex flex-col md:flex-row gap-16 lg:gap-20 justify-between items-center px-4 md:px-8">
+
+      <Container className="flex flex-col md:flex-row gap-16 lg:gap-20 justify-between items-center">
         
         {/* Left Side: Massive Creative Typography */}
         <div className="w-full md:w-6/12 flex flex-col justify-center relative z-20 pt-8 md:pt-0 md:pl-8 lg:pl-12">
@@ -94,7 +95,7 @@ export function About() {
           </Reveal>
         </div>
 
-      </div>
+      </Container>
     </Section>
   );
 }

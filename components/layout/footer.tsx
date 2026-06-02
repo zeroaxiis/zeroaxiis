@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site";
+import { Container } from "@/components/layout/container";
 import ScrollFloat from "@/components/ui/scroll-float";
 import {
   InstagramIcon,
@@ -153,9 +155,14 @@ function FooterNav() {
 }
 
 function FooterBrand() {
+  // Key by pathname so ScrollFloat fully remounts after client-side nav —
+  // Footer lives in the root layout and would otherwise reuse stale
+  // ScrollTrigger positions from the previous page.
+  const pathname = usePathname();
   return (
     <div className="pt-12 pb-4 overflow-hidden">
       <ScrollFloat
+        key={pathname}
         animationDuration={1.2}
         ease="back.inOut(2)"
         scrollStart="top bottom"
@@ -198,13 +205,13 @@ function FooterBottom() {
 export function Footer() {
   return (
     <footer className="relative w-full bg-ink border-t border-stroke z-10">
-      <div className="max-w-container-max mx-auto px-gutter">
+      <Container>
         <FooterTop />
         <FooterSocials />
         <FooterNav />
         <FooterBrand />
         <FooterBottom />
-      </div>
+      </Container>
     </footer>
   );
 }

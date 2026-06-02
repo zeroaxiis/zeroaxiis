@@ -174,8 +174,9 @@ export function Testimonials() {
         </Reveal>
       </Container>
 
-      <div
-        className="max-w-container-max mx-auto px-gutter"
+      <Container
+        className="!px-0 sm:!px-[clamp(0.75rem,3vw,2rem)]"
+      ><div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -236,6 +237,7 @@ export function Testimonials() {
           ))}
         </div>
       </div>
+      </Container>
     </Section>
   );
 }
