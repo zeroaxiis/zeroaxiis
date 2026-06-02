@@ -53,17 +53,17 @@ export function FeaturedCreativeCard({
 
       {/* Content Section */}
       <div className="flex flex-col justify-center w-full md:w-2/5 lg:w-1/3">
-        <h3 className="text-2xl lg:text-[28px] font-medium text-[#f1f1f1] mb-2 leading-[1.3] tracking-tight line-clamp-3">
+        <h3 className="text-2xl lg:text-[28px] font-medium text-bone mb-2 leading-[1.3] tracking-tight line-clamp-3">
           {title}
         </h3>
         
-        <div className="flex items-center gap-x-2 text-[14px] text-[#aaaaaa] mb-4">
+        <div className="flex items-center gap-x-2 text-[14px] text-bone-mute mb-4">
           <span>ZeroAxiis</span>
-          <span className="w-1 h-1 rounded-full bg-[#aaaaaa]" />
+          <span className="w-1 h-1 rounded-full bg-bone-mute" />
           <span>{publishDate}</span>
         </div>
         
-        <p className="text-[#aaaaaa] font-body text-[14px] leading-[1.5] mb-8 line-clamp-4">
+        <p className="text-bone-mute font-body text-[14px] leading-[1.5] mb-8 line-clamp-4">
           {description}
         </p>
       </div>

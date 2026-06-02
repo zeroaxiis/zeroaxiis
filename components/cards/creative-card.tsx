@@ -68,14 +68,14 @@ export function CreativeCard({
         {/* Text Content */}
         <div className="flex flex-col w-full min-w-0">
           <h3 
-            className="text-[16px] font-medium text-[#f1f1f1] leading-[1.4] mb-1 line-clamp-2 min-h-[45px]"
+            className="text-[16px] font-medium text-bone leading-[1.4] mb-1 line-clamp-2 min-h-[45px]"
             title={title}
           >
             {title}
           </h3>
           
           {/* Metadata Row */}
-          <div className="flex flex-col text-[14px] text-[#aaaaaa] mt-0.5">
+          <div className="flex flex-col text-[14px] text-bone-mute mt-0.5">
             <span>{author || "ZeroAxiis"}</span>
             <div className="flex items-center gap-x-1">
               <span>{publishDate}</span>
@@ -84,7 +84,7 @@ export function CreativeCard({
 
           {/* Description */}
           {description && (
-            <p className="mt-2 text-[#aaaaaa] font-body text-[13px] leading-[1.4] line-clamp-2 min-h-[37px]">
+            <p className="mt-2 text-bone-mute font-body text-[13px] leading-[1.4] line-clamp-2 min-h-[37px]">
               {description}
             </p>
           )}

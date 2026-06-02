@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
 import { BONE, LIME } from "./constants";
@@ -16,19 +16,17 @@ export function InteractiveStar({ position, size }: InteractiveStarProps) {
   const ringRef = useRef<THREE.Mesh>(null);
   const haloRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
-  const drift = useRef({
-    // eslint-disable-next-line react-hooks/purity
+  const [drift] = useState(() => ({
     phase: Math.random() * Math.PI * 2,
-    // eslint-disable-next-line react-hooks/purity
     speed: 0.3 + Math.random() * 0.6,
-  });
+  }));
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
     if (!meshRef.current) return;
 
     const twinkle =
-      0.55 + Math.sin(t * drift.current.speed + drift.current.phase) * 0.35;
+      0.55 + Math.sin(t * drift.speed + drift.phase) * 0.35;
     const coreMat = meshRef.current.material as THREE.MeshBasicMaterial;
     coreMat.opacity = THREE.MathUtils.lerp(
       coreMat.opacity,
@@ -43,9 +41,9 @@ export function InteractiveStar({ position, size }: InteractiveStarProps) {
     );
 
     meshRef.current.position.x =
-      position[0] + Math.sin(t * 0.16 + drift.current.phase) * 0.05;
+      position[0] + Math.sin(t * 0.16 + drift.phase) * 0.05;
     meshRef.current.position.y =
-      position[1] + Math.cos(t * 0.13 + drift.current.phase) * 0.05;
+      position[1] + Math.cos(t * 0.13 + drift.phase) * 0.05;
 
     if (ringRef.current) {
       const ringMat = ringRef.current.material as THREE.MeshBasicMaterial;
@@ -135,26 +133,22 @@ interface InteractiveStarFieldProps {
 export function InteractiveStarField({
   count = 160,
 }: InteractiveStarFieldProps) {
-  const stars = useMemo(() => {
+  const [stars] = useState(() => {
     const arr: { pos: [number, number, number]; size: number }[] = [];
     for (let i = 0; i < count; i++) {
-      // eslint-disable-next-line react-hooks/purity
       const r = 3.5 + Math.random() * 6;
-      // eslint-disable-next-line react-hooks/purity
       const theta = Math.random() * Math.PI * 2;
-      // eslint-disable-next-line react-hooks/purity
       const phi = Math.acos(2 * Math.random() - 1);
       const x = r * Math.sin(phi) * Math.cos(theta);
       const y = r * Math.sin(phi) * Math.sin(theta);
       const z = r * Math.cos(phi) - 1;
       arr.push({
         pos: [x, y, z],
-        // eslint-disable-next-line react-hooks/purity
         size: 0.014 + Math.random() * 0.03,
       });
     }
     return arr;
-  }, [count]);
+  });
 
   return (
     <group>

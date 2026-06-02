@@ -7,7 +7,7 @@ interface PlayOverlayProps {
 
 export function PlayOverlay({ className, iconSize = 24 }: PlayOverlayProps) {
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none">
       <div 
         className={cn(
           "w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all duration-300 ease-out group-hover:bg-accent group-hover:border-accent group-hover:scale-110",

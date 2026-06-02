@@ -105,7 +105,7 @@ export function CreativeGallery({ items }: CreativeGalleryProps) {
             className="py-24 text-center border border-dashed border-stroke rounded-[24px]"
           >
             <p className="text-bone-mute font-body-md">
-              No {activeFilter} items found matching this criteria.
+              No {activeFilter} items found matching these criteria.
             </p>
           </motion.div>
         )}
