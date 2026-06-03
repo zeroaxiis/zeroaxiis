@@ -17,7 +17,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
     >
       {projects.map((project) => (
         <motion.div
-          key={project.title}
+          key={project.slug}
           variants={revealItem}
           className={project.colSpan ?? "md:col-span-12"}
         >

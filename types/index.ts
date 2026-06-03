@@ -15,9 +15,23 @@ export type WorkflowStep = {
 };
 
 export type Project = {
+  slug: string;
   title: string;
   description: string;
-  tags: string[];
+  status: "planned" | "active" | "completed" | "archived";
+  categories: string[];
+  techStack: string[];
+  metrics?: {
+    label: string;
+    value: string;
+  }[];
+  links?: {
+    label: string;
+    href: string;
+    type?: "live" | "repository" | "case-study" | "demo" | "other";
+  }[];
+  featured?: boolean;
+  tags?: string[];
   image?: string;
   imageAlt?: string;
   icon?: string;

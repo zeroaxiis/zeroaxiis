@@ -11,6 +11,7 @@ export type ProjectCardProps = Project;
 export function ProjectCard({
   title,
   description,
+  techStack,
   tags,
   image,
   imageAlt,
@@ -19,6 +20,8 @@ export function ProjectCard({
   height = "h-card-image-lg",
   href = "#",
 }: ProjectCardProps) {
+  const projectTags = techStack ?? tags ?? [];
+
   return (
     <motion.a
       href={href}
@@ -47,7 +50,7 @@ export function ProjectCard({
 
       <div className="mt-auto relative z-10">
         <div className="flex flex-wrap gap-2 mb-6">
-          {tags.map((tag) => (
+          {projectTags.map((tag) => (
             <TechTag key={tag}>{tag}</TechTag>
           ))}
         </div>
