@@ -1,8 +1,13 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { creativeItems } from "@/lib/data";
+import { 
+  VideoPlayer, 
+  ArticleHeader, 
+  ArticleContent, 
+  BackButton 
+} from "@/components/sections/creative-detail";
 
 interface CreativeDetailPageProps {
   params: Promise<{
@@ -51,81 +56,13 @@ export default async function CreativeDetailPage({ params }: CreativeDetailPageP
       
       <Section className="!py-0 relative z-10">
         <Container>
-          {/* Back Button */}
-          <div className="w-full mb-6">
-            <Link 
-              href="/creative" 
-              className="inline-flex items-center gap-2 text-bone-mute hover:text-accent font-label-mono text-[12px] uppercase tracking-wider transition-colors"
-            >
-              <span aria-hidden="true">←</span>
-              Back
-            </Link>
-          </div>
-
-          {/* Video Player */}
-          <div 
-            className="mx-auto aspect-video bg-black mb-12 overflow-hidden rounded-none border border-stroke/50 shadow-2xl"
-            style={{ width: "100%", maxWidth: "calc(82vh * 1.777)" }}
-          >
-            {videoId ? (
-              <iframe
-                width="100%"
-                height="100%"
-                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                title={item.title}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-bone-mute">
-                Video unavailable
-              </div>
-            )}
-          </div>
+          <BackButton href="/creative" />
+          <VideoPlayer videoId={videoId} title={item.title} />
 
           {/* Content Area */}
           <div className="max-w-4xl mx-auto flex flex-col gap-6">
-            <div className="flex items-center gap-4">
-              <span className="bg-accent text-black px-3 py-1 font-label-mono text-[12px] uppercase tracking-wider font-bold">
-                {item.type}
-              </span>
-              <span className="text-bone-mute font-label-mono text-[12px] uppercase tracking-wider">
-                {item.publishDate}
-              </span>
-              {item.duration && (
-                <span className="text-bone-mute font-label-mono text-[12px] uppercase tracking-wider border border-stroke px-2 py-0.5 rounded">
-                  {item.duration}
-                </span>
-              )}
-            </div>
-
-            <h1 className="font-display text-[32px] md:text-[48px] leading-[1.1] text-bone tracking-tight">
-              {item.title}
-            </h1>
-
-            <div className="flex items-center gap-3 text-bone-mute font-body text-sm mt-2">
-              <span>By {item.author}</span>
-            </div>
-
-            <div className="h-px w-full bg-stroke my-4"></div>
-
-            <div className="prose prose-invert prose-lg max-w-none">
-              <p className="text-bone font-body leading-relaxed text-lg">
-                {item.description}
-              </p>
-              
-              {/* Placeholder for an extended article if needed */}
-              <div className="mt-8 text-bone-mute font-body leading-relaxed space-y-4">
-                <p>
-                  This session delves deeply into the core principles of building robust and scalable systems. We cover practical patterns that teams can adopt immediately to improve their software architecture and developer experience.
-                </p>
-                <p>
-                  As organizations grow, the complexity of maintaining codebases often scales exponentially. By embracing modern paradigms and carefully managing technical debt, teams can maintain velocity without sacrificing quality.
-                </p>
-              </div>
-            </div>
+            <ArticleHeader item={item} />
+            <ArticleContent description={item.description} />
           </div>
         </Container>
       </Section>
