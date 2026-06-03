@@ -48,7 +48,7 @@ export function CreativeGallery({ items }: CreativeGalleryProps) {
                 aria-pressed={isActive}
                 onClick={() => setActiveFilter(filter)}
                 className={cn(
-                  "relative px-5 md:px-6 py-2 md:py-2.5 text-[10px] md:text-[11px] font-label-mono uppercase tracking-[0.15em] transition-all duration-300 rounded-full border",
+                  "relative px-5 md:px-6 py-2 md:py-2.5 text-[10px] md:text-[11px] font-label-mono uppercase tracking-[0.15em] transition-all duration-300 rounded-none border",
                   isActive
                     ? "bg-accent text-black border-accent font-bold shadow-[0_0_15px_rgba(200,255,0,0.2)]"
                     : "bg-transparent text-bone-mute border-stroke hover:text-bone hover:border-bone-mute hover:bg-[#1a1a1a]"

@@ -11,6 +11,7 @@ export type CreativeCardProps = CreativeItem & {
 };
 
 export function CreativeCard({
+  id,
   title,
   description,
   type,
@@ -25,9 +26,7 @@ export function CreativeCard({
 
   return (
     <Link
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={`/creative/${id}`}
       className={cn(
         "group flex flex-col w-full bg-transparent hover:bg-[#1a1a1a] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 relative z-10 h-full overflow-hidden rounded-none",
         className
