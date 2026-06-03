@@ -9,14 +9,14 @@ export function ArticleHeader({ item }: ArticleHeaderProps) {
   return (
     <>
       <div className="flex items-center gap-4">
-        <span className="bg-accent text-black px-3 py-1 font-label-mono text-[12px] uppercase tracking-wider font-bold">
+        <span className="bg-accent text-black px-3 py-1 font-label-mono text-label-mono uppercase tracking-[0.22em] font-bold">
           {item.type}
         </span>
-        <span className="text-bone-mute font-label-mono text-[12px] uppercase tracking-wider">
+        <span className="text-bone-mute font-label-mono text-label-mono uppercase tracking-[0.22em]">
           {item.publishDate}
         </span>
         {item.duration && (
-          <span className="text-bone-mute font-label-mono text-[12px] uppercase tracking-wider border border-stroke px-2 py-0.5 rounded">
+          <span className="text-bone-mute font-label-mono text-label-mono uppercase tracking-[0.22em] border border-stroke px-2 py-0.5 rounded">
             {item.duration}
           </span>
         )}
