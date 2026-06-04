@@ -40,7 +40,7 @@ const ORBIT_NODES = [
 
 export function ProjectsHero() {
   return (
-    <section className="relative w-full overflow-hidden border-b border-stroke pt-36 pb-0">
+    <section className="relative w-full overflow-hidden pt-36 pb-0">
       {/* Subtle background grid */}
       <div
         aria-hidden="true"

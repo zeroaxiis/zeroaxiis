@@ -4,7 +4,6 @@ import { Reveal } from "@/components/ui/reveal";
 import { projects, openSourceTools } from "@/lib/data";
 import { ProjectsHero } from "@/components/sections/projects-hero";
 import { ProjectsClientSection } from "@/components/sections/projects-client-section";
-import { ProjectsCTAStrip } from "@/components/sections/projects-cta-strip";
 
 export const metadata = {
   title: "Projects – Client Work | Zeroaxiis",
@@ -26,9 +25,6 @@ export default function ProjectsPage() {
         />
         <ProjectsClientSection projects={projects} />
       </Container>
-
-      {/* ── CTA strip: "Have a project in mind?" ── */}
-      <ProjectsCTAStrip />
 
       {/* ── Open source section (untouched) ── */}
       <Container className="relative pt-24 pb-40">
