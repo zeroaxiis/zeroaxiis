@@ -14,6 +14,14 @@ export type WorkflowStep = {
   highlight?: boolean;
 };
 
+export type ProjectCategory =
+  | "all"
+  | "web-applications"
+  | "mobile-apps"
+  | "platforms"
+  | "tools-systems"
+  | "others";
+
 export type Project = {
   title: string;
   description: string;
@@ -24,6 +32,8 @@ export type Project = {
   colSpan?: string;
   height?: string;
   href?: string;
+  category?: ProjectCategory;
+  categoryLabel?: string;
 };
 
 export type Contributor = {
