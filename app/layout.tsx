@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { TopBar } from "@/components/layout/top-bar";
 import { ScrollReset } from "@/components/layout/scroll-reset";
-import { Preloader } from "@/components/ui/preloader";
+import { InlinePreloader } from "@/components/layout/inline-preloader";
 
 export const metadata: Metadata = {
   title: {
@@ -54,7 +54,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Preloader />
+        <InlinePreloader />
         <ScrollReset />
         <TopBar />
         <Header />
