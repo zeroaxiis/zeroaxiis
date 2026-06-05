@@ -4,26 +4,8 @@ import { Reveal } from "@/components/ui/reveal";
 import React from "react";
 import styles from "./cta.module.css";
 
-// Path geometry — viewBox 1000x500. Two parallel paths converge through a
-// diamond in the middle so the request can split into Concept / Engineering
-// then re-merge at Triage. Tightened to match arrival-delay math below.
-const PATHS = {
-  bg: "M 120 120 L 120 300 L 440 300 L 440 180 L 690 180 L 690 300 L 960 300 M 440 300 L 440 420 L 690 420 L 690 300",
-  flow1:
-    "M 120 120 L 120 300 L 440 300 L 440 180 L 690 180 L 690 300 L 960 300",
-  flow2:
-    "M 120 120 L 120 300 L 440 300 L 440 420 L 690 420 L 690 300 L 960 300",
-};
-
-// Single shared timeline. 7s active travel + 3s hold = 10s loop.
-const CYCLE_SECONDS = 10;
-const TRAVEL_FRACTION = 0.7;
-
-// Each node's arrival expressed as 0..1 along the active travel window.
-// Multiplied by (TRAVEL_FRACTION * CYCLE_SECONDS) = 7s to get real seconds.
-// Keeps box-pulse delays locked to mask-glow arrival.
-const tt = (arrival: number) =>
-  `${(arrival * TRAVEL_FRACTION * CYCLE_SECONDS).toFixed(2)}s`;
+const PATH_1 = "M 140 80 L 140 180 L 510 180 L 510 80 L 810 80 L 810 180 L 960 180";
+const PATH_2 = "M 510 180 L 510 280 L 810 280 L 810 180";
 
 type NodeKind = "client" | "brand" | "step";
 
@@ -35,23 +17,77 @@ const NODES: Array<{
   x: number;
   y: number;
   delay: string;
+  description: string;
 }> = [
-  { id: "request", label: "Your Req", icon: "client", kind: "client", x: 120, y: 120, delay: tt(0) },
-  { id: "zero", label: "ZeroAxiis", icon: "brand", kind: "brand", x: 120, y: 300, delay: tt(0.15) },
-  { id: "ideate", label: "Ideate", icon: "description", kind: "step", x: 320, y: 300, delay: tt(0.3) },
-  { id: "concept", label: "Concept", icon: "lightbulb", kind: "step", x: 565, y: 180, delay: tt(0.55) },
-  { id: "engineering", label: "Engineering", icon: "code_blocks", kind: "step", x: 565, y: 420, delay: tt(0.55) },
-  { id: "triage", label: "Triage", icon: "sync", kind: "step", x: 810, y: 300, delay: tt(0.82) },
-  { id: "client", label: "Client", icon: "client", kind: "client", x: 960, y: 300, delay: tt(1) },
-];
+    {
+      id: "request",
+      label: "Client",
+      icon: "client",
+      kind: "client",
+      x: 140,
+      y: 80,
+      delay: "1.0s",
+      description: "Request lands — the brief drops in.",
+    },
+    {
+      id: "zero",
+      label: "ZeroAxiis",
+      icon: "brand",
+      kind: "brand",
+      x: 140,
+      y: 180,
+      delay: "3.5s",
+      description: "Studio scopes, owns, and queues the work.",
+    },
+    {
+      id: "ideate",
+      label: "Ideate",
+      icon: "description",
+      kind: "step",
+      x: 360,
+      y: 180,
+      delay: "6.0s",
+      description: "Architecture mapped. Scope locked.",
+    },
+    {
+      id: "engineering",
+      label: "Build",
+      icon: "code_blocks",
+      kind: "step",
+      x: 660,
+      y: 80,
+      delay: "8.5s",
+      description: "Code written, reviewed, deployed.",
+    },
+    {
+      id: "triage",
+      label: "Triage",
+      icon: "sync",
+      kind: "step",
+      x: 660,
+      y: 280,
+      delay: "8.5s",
+      description: "Polished, hardened, ready to ship.",
+    },
+    {
+      id: "delivery",
+      label: "Delivery",
+      icon: "client",
+      kind: "client",
+      x: 960,
+      y: 180,
+      delay: "11.0s",
+      description: "Shipped — documented, monitored, supported.",
+    },
+  ];
 
 function NodeMark({ kind }: { kind: NodeKind }) {
   if (kind === "client") {
     return (
       <svg
         viewBox="0 0 20 20"
-        width="16"
-        height="16"
+        width="14"
+        height="14"
         aria-hidden="true"
         className={styles.markIcon}
       >
@@ -70,8 +106,8 @@ function NodeMark({ kind }: { kind: NodeKind }) {
     return (
       <svg
         viewBox="0 0 20 20"
-        width="16"
-        height="16"
+        width="14"
+        height="14"
         aria-hidden="true"
         className={`${styles.markIcon} ${styles.markIconBrand}`}
       >
@@ -101,125 +137,102 @@ export function CTA() {
             <span className="italic text-bone-dim">to scale.</span>
           </h2>
           <p className="mt-6 font-body-md text-body-md text-bone-mute max-w-2xl">
-            Every engagement travels the same four rituals — stripped of
+            Every engagement travels the same six rituals — stripped of
             ceremony, shaped by craft. Watch a request move.
           </p>
         </Reveal>
 
-        <div className="w-full overflow-x-auto pb-12 custom-scrollbar">
-          <div className={`${styles.canvas} relative w-[1000px] min-w-[1000px] h-[500px] mx-auto`}>
+        <div className="w-full overflow-x-auto pb-8 custom-scrollbar">
+          <div
+            className={`${styles.canvas} relative w-[1100px] min-w-[1100px] h-[360px] mx-auto`}
+          >
             <svg
               aria-hidden="true"
               className="absolute inset-0 w-full h-full"
-              viewBox="0 0 1000 500"
+              viewBox="0 0 1100 360"
             >
-              <defs>
-                <radialGradient id="cta-mask-glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="white" stopOpacity="1" />
-                  <stop offset="55%" stopColor="white" stopOpacity="0.55" />
-                  <stop offset="100%" stopColor="white" stopOpacity="0" />
-                </radialGradient>
-
-                <mask id="cta-glow-mask-1">
-                  <circle r="80" fill="url(#cta-mask-glow)">
-                    <animateMotion
-                      dur={`${CYCLE_SECONDS}s`}
-                      repeatCount="indefinite"
-                      keyPoints="0;1;1"
-                      keyTimes="0;0.7;1"
-                      calcMode="linear"
-                    >
-                      <mpath href="#cta-flow-1" />
-                    </animateMotion>
-                    <animate
-                      attributeName="opacity"
-                      values="1;1;0;0"
-                      keyTimes="0;0.7;0.75;1"
-                      dur={`${CYCLE_SECONDS}s`}
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                </mask>
-                <mask id="cta-glow-mask-2">
-                  <circle r="80" fill="url(#cta-mask-glow)">
-                    <animateMotion
-                      dur={`${CYCLE_SECONDS}s`}
-                      repeatCount="indefinite"
-                      keyPoints="0;1;1"
-                      keyTimes="0;0.7;1"
-                      calcMode="linear"
-                    >
-                      <mpath href="#cta-flow-2" />
-                    </animateMotion>
-                    <animate
-                      attributeName="opacity"
-                      values="1;1;0;0"
-                      keyTimes="0;0.7;0.75;1"
-                      dur={`${CYCLE_SECONDS}s`}
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                </mask>
-
-                <path id="cta-flow-1" d={PATHS.flow1} />
-                <path id="cta-flow-2" d={PATHS.flow2} />
-              </defs>
-
-              {/* Base rail — subtle dashed guide. */}
               <path
-                d={PATHS.bg}
-                stroke="rgba(245,241,232,0.14)"
+                d={PATH_1}
+                stroke="rgba(245,241,232,0.18)"
                 strokeWidth="1.5"
-                strokeDasharray="5 7"
                 fill="none"
-                strokeLinecap="round"
-              />
-
-              {/* Lit rail beneath the mask — shows only inside the glow halo. */}
-              <path
-                d={PATHS.flow1}
-                stroke="#c8ff00"
-                strokeWidth="2.2"
-                strokeDasharray="5 7"
-                fill="none"
-                strokeLinecap="round"
-                mask="url(#cta-glow-mask-1)"
               />
               <path
-                d={PATHS.flow2}
-                stroke="#c8ff00"
-                strokeWidth="2.2"
-                strokeDasharray="5 7"
+                d={PATH_2}
+                stroke="rgba(245,241,232,0.18)"
+                strokeWidth="1.5"
                 fill="none"
-                strokeLinecap="round"
-                mask="url(#cta-glow-mask-2)"
               />
 
-              {/* Path endpoint markers. */}
-              <circle cx="120" cy="120" r="3" fill="#c8ff00" opacity="0.6" />
-              <circle cx="960" cy="300" r="3" fill="#c8ff00" opacity="0.6" />
+              {[0, 1, 2, 3].map((layer) => (
+                <React.Fragment key={`trace1-${layer}`}>
+                  <path
+                    d={PATH_1}
+                    stroke="rgba(200,255,0,0.32)"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray="40 9999"
+                    className={`${styles.traceHalo} ${styles[`traceHaloLayer${layer}`]} ${styles[`trace1_${layer}`]}`}
+                  />
+                  <path
+                    d={PATH_1}
+                    stroke="#c8ff00"
+                    strokeWidth="2.2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray="40 9999"
+                    className={`${styles.trace} ${styles[`traceLayer${layer}`]} ${styles[`trace1_${layer}`]}`}
+                  />
+                </React.Fragment>
+              ))}
+
+              {[0, 1, 2, 3].map((layer) => (
+                <React.Fragment key={`trace2-${layer}`}>
+                  <path
+                    d={PATH_2}
+                    stroke="rgba(200,255,0,0.32)"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray="40 9999"
+                    className={`${styles.traceHalo} ${styles[`traceHaloLayer${layer}`]} ${styles[`trace2_${layer}`]}`}
+                  />
+                  <path
+                    d={PATH_2}
+                    stroke="#c8ff00"
+                    strokeWidth="2.2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray="40 9999"
+                    className={`${styles.trace} ${styles[`traceLayer${layer}`]} ${styles[`trace2_${layer}`]}`}
+                  />
+                </React.Fragment>
+              ))}
             </svg>
 
             {NODES.map((node) => (
               <div
                 key={node.id}
-                className={`${styles.unifiedNode} ${
-                  node.kind === "brand" ? styles.unifiedNodeBrand : ""
-                } ${node.kind === "client" ? styles.unifiedNodeClient : ""}`}
+                className={`${styles.unifiedNode} ${node.kind === "brand" ? styles.unifiedNodeBrand : ""
+                  } ${node.kind === "client" ? styles.unifiedNodeClient : ""}`}
                 style={
                   {
-                    left: node.x,
-                    top: node.y,
+                    left: `${(node.x / 1100) * 100}%`,
+                    top: `${(node.y / 360) * 100}%`,
                     "--delay": node.delay,
                   } as React.CSSProperties
                 }
               >
-                {node.kind === "step" ? (
-                  <span className="material-symbols-outlined">{node.icon}</span>
-                ) : (
-                  <NodeMark kind={node.kind} />
-                )}
-                <span>{node.label}</span>
+                <div className={styles.nodeHead}>
+                  {node.kind === "step" ? (
+                    <span className="material-symbols-outlined">{node.icon}</span>
+                  ) : (
+                    <NodeMark kind={node.kind} />
+                  )}
+                  <span>{node.label}</span>
+                </div>
+                <div className={styles.nodeBody}>{node.description}</div>
               </div>
             ))}
           </div>

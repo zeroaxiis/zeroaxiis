@@ -12,83 +12,491 @@
   background-size: 64px 64px;
   opacity: 0.5;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black 70%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black 70%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to bottom,
+      black 0%,
+      black 70%,
+      transparent 100%);
+  mask-image: linear-gradient(to bottom,
+      black 0%,
+      black 70%,
+      transparent 100%);
 }
 
-/* Synced with cta.tsx CYCLE_SECONDS (10s) and TRAVEL_FRACTION (0.7).
-   Pulse window opens at --delay (= arrival of mask glow at this node)
-   and lasts ~0.6s, then snaps back. Sharp on-pulse, gentle relax. */
+@keyframes traceMove1_0 {
+  0% {
+    stroke-dashoffset: 80;
+  }
+
+  6.66% {
+    stroke-dashoffset: 40;
+  }
+
+  23.33% {
+    stroke-dashoffset: -60;
+  }
+
+  40% {
+    stroke-dashoffset: -280;
+  }
+
+  48.33% {
+    stroke-dashoffset: -430;
+  }
+
+  56.66% {
+    stroke-dashoffset: -680;
+  }
+
+  67.08% {
+    stroke-dashoffset: -930;
+  }
+
+  73.33% {
+    stroke-dashoffset: -1080;
+  }
+
+  100% {
+    stroke-dashoffset: -1360;
+  }
+}
+
+@keyframes traceMove1_1 {
+  0% {
+    stroke-dashoffset: 120;
+  }
+
+  6.66% {
+    stroke-dashoffset: 80;
+  }
+
+  23.33% {
+    stroke-dashoffset: -20;
+  }
+
+  40% {
+    stroke-dashoffset: -240;
+  }
+
+  48.33% {
+    stroke-dashoffset: -390;
+  }
+
+  56.66% {
+    stroke-dashoffset: -640;
+  }
+
+  67.08% {
+    stroke-dashoffset: -890;
+  }
+
+  73.33% {
+    stroke-dashoffset: -1040;
+  }
+
+  100% {
+    stroke-dashoffset: -1320;
+  }
+}
+
+@keyframes traceMove1_2 {
+  0% {
+    stroke-dashoffset: 160;
+  }
+
+  6.66% {
+    stroke-dashoffset: 120;
+  }
+
+  23.33% {
+    stroke-dashoffset: 20;
+  }
+
+  40% {
+    stroke-dashoffset: -200;
+  }
+
+  48.33% {
+    stroke-dashoffset: -350;
+  }
+
+  56.66% {
+    stroke-dashoffset: -600;
+  }
+
+  67.08% {
+    stroke-dashoffset: -850;
+  }
+
+  73.33% {
+    stroke-dashoffset: -1000;
+  }
+
+  100% {
+    stroke-dashoffset: -1280;
+  }
+}
+
+@keyframes traceMove1_3 {
+  0% {
+    stroke-dashoffset: 200;
+  }
+
+  6.66% {
+    stroke-dashoffset: 160;
+  }
+
+  23.33% {
+    stroke-dashoffset: 60;
+  }
+
+  40% {
+    stroke-dashoffset: -160;
+  }
+
+  48.33% {
+    stroke-dashoffset: -310;
+  }
+
+  56.66% {
+    stroke-dashoffset: -560;
+  }
+
+  67.08% {
+    stroke-dashoffset: -810;
+  }
+
+  73.33% {
+    stroke-dashoffset: -960;
+  }
+
+  100% {
+    stroke-dashoffset: -1240;
+  }
+}
+
+@keyframes traceMove2_0 {
+  0% {
+    stroke-dashoffset: 550;
+  }
+
+  6.66% {
+    stroke-dashoffset: 510;
+  }
+
+  23.33% {
+    stroke-dashoffset: 410;
+  }
+
+  40% {
+    stroke-dashoffset: 190;
+  }
+
+  48.33% {
+    stroke-dashoffset: 40;
+  }
+
+  56.66% {
+    stroke-dashoffset: -210;
+  }
+
+  67.08% {
+    stroke-dashoffset: -460;
+  }
+
+  73.33% {
+    stroke-dashoffset: -610;
+  }
+
+  100% {
+    stroke-dashoffset: -890;
+  }
+}
+
+@keyframes traceMove2_1 {
+  0% {
+    stroke-dashoffset: 590;
+  }
+
+  6.66% {
+    stroke-dashoffset: 550;
+  }
+
+  23.33% {
+    stroke-dashoffset: 450;
+  }
+
+  40% {
+    stroke-dashoffset: 230;
+  }
+
+  48.33% {
+    stroke-dashoffset: 80;
+  }
+
+  56.66% {
+    stroke-dashoffset: -170;
+  }
+
+  67.08% {
+    stroke-dashoffset: -420;
+  }
+
+  73.33% {
+    stroke-dashoffset: -570;
+  }
+
+  100% {
+    stroke-dashoffset: -850;
+  }
+}
+
+@keyframes traceMove2_2 {
+  0% {
+    stroke-dashoffset: 630;
+  }
+
+  6.66% {
+    stroke-dashoffset: 590;
+  }
+
+  23.33% {
+    stroke-dashoffset: 490;
+  }
+
+  40% {
+    stroke-dashoffset: 270;
+  }
+
+  48.33% {
+    stroke-dashoffset: 120;
+  }
+
+  56.66% {
+    stroke-dashoffset: -130;
+  }
+
+  67.08% {
+    stroke-dashoffset: -380;
+  }
+
+  73.33% {
+    stroke-dashoffset: -530;
+  }
+
+  100% {
+    stroke-dashoffset: -810;
+  }
+}
+
+@keyframes traceMove2_3 {
+  0% {
+    stroke-dashoffset: 670;
+  }
+
+  6.66% {
+    stroke-dashoffset: 630;
+  }
+
+  23.33% {
+    stroke-dashoffset: 530;
+  }
+
+  40% {
+    stroke-dashoffset: 310;
+  }
+
+  48.33% {
+    stroke-dashoffset: 160;
+  }
+
+  56.66% {
+    stroke-dashoffset: -90;
+  }
+
+  67.08% {
+    stroke-dashoffset: -340;
+  }
+
+  73.33% {
+    stroke-dashoffset: -490;
+  }
+
+  100% {
+    stroke-dashoffset: -770;
+  }
+}
+
+.trace {
+  filter: drop-shadow(0 0 4px rgba(200, 255, 0, 0.55));
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.traceHalo {
+  filter: blur(2px);
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.traceLayer0 {
+  opacity: 1;
+}
+
+.traceLayer1 {
+  opacity: 0.5;
+}
+
+.traceLayer2 {
+  opacity: 0.2;
+}
+
+.traceLayer3 {
+  opacity: 0.05;
+}
+
+.traceHaloLayer0 {
+  opacity: 0.9;
+}
+
+.traceHaloLayer1 {
+  opacity: 0.4;
+}
+
+.traceHaloLayer2 {
+  opacity: 0.15;
+}
+
+.traceHaloLayer3 {
+  opacity: 0;
+}
+
+.trace1_0 {
+  animation-name: traceMove1_0;
+}
+
+.trace1_1 {
+  animation-name: traceMove1_1;
+}
+
+.trace1_2 {
+  animation-name: traceMove1_2;
+}
+
+.trace1_3 {
+  animation-name: traceMove1_3;
+}
+
+.trace2_0 {
+  animation-name: traceMove2_0;
+}
+
+.trace2_1 {
+  animation-name: traceMove2_1;
+}
+
+.trace2_2 {
+  animation-name: traceMove2_2;
+}
+
+.trace2_3 {
+  animation-name: traceMove2_3;
+}
+
+/* Sequential pulse — each pill ignites at its --delay, holds lit for
+   ~2.5s, then decays. Window per node ≈ 17% of the 15s cycle. */
 @keyframes nodePulse {
+
   0%,
   100% {
     border-color: rgba(245, 241, 232, 0.1);
     box-shadow:
-      0 4px 14px rgba(0, 0, 0, 0.55),
-      0 0 0 1px rgba(245, 241, 232, 0.04) inset;
+      0 10px 24px rgba(0, 0, 0, 0.65),
+      0 1px 0 rgba(245, 241, 232, 0.06) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.7) inset;
   }
+
   1% {
     border-color: #c8ff00;
     box-shadow:
-      0 0 28px rgba(200, 255, 0, 0.55),
-      0 0 0 1px rgba(200, 255, 0, 0.8) inset,
-      0 4px 14px rgba(0, 0, 0, 0.55);
+      0 0 28px rgba(200, 255, 0, 0.6),
+      0 12px 28px rgba(0, 0, 0, 0.7),
+      0 1px 0 rgba(200, 255, 0, 0.5) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.7) inset;
   }
-  6% {
-    border-color: rgba(200, 255, 0, 0.4);
+
+  13% {
+    border-color: #c8ff00;
     box-shadow:
-      0 0 16px rgba(200, 255, 0, 0.18),
-      0 0 0 1px rgba(245, 241, 232, 0.06) inset,
-      0 4px 14px rgba(0, 0, 0, 0.55);
+      0 0 24px rgba(200, 255, 0, 0.4),
+      0 12px 28px rgba(0, 0, 0, 0.7),
+      0 1px 0 rgba(200, 255, 0, 0.35) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.7) inset;
   }
-  10% {
+
+  16% {
     border-color: rgba(245, 241, 232, 0.1);
     box-shadow:
-      0 4px 14px rgba(0, 0, 0, 0.55),
-      0 0 0 1px rgba(245, 241, 232, 0.04) inset;
+      0 10px 24px rgba(0, 0, 0, 0.65),
+      0 1px 0 rgba(245, 241, 232, 0.06) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.7) inset;
   }
 }
 
 @keyframes iconPulse {
+
   0%,
   100% {
     color: rgba(245, 241, 232, 0.78);
-    transform: scale(1);
   }
-  1% {
+
+  1%,
+  13% {
     color: #c8ff00;
-    transform: scale(1.18);
   }
-  5% {
-    color: rgba(200, 255, 0, 0.85);
-    transform: scale(1.04);
-  }
-  10% {
+
+  16% {
     color: rgba(245, 241, 232, 0.78);
-    transform: scale(1);
   }
 }
 
-/* Steady idle blink on brand + client logos — independent of flow timing.
-   Soft accent-color flash every 3s to signal "live". */
+/* Body grows inside pill — opens 0.3s after pulse fires, holds ~2s,
+   collapses smoothly. Synced to nodePulse window. */
+@keyframes bodyReveal {
+
+  0%,
+  2%,
+  16%,
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    padding-top: 0;
+    border-top-color: transparent;
+  }
+
+  5%,
+  13% {
+    opacity: 1;
+    max-height: 100px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top-color: rgba(200, 255, 0, 0.22);
+  }
+}
+
+/* Idle blink on brand/client glyphs */
 @keyframes markBlink {
+
   0%,
   46%,
   54%,
   100% {
-    opacity: 0.85;
+    opacity: 0.88;
     filter: drop-shadow(0 0 0 transparent);
   }
+
   48%,
   52% {
     opacity: 1;
@@ -96,74 +504,106 @@
   }
 }
 
-/* Base node */
+/* 2.5D pill — gradient depth, dual inset highlights, soft drop shadow.
+   transform-origin top so body growth doesn't shift the head off the path. */
 .unifiedNode {
   position: absolute;
   transform: translate(-50%, -50%);
+  transform-origin: 50% 0;
   z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(
-    180deg,
-    rgba(18, 18, 18, 0.92) 0%,
-    rgba(10, 10, 10, 0.92) 100%
-  );
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  background: linear-gradient(180deg,
+      rgba(28, 28, 28, 0.96) 0%,
+      rgba(14, 14, 14, 0.96) 50%,
+      rgba(8, 8, 8, 0.96) 100%);
   border: 1px solid rgba(245, 241, 232, 0.1);
   color: rgba(245, 241, 232, 0.88);
-  padding: 11px 16px;
-  border-radius: 2px;
+  padding: 11px 14px;
+  border-radius: 4px;
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(245, 241, 232, 0.04) inset;
-  white-space: nowrap;
-  animation-name: nodePulse;
-  animation-duration: 10s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  animation-delay: var(--delay, 0s);
+    0 10px 24px rgba(0, 0, 0, 0.65),
+    0 1px 0 rgba(245, 241, 232, 0.06) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.7) inset;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
+  animation-name: nodePulse;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-delay: var(--delay, 0s);
 }
 
 .unifiedNode :global(.material-symbols-outlined) {
   color: rgba(245, 241, 232, 0.88);
   font-size: 16px;
-  display: inline-block;
   animation-name: iconPulse;
-  animation-duration: 10s;
+  animation-duration: 15s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-delay: var(--delay, 0s);
 }
 
-/* Brand + client variants — accent border tint, branded logo color */
 .unifiedNodeBrand {
   border-color: rgba(200, 255, 0, 0.32);
-  background: linear-gradient(
-    180deg,
-    rgba(28, 32, 8, 0.85) 0%,
-    rgba(10, 10, 10, 0.92) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(34, 38, 12, 0.94) 0%,
+      rgba(16, 18, 8, 0.95) 50%,
+      rgba(8, 8, 8, 0.96) 100%);
 }
 
 .unifiedNodeClient {
   border-color: rgba(245, 241, 232, 0.18);
 }
 
-/* Bare inline SVG icons — same treatment as Material Symbols glyphs. */
+.nodeHead {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);
+}
+
+.nodeBody {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  text-transform: none;
+  color: rgba(245, 241, 232, 0.72);
+  text-align: center;
+  border-top: 1px solid transparent;
+  overflow: hidden;
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  padding-top: 0;
+  animation-name: bodyReveal;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-delay: var(--delay, 0s);
+}
+
+/* 2.5D glyph — soft drop shadow + inner glow gives raised look. */
 .markIcon {
   color: rgba(245, 241, 232, 0.88);
   display: inline-block;
   flex-shrink: 0;
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.6)) drop-shadow(0 0 2px rgba(245, 241, 232, 0.15));
   animation: markBlink 3s ease-in-out infinite;
 }
 
 .markIconBrand {
   color: #c8ff00;
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.6)) drop-shadow(0 0 4px rgba(200, 255, 0, 0.4));
   animation-duration: 2.4s;
 }
