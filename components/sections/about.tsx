@@ -49,7 +49,7 @@ export function About() {
               </div>
 
               <h2 className="font-display text-[clamp(40px,5vw,72px)] leading-[0.95] text-bone tracking-tight">
-                The systems behind tomorrow's <br className="hidden lg:block" />
+                The systems behind tomorrow&rsquo;s <br className="hidden lg:block" />
                 <span className="font-serif italic text-accent font-light">digital ecosystems.</span>
               </h2>
 

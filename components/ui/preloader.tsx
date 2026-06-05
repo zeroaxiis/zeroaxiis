@@ -5,16 +5,52 @@ import { useEffect, useRef, useState } from "react";
 const ACCENT = "#c8ff00";
 const BONE = "#f5f1e8";
 
-// Timeline (absolute ms) — text + ring fade in together
+// Phase A — fixed intro timeline (ms).
 const T_INTRO = [0, 760] as const;
 const T_RING_IN = T_INTRO;
 const T_COLOR_SHIFT = [1500, 2200] as const;
 const T_BUILDUP = [2200, 3260] as const;
-const T_TEXT_OUT = [2200, 3050] as const;
-const ZOOM_START = 3260;
-const ZOOM_END = ZOOM_START + 350; // post-logo zoom-out = 0.35s
-const T_HOLE_OPEN = [ZOOM_START, ZOOM_START + 180] as const;
-const TOTAL_MS = ZOOM_END;
+const BUILDUP_END = T_BUILDUP[1];
+
+// Phase C — zoom phase length.
+const ZOOM_DUR = 350;
+const HOLE_OPEN_DUR = 180;
+
+// Floor on total perceived load — prevents the loader from disappearing
+// instantly if landing page is already cached.
+const MIN_HOLD_AFTER_BUILDUP = 600;
+
+// Detect constrained runtime — drop the 3D sphere, throttle the loop, skip
+// expensive glow filters. Pure render-time check, no SSR mismatch since we
+// only consult this after first client paint.
+function detectLowPower(): boolean {
+  if (typeof window === "undefined") return false;
+  const reducedMotion = window.matchMedia?.(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  if (reducedMotion) return true;
+  const nav = window.navigator as Navigator & {
+    deviceMemory?: number;
+    hardwareConcurrency?: number;
+    connection?: { saveData?: boolean; effectiveType?: string };
+  };
+  if (nav.deviceMemory !== undefined && nav.deviceMemory <= 4) return true;
+  if (nav.hardwareConcurrency !== undefined && nav.hardwareConcurrency <= 4)
+    return true;
+  if (nav.connection?.saveData) return true;
+  if (
+    nav.connection?.effectiveType &&
+    /(2g|slow-2g)/.test(nav.connection.effectiveType)
+  )
+    return true;
+  // Pointer-coarse + small viewport = phone/tablet.
+  if (
+    window.matchMedia?.("(pointer: coarse)").matches &&
+    window.innerWidth < 768
+  )
+    return true;
+  return false;
+}
 
 // Icosahedron vertices (normalized)
 const PHI = (1 + Math.sqrt(5)) / 2;
@@ -69,10 +105,10 @@ const EDGES: Array<[number, number]> = [
   [10, 11],
 ];
 
-const SPHERE_R = 36; // sphere radius inside viewBox 100, sits inside O outer
-const O_OUTER = { rx: 42, ry: 46 }; // serif O — slightly taller than wide
-const O_INNER_START = { rx: 30, ry: 40 }; // thick sides, thinner top/bottom
-const O_INNER_END = { rx: 41, ry: 45 }; // thin uniform ring (sphere silhouette)
+const SPHERE_R = 36;
+const O_OUTER = { rx: 44, ry: 44 };
+const O_INNER_START = { rx: 32, ry: 38 };
+const O_INNER_END = { rx: 43, ry: 43 };
 
 function project(v: [number, number, number], ry: number, rx: number) {
   let [x, y, z] = v;
@@ -123,39 +159,147 @@ function buildOPath(innerRx: number, innerRy: number): string {
   ].join(" ");
 }
 
+type Phase = "intro" | "hold" | "zoom";
+type AnimState = {
+  phase: Phase;
+  tIntro: number;
+  tHold: number;
+  tZoom: number;
+};
+
 export function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
-  const [p, setP] = useState(0);
+  const [anim, setAnim] = useState<AnimState>({
+    phase: "intro",
+    tIntro: 0,
+    tHold: 0,
+    tZoom: 0,
+  });
+  const [lowPower] = useState(() => detectLowPower());
+  const [loadComplete, setLoadComplete] = useState(false);
+  const loadCompleteRef = useRef(false);
   const [holeBasePx, setHoleBasePx] = useState(40);
   const slotRef = useRef<HTMLSpanElement>(null);
 
+  // Track real landing-page load — we hold the preloader until both the
+  // window `load` event and `document.fonts.ready` have resolved.
   useEffect(() => {
+    let cancelled = false;
+    const markDone = () => {
+      if (cancelled) return;
+      loadCompleteRef.current = true;
+      setLoadComplete(true);
+    };
+
+    const fontsReady = document.fonts?.ready
+      ? document.fonts.ready.then(() => {})
+      : Promise.resolve();
+
+    const windowLoaded = new Promise<void>((res) => {
+      if (document.readyState === "complete") {
+        res();
+        return;
+      }
+      const handler = () => res();
+      window.addEventListener("load", handler, { once: true });
+    });
+
+    Promise.all([fontsReady, windowLoaded]).then(markDone);
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Scroll lock — separate from the rAF loop so cleanup runs the moment
+  // isLoading flips, not just on full unmount. Without this, the preloader
+  // component stays mounted (in the root layout) after returning null and
+  // body overflow stays "hidden" forever — scroll dead until full reload.
+  useEffect(() => {
+    if (!isLoading) {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      return;
+    }
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
     let raf = 0;
     let cancelled = false;
-    const startLoop = () => {
+    const start = performance.now();
+
+    // Local mutable state — committed to React via setAnim each tick.
+    let phase: Phase = "intro";
+    let holdStart = 0;
+    let tZoom = 0;
+    let lastNow = start;
+    let lastCommit = 0;
+    // Low-power devices repaint every ~33ms; capable devices every frame.
+    const commitInterval = lowPower ? 33 : 0;
+
+    const loop = (now: number) => {
       if (cancelled) return;
-      const start = performance.now();
-      const loop = (now: number) => {
-        const t = Math.min(1, (now - start) / TOTAL_MS);
-        setP(t);
-        if (t < 1) raf = requestAnimationFrame(loop);
-        else window.setTimeout(() => setIsLoading(false), 80);
-      };
+      const dt = now - lastNow;
+      lastNow = now;
+
+      let tIntro = 0;
+      let tHold = 0;
+
+      if (phase === "intro") {
+        tIntro = Math.min(BUILDUP_END, now - start);
+        if (tIntro >= BUILDUP_END) {
+          phase = "hold";
+          holdStart = now;
+        }
+      } else if (phase === "hold") {
+        tIntro = BUILDUP_END;
+        tHold = now - holdStart;
+        const minDone = tHold >= MIN_HOLD_AFTER_BUILDUP;
+        if (loadCompleteRef.current && minDone) {
+          phase = "zoom";
+          tZoom = 0;
+        }
+      } else {
+        tIntro = BUILDUP_END;
+        tHold = now - holdStart;
+        tZoom += dt;
+        if (tZoom >= ZOOM_DUR + 80) {
+          setIsLoading(false);
+          return;
+        }
+      }
+
+      if (now - lastCommit >= commitInterval) {
+        lastCommit = now;
+        setAnim({ phase, tIntro, tHold, tZoom });
+      }
       raf = requestAnimationFrame(loop);
     };
-    // Wait for the display font to load so text + ring appear together
-    if (typeof document !== "undefined" && document.fonts?.ready) {
-      document.fonts.ready.then(startLoop).catch(startLoop);
+
+    const startWhenReady = () => {
+      if (cancelled) return;
+      raf = requestAnimationFrame((t) => {
+        lastNow = t;
+        loop(t);
+      });
+    };
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(startWhenReady).catch(startWhenReady);
     } else {
-      startLoop();
+      startWhenReady();
     }
+
     return () => {
       cancelled = true;
       cancelAnimationFrame(raf);
-      document.body.style.overflow = "";
     };
-  }, []);
+  }, [lowPower]);
 
   // Measure O slot to compute iris hole radius in screen pixels
   useEffect(() => {
@@ -166,7 +310,7 @@ export function Preloader() {
       setHoleBasePx((O_OUTER.ry / 100) * side);
     };
     measure();
-    if (typeof document !== "undefined" && document.fonts?.ready) {
+    if (document.fonts?.ready) {
       document.fonts.ready.then(measure).catch(() => {});
     }
     window.addEventListener("resize", measure);
@@ -175,37 +319,50 @@ export function Preloader() {
 
   if (!isLoading) return null;
 
-  // Timeline (ms-based — zoom phase = 500ms regardless of how earlier phases retune)
-  const tMs = p * TOTAL_MS;
-  const segMs = (a: readonly [number, number]) => seg(tMs, a[0], a[1]);
-  const introIn = easeOut(segMs(T_INTRO));
-  const ringIn = easeOut(segMs(T_RING_IN));
-  const colorShift = easeInOut(segMs(T_COLOR_SHIFT));
-  const buildup = easeOut(segMs(T_BUILDUP));
-  const textOut = easeInOut(segMs(T_TEXT_OUT));
-  const zoom = seg(tMs, ZOOM_START, ZOOM_END);
+  const { phase, tIntro, tHold, tZoom } = anim;
+
+  const segMs = (t: number, a: readonly [number, number]) => seg(t, a[0], a[1]);
+  const introIn = easeOut(segMs(tIntro, T_INTRO));
+  const ringIn = easeOut(segMs(tIntro, T_RING_IN));
+  const colorShift = easeInOut(segMs(tIntro, T_COLOR_SHIFT));
+  const buildup = easeOut(segMs(tIntro, T_BUILDUP));
+
+  // textOut is driven by phase, not intro time — keeps "Zer Axiis" visible
+  // during the hold so the wordmark stays branded while the bar fills.
+  const textOutPhase =
+    phase === "intro"
+      ? easeInOut(segMs(tIntro, [T_BUILDUP[0], T_BUILDUP[1] - 200]))
+      : phase === "hold"
+        ? 1
+        : 1;
+
+  // Zoom progress drives the iris-mask reveal + container scale-up.
+  const zoom = phase === "zoom" ? Math.min(1, tZoom / ZOOM_DUR) : 0;
   const zoomEase = easeInQuart(zoom);
+  const holeOpening =
+    phase === "zoom" ? easeOut(Math.min(1, tZoom / HOLE_OPEN_DUR)) : 0;
 
-  // Freeze SVG properties during the zoom phase so the browser can composite the 50x 
-  // scale transform smoothly without repainting the complex SVG vectors every frame.
-  const tMsSvg = Math.min(tMs, ZOOM_START);
-  const pSvg = tMsSvg / TOTAL_MS;
-
-  const rotProgress = seg(tMsSvg, 1500, ZOOM_END);
-  const rotY = rotProgress * Math.PI * 1.5; // dropped zoomEase rotation to keep SVG static
-  const rotX = -0.32 + Math.sin(pSvg * Math.PI) * 0.06;
+  // Rotation — fixed intro spin, then continuous spin during hold until load
+  // completes. Decouples the rotation from the fixed timeline.
+  const introRot = seg(tIntro, 1500, BUILDUP_END);
+  const baseRotY = introRot * Math.PI * 1.5;
+  const holdRotY =
+    phase === "hold" || phase === "zoom" ? (tHold / 1000) * Math.PI * 0.9 : 0;
+  const rotY = baseRotY + holdRotY;
+  // Subtle wobble on rotX through whole life.
+  const rotX = -0.32 + Math.sin((tIntro + tHold) * 0.0006) * 0.06;
 
   const projected = VERTS.map((v) => project(v, rotY, rotX));
 
   const buildSpan = T_BUILDUP[1] - T_BUILDUP[0];
   const nodeVis = VERTS.map((_, i) => {
     const a = T_BUILDUP[0] + (i / VERTS.length) * buildSpan * 0.4;
-    return easeOut(seg(tMs, a, a + buildSpan * 0.45));
+    return easeOut(seg(tIntro, a, a + buildSpan * 0.45));
   });
   const edgeVis = EDGES.map((_, i) => {
     const a =
       T_BUILDUP[0] + buildSpan * 0.2 + (i / EDGES.length) * buildSpan * 0.5;
-    return easeOut(seg(tMs, a, a + buildSpan * 0.5));
+    return easeOut(seg(tIntro, a, a + buildSpan * 0.5));
   });
 
   const containerScale = 1 + zoomEase * 50;
@@ -213,21 +370,28 @@ export function Preloader() {
   const ringColor = lerpColor(colorShift);
   const ringOpacity = ringIn;
   const baseGlow = colorShift * 0.7 + buildup * 0.35;
-  const bgGlow = Math.max(0, baseGlow * (1 - zoom));
 
   const innerRx = lerp(O_INNER_START.rx, O_INNER_END.rx, buildup);
   const innerRy = lerp(O_INNER_START.ry, O_INNER_END.ry, buildup);
   const oPath = buildOPath(innerRx, innerRy);
 
-  // Iris hole only opens once zoom phase starts — before that the dark backdrop is solid.
-  const holeOpening = easeOut(segMs(T_HOLE_OPEN));
   const holeR = Math.max(0, holeBasePx * containerScale * holeOpening);
   const irisMask = `radial-gradient(circle at center, transparent 0, transparent ${holeR}px, rgba(0,0,0,1) ${holeR + 1}px, rgba(0,0,0,1) 100%)`;
 
+  // Progress bar — eases up to ~90% while waiting for load, snaps to 100%
+  // once load completes. Same UX trick browsers use for indeterminate work.
+  const introCovered = Math.min(1, tIntro / BUILDUP_END);
+  const holdProgress = loadComplete ? 1 : 0.55 + Math.min(0.35, tHold / 4000);
+  const progress =
+    phase === "intro"
+      ? introCovered * 0.45
+      : phase === "hold"
+        ? Math.max(0.45, holdProgress)
+        : 1;
+  const barOpacity = phase === "zoom" ? Math.max(0, 1 - zoom * 1.6) : introIn;
+
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden pointer-events-none">
-      {/* Iris-masked layer: dark backdrop + grain + glow.
-          The radial-gradient mask cuts a hole that grows with the sphere ring. */}
+    <div className="fixed inset-0 z-9999 flex items-center justify-center overflow-hidden pointer-events-none">
       <div
         className="absolute inset-0"
         style={{
@@ -248,29 +412,19 @@ export function Preloader() {
             }}
           />
         )}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            opacity: bgGlow,
-            background:
-              "radial-gradient(circle at center, rgba(200,255,0,0.22) 0%, rgba(200,255,0,0.06) 28%, transparent 60%)",
-          }}
-        />
       </div>
 
-      {/* Wordmark layer — O slot is the viewport-centered element (so it aligns exactly
-          with the iris-mask center). "Zer" and "Axiis" flank it via absolute positioning. */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-10">
         <div
           className="relative text-[60px] md:text-[80px] lg:text-[100px] text-bone tracking-tight leading-none"
           style={{
-            fontFamily: "var(--font-display-sans)",
-            fontWeight: 500,
+            fontFamily: '"Crimson Text", "Instrument Serif", serif',
+            fontWeight: 600,
+            fontStyle: "italic",
             transform: `scale(${containerScale})`,
             transformOrigin: "center center",
           }}
         >
-          {/* O slot — square so the donut centers on the cap-height of the side text */}
           <span
             ref={slotRef}
             className="relative inline-flex items-center justify-center align-middle"
@@ -282,19 +436,19 @@ export function Preloader() {
               preserveAspectRatio="xMidYMid meet"
               aria-hidden="true"
             >
-              {/* Donut "O" letterform — thick sides, thinner top/bottom (serif feel).
-                  Inner ellipse expands during buildup → thin sphere silhouette. */}
               <path
                 d={oPath}
                 fill={ringColor}
                 fillRule="evenodd"
                 fillOpacity={ringOpacity}
                 style={{
-                  filter: (baseGlow > 0.01 && zoom === 0) ? `drop-shadow(0 0 ${6 + baseGlow * 14}px rgba(200,255,0,${baseGlow * 0.75}))` : 'none',
+                  filter:
+                    baseGlow > 0.01 && zoom === 0
+                      ? `drop-shadow(0 0 ${6 + baseGlow * 14}px rgba(200,255,0,${baseGlow * 0.75}))`
+                      : "none",
                 }}
               />
 
-              {/* Sphere edges */}
               {EDGES.map(([a, b], i) => {
                 const pa = projected[a];
                 const pb = projected[b];
@@ -318,7 +472,6 @@ export function Preloader() {
                 );
               })}
 
-              {/* Sphere nodes (back-to-front for proper depth layering) */}
               {projected
                 .map((node, i) => ({ node, i }))
                 .sort((a, b) => a.node.z - b.node.z)
@@ -353,15 +506,14 @@ export function Preloader() {
             </svg>
           </span>
 
-          {/* "Zer" — flanks slot to the left, perfectly outside its bounds */}
           <span
             style={{
               position: "absolute",
               top: "50%",
               right: "100%",
-              opacity: introIn * (1 - textOut),
-              transform: `translate(${-textOut * 90}px, calc(-50% + 0.06em))`,
-              filter: `blur(${textOut * 12}px)`,
+              opacity: introIn * (1 - textOutPhase),
+              transform: `translate(${-textOutPhase * 90}px, calc(-50% + 0.06em))`,
+              filter: `blur(${textOutPhase * 12}px)`,
               whiteSpace: "nowrap",
               willChange: "transform, opacity, filter",
             }}
@@ -369,21 +521,49 @@ export function Preloader() {
             Zer
           </span>
 
-          {/* "Axiis" — flanks slot to the right */}
           <span
             style={{
               position: "absolute",
               top: "50%",
               left: "100%",
-              opacity: introIn * (1 - textOut),
-              transform: `translate(${textOut * 90}px, calc(-50% + 0.06em))`,
-              filter: `blur(${textOut * 12}px)`,
+              opacity: introIn * (1 - textOutPhase),
+              transform: `translate(${textOutPhase * 90}px, calc(-50% + 0.06em))`,
+              filter: `blur(${textOutPhase * 12}px)`,
               whiteSpace: "nowrap",
               willChange: "transform, opacity, filter",
             }}
           >
             Axiis
           </span>
+        </div>
+
+        {/* Progress bar — stacks below wordmark in the same flex column. */}
+        <div
+          className="w-[clamp(180px,22vw,300px)]"
+          style={{ opacity: barOpacity }}
+        >
+        <div className="relative h-[2px] w-full bg-bone/10 overflow-hidden">
+          <div
+            className="absolute inset-y-0 left-0 bg-accent"
+            style={{
+              width: `${progress * 100}%`,
+              transition: "width 220ms cubic-bezier(0.22, 1, 0.36, 1)",
+              boxShadow: "0 0 12px rgba(200,255,0,0.55)",
+            }}
+          />
+        </div>
+        <div
+          className="mt-3 flex items-center justify-between font-mono uppercase"
+          style={{
+            fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+            fontSize: "10px",
+            letterSpacing: "0.28em",
+            color: "rgba(245,241,232,0.5)",
+          }}
+        >
+          <span>Loading</span>
+          <span>{Math.round(progress * 100)}%</span>
+        </div>
         </div>
       </div>
     </div>

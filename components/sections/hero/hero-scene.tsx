@@ -197,8 +197,8 @@ function Globe() {
       let i = 0;
       const velBoost = winVelocity.current * 0.3;
       limeLinesRef.current.traverse((obj) => {
-        const line = obj as any;
-        const mat = line.material;
+        const line = obj as THREE.Line;
+        const mat = line.material as THREE.LineBasicMaterial | undefined;
         if (!mat || !("opacity" in mat)) return;
         const base = 0.7;
         const target = hovered
@@ -335,126 +335,6 @@ function Globe() {
       <mesh ref={orbitRef} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[GLOBE_R + 0.45, 0.001, 6, 200]} />
         <meshBasicMaterial color={DIM} transparent opacity={0.55} />
-      </mesh>
-    </group>
-  );
-}
-
-/** Interactive star — twinkles, drifts, glows + halo on hover */
-function InteractiveStar({
-  position,
-  size,
-}: {
-  position: [number, number, number];
-  size: number;
-}) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const ringRef = useRef<THREE.Mesh>(null);
-  const haloRef = useRef<THREE.Mesh>(null);
-  const [hovered, setHovered] = useState(false);
-  const drift = useRef({
-    phase: Math.random() * Math.PI * 2,
-    speed: 0.3 + Math.random() * 0.6,
-  });
-
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    if (!meshRef.current) return;
-
-    const twinkle =
-      0.55 + Math.sin(t * drift.current.speed + drift.current.phase) * 0.35;
-    const coreMat = meshRef.current.material as THREE.MeshBasicMaterial;
-    coreMat.opacity = THREE.MathUtils.lerp(
-      coreMat.opacity,
-      hovered ? 1 : twinkle,
-      0.18,
-    );
-    const targetScale = hovered ? 4 : 1;
-    meshRef.current.scale.lerp(
-      new THREE.Vector3(targetScale, targetScale, targetScale),
-      0.2,
-    );
-
-    meshRef.current.position.x =
-      position[0] + Math.sin(t * 0.16 + drift.current.phase) * 0.05;
-    meshRef.current.position.y =
-      position[1] + Math.cos(t * 0.13 + drift.current.phase) * 0.05;
-
-    if (ringRef.current) {
-      const ringMat = ringRef.current.material as THREE.MeshBasicMaterial;
-      const ringScale = hovered ? 1.2 + Math.sin(t * 4) * 0.2 : 0.2;
-      ringRef.current.scale.lerp(
-        new THREE.Vector3(ringScale, ringScale, ringScale),
-        0.18,
-      );
-      ringMat.opacity = THREE.MathUtils.lerp(
-        ringMat.opacity,
-        hovered ? 0.9 : 0,
-        0.18,
-      );
-      ringRef.current.position.copy(meshRef.current.position);
-    }
-
-    if (haloRef.current) {
-      const haloMat = haloRef.current.material as THREE.MeshBasicMaterial;
-      const haloScale = hovered ? 1 : 0.001;
-      haloRef.current.scale.lerp(
-        new THREE.Vector3(haloScale, haloScale, haloScale),
-        0.18,
-      );
-      haloMat.opacity = THREE.MathUtils.lerp(
-        haloMat.opacity,
-        hovered ? 0.4 : 0,
-        0.18,
-      );
-      haloRef.current.position.copy(meshRef.current.position);
-    }
-  });
-
-  const onOver = (e: ThreeEvent<PointerEvent>) => {
-    e.stopPropagation();
-    setHovered(true);
-    document.body.style.cursor = "crosshair";
-  };
-  const onOut = () => {
-    setHovered(false);
-    document.body.style.cursor = "";
-  };
-
-  return (
-    <group>
-      <mesh ref={haloRef} position={position}>
-        <sphereGeometry args={[size * 7, 16, 16]} />
-        <meshBasicMaterial
-          color={LIME}
-          transparent
-          opacity={0}
-          depthWrite={false}
-        />
-      </mesh>
-      <mesh ref={ringRef} position={position}>
-        <ringGeometry args={[size * 3.5, size * 4.2, 32]} />
-        <meshBasicMaterial
-          color={LIME}
-          transparent
-          opacity={0}
-          side={THREE.DoubleSide}
-          depthWrite={false}
-        />
-      </mesh>
-      <mesh
-        ref={meshRef}
-        position={position}
-        onPointerOver={onOver}
-        onPointerOut={onOut}
-      >
-        <sphereGeometry args={[size, 10, 10]} />
-        <meshBasicMaterial
-          color={hovered ? LIME : BONE}
-          transparent
-          opacity={0.7}
-          depthWrite={false}
-        />
       </mesh>
     </group>
   );
