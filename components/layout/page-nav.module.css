@@ -16,8 +16,8 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 120px;
-  height: 100vh;
+  width: 56px;
+  height: 70vh;
   z-index: 110;
   display: flex;
   align-items: center;
@@ -61,12 +61,12 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 64px;
+  width: 44px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
-  padding: 22px 14px;
+  gap: 18px;
+  padding: 18px 6px;
   z-index: 2;
   pointer-events: none;
   transition:
@@ -270,14 +270,14 @@
 
 @media (max-width: 768px) {
   .hitbox {
-    width: 72px;
+    width: 40px;
   }
   .open {
     width: 100vw;
   }
   .edge {
-    width: 48px;
-    padding: 16px 10px;
+    width: 36px;
+    padding: 14px 4px;
   }
   .edgeLabel,
   .edgeHint {
