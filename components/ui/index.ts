@@ -15,3 +15,5 @@ export { Magnetic } from "./magnetic";
 export { Marquee } from "./marquee";
 export { TextReveal } from "./text-reveal";
 export { Preloader } from "./preloader";
+export { FooterVisualization } from "./footer-visualization";
+

@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Magnetic } from "@/components/ui/magnetic";
 import ScrollFloat from "@/components/ui/scroll-float";
+import { FooterVisualization } from "@/components/ui/footer-visualization";
 import {
   InstagramIcon,
   TwitterIcon,
@@ -145,19 +146,24 @@ function FooterBrand() {
   // ScrollTrigger positions from the previous page.
   const pathname = usePathname();
   return (
-    <div className="pt-12 pb-4 overflow-hidden">
-      <ScrollFloat
-        key={pathname}
-        animationDuration={1.2}
-        ease="back.inOut(2)"
-        scrollStart="top bottom"
-        scrollEnd="bottom bottom"
-        stagger={0.05}
-        containerClassName="font-display font-normal text-bone w-full"
-        textClassName="text-[clamp(3.5rem,17vw,18rem)] tracking-[-0.05em] leading-[0.85]"
-      >
-        {siteConfig.name.toLowerCase()}
-      </ScrollFloat>
+    <div className="pt-12 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div className="overflow-hidden flex-1">
+        <ScrollFloat
+          key={pathname}
+          animationDuration={1.2}
+          ease="back.inOut(2)"
+          scrollStart="top bottom"
+          scrollEnd="bottom bottom"
+          stagger={0.05}
+          containerClassName="font-display font-normal text-bone w-full"
+          textClassName="text-[clamp(3.5rem,17vw,18rem)] tracking-[-0.05em] leading-[0.85]"
+        >
+          {siteConfig.name.toLowerCase()}
+        </ScrollFloat>
+      </div>
+      <div className="flex items-center justify-end shrink-0 md:pb-5">
+        <FooterVisualization />
+      </div>
     </div>
   );
 }
