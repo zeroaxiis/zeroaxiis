@@ -22,7 +22,7 @@ export function Features() {
               </span>
             </div>
             <h2 className="font-display text-[clamp(40px,6vw,80px)] leading-[0.95] text-bone tracking-[-0.03em]">
-              Where Systems Become{" "}
+              Where Ideas Become{" "}
               <span className="font-serif italic text-accent font-light">Products.</span>
             </h2>
           </div>
