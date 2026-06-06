@@ -9,8 +9,14 @@ export default function HomePage() {
     <>
       <Hero />
       <About />
-      <Features />
-      <CTA />
+      <div className="relative bg-surface-container-lowest overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,black_0%,black_90%,transparent_100%)]"
+        />
+        <Features />
+        <CTA />
+      </div>
       <Testimonials />
     </>
   );

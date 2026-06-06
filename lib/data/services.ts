@@ -3,38 +3,38 @@ import type { Service } from "@/types";
 export const services: Service[] = [
   {
     icon: "terminal",
-    title: "Web Apps",
+    title: "Software Engineering",
     description:
-      "High-performance client interfaces built with modern React ecosystems and edge-rendering capabilities.",
+      "Designing and developing scalable applications, APIs, distributed systems, and digital platforms built for performance and reliability.",
   },
   {
-    icon: "database",
-    title: "Backend Systems",
+    icon: "architecture",
+    title: "Systems Architecture",
     description:
-      "Scalable microservices and monolithic architectures engineered for high throughput and fault tolerance.",
+      "Engineering robust software architectures, data pipelines, integrations, and foundational systems that power modern applications.",
   },
   {
-    icon: "api",
-    title: "API Development",
+    icon: "build",
+    title: "Developer Tooling",
     description:
-      "RESTful and GraphQL interfaces designed with strict typing, versioning, and comprehensive documentation.",
-  },
-  {
-    icon: "code_blocks",
-    title: "DevTools",
-    description:
-      "Internal CLI utilities, automation scripts, and deployment pipelines to accelerate engineering velocity.",
-  },
-  {
-    icon: "cloud",
-    title: "Cloud Infrastructure",
-    description:
-      "Infrastructure as Code (IaC) provisioning, Kubernetes orchestration, and serverless architectures.",
+      "Building automation frameworks, development tools, workflows, and engineering utilities that accelerate product development.",
   },
   {
     icon: "public",
     title: "Open Source",
     description:
-      "Maintenance and contribution to foundational libraries and frameworks powering the modern web.",
+      "Creating and maintaining open technologies that enable developers to build, learn, and innovate more effectively.",
+  },
+  {
+    icon: "science",
+    title: "Research & Development",
+    description:
+      "Exploring emerging technologies, experimental concepts, and advanced engineering solutions to drive future innovation.",
+  },
+  {
+    icon: "cloud",
+    title: "Cloud Infrastructure",
+    description:
+      "Designing and managing secure, scalable, and resilient cloud environments for modern digital systems.",
   },
 ];

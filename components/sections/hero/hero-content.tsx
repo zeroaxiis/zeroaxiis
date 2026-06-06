@@ -46,13 +46,13 @@ export function HeroContent({
         </span>
         <span className={styles.metaCluster}>
           <span className={styles.metaItem}>
-            <strong>EST</strong>2021
+            <strong>EST</strong>2024
           </span>
           <span className={styles.metaItem}>
-            <strong>BASE</strong>Mumbai / Remote
+            <strong>BASE</strong>Terra // Virtual Terra
           </span>
           <span className={styles.metaItem}>
-            <strong>v</strong>4.0
+            <strong>v</strong>1.0
           </span>
         </span>
       </motion.div>

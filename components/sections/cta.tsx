@@ -141,22 +141,24 @@ export function CTA() {
   return (
     <Section
       id="workflow"
-      className="border-t border-stroke relative overflow-hidden"
+      className="relative"
     >
       <Container>
-        <Reveal className="mb-20 max-w-4xl">
-          <p className="font-label-mono text-label-mono text-bone-mute uppercase tracking-[0.22em] mb-5 flex items-center gap-3">
-            <span className="inline-block w-7 h-px bg-accent" />
-            Methodology / 02
-          </p>
-          <h2 className="font-display text-[clamp(40px,6vw,80px)] leading-[0.95] text-bone tracking-[-0.03em] text-balance">
-            From your brief{" "}
-            <span className="italic text-bone-dim">to scale.</span>
-          </h2>
-          <p className="mt-6 font-body-md text-body-md text-bone-mute max-w-2xl">
-            Every engagement travels the same six rituals — stripped of
-            ceremony, shaped by craft. Watch a request move.
-          </p>
+        <Reveal className="mb-20 flex items-end justify-between flex-wrap gap-8">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-6 mb-5">
+              <span className="font-label-mono text-[10px] md:text-[11px] text-accent uppercase tracking-[0.4em]">
+                Execution Protocol
+              </span>
+            </div>
+            <h2 className="font-display text-[clamp(40px,6vw,80px)] leading-[0.95] text-bone tracking-[-0.03em]">
+              From your brief{" "}
+              <span className="font-serif italic text-accent font-light">to scale.</span>
+            </h2>
+          </div>
+          <div className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em] max-w-xs">
+            Every engagement travels the same six rituals — stripped of ceremony, shaped by craft. Watch a request move.
+          </div>
         </Reveal>
 
         <div className="w-full pb-8">
