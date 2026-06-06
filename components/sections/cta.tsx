@@ -4,10 +4,10 @@ import { Reveal } from "@/components/ui/reveal";
 import React from "react";
 import styles from "./cta.module.css";
 
-const PATH_1 = "M 140 80 L 140 180 L 510 180 L 510 80 L 810 80 L 810 180 L 960 180";
+const PATH_1 = "M 140 40 L 140 180 L 510 180 L 510 80 L 810 80 L 810 180 L 960 180";
 const PATH_2 = "M 510 180 L 510 280 L 810 280 L 810 180";
 
-const MOBILE_PATH_1 = "M 200 100 L 200 200 L 200 420 L 200 570 L 300 570 L 300 720 L 300 870 L 200 870 L 200 1020";
+const MOBILE_PATH_1 = "M 200 60 L 200 200 L 200 420 L 200 570 L 300 570 L 300 720 L 300 870 L 200 870 L 200 1020";
 const MOBILE_PATH_2 = "M 200 570 L 100 570 L 100 720 L 100 870 L 200 870";
 
 type NodeKind = "client" | "brand" | "step";
@@ -30,9 +30,9 @@ const NODES: Array<{
       icon: "client",
       kind: "client",
       x: 140,
-      y: 80,
+      y: 40,
       mobile_x: 200,
-      mobile_y: 100,
+      mobile_y: 60,
       delay: "1.0s",
       description: "Request lands — the brief drops in.",
     },
@@ -97,6 +97,26 @@ const NODES: Array<{
       description: "Shipped — documented, monitored, supported.",
     },
   ];
+
+function SocketFootprint({ x, y }: { x: number; y: number }) {
+  const padPositions = Array.from({ length: 12 }).map((_, i) => -55 + i * 10);
+  return (
+    <g transform={`translate(${x}, ${y})`}>
+      {/* Silkscreen component outline */}
+      <rect x="-66" y="-30" width="132" height="60" fill="none" stroke="#ffffff" strokeWidth="1" rx="2" opacity="0.5" />
+      <circle cx="-58" cy="-22" r="2" fill="#ffffff" opacity="0.5" />
+      <path d="M -66 -10 L -58 0 L -66 10" fill="none" stroke="#ffffff" strokeWidth="1" opacity="0.5" /> {/* Notch indicator */}
+
+      {/* Exact ENIG Gold Solder Pads matching 10px pitch */}
+      {padPositions.map(px => (
+        <React.Fragment key={px}>
+          <rect x={px - 2} y="-38" width="4" height="12" fill="#d4af37" rx="1" />
+          <rect x={px - 2} y="26" width="4" height="12" fill="#d4af37" rx="1" />
+        </React.Fragment>
+      ))}
+    </g>
+  );
+}
 
 function NodeMark({ kind }: { kind: NodeKind }) {
   if (kind === "client") {
@@ -171,16 +191,23 @@ export function CTA() {
               className="absolute inset-0 w-full h-full hidden md:block"
               viewBox="0 0 1100 360"
             >
+              <rect width="100%" height="100%" fill="transparent" />
+
+              {/* Sockets */}
+              {NODES.map((node) => (
+                <SocketFootprint key={`socket-desktop-${node.id}`} x={node.x} y={node.y} />
+              ))}
+
               <path
                 d={PATH_1}
-                stroke="rgba(245,241,232,0.18)"
-                strokeWidth="1.5"
+                stroke="rgba(200,255,0,0.15)"
+                strokeWidth="2"
                 fill="none"
               />
               <path
                 d={PATH_2}
-                stroke="rgba(245,241,232,0.18)"
-                strokeWidth="1.5"
+                stroke="rgba(200,255,0,0.15)"
+                strokeWidth="2"
                 fill="none"
               />
 
@@ -238,16 +265,23 @@ export function CTA() {
               viewBox="0 0 400 1100"
               preserveAspectRatio="none"
             >
+              <rect width="100%" height="100%" fill="transparent" />
+
+              {/* Sockets */}
+              {NODES.map((node) => (
+                <SocketFootprint key={`socket-mobile-${node.id}`} x={node.mobile_x} y={node.mobile_y} />
+              ))}
+
               <path
                 d={MOBILE_PATH_1}
-                stroke="rgba(245,241,232,0.18)"
-                strokeWidth="1.5"
+                stroke="rgba(200,255,0,0.15)"
+                strokeWidth="2"
                 fill="none"
               />
               <path
                 d={MOBILE_PATH_2}
-                stroke="rgba(245,241,232,0.18)"
-                strokeWidth="1.5"
+                stroke="rgba(200,255,0,0.15)"
+                strokeWidth="2"
                 fill="none"
               />
 
