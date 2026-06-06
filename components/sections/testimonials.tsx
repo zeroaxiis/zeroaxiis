@@ -274,7 +274,7 @@ export function Testimonials() {
                 <button
                   onClick={() => scrollGSAP("prev")}
                   aria-label="Previous testimonial"
-                  className="group w-12 h-12 rounded-full border border-stroke hover:border-accent hover:shadow-[0_0_12px_var(--color-accent-glow)] transition-[border-color,box-shadow] duration-500 ease-[0.16,1,0.3,1] flex items-center justify-center cursor-pointer relative overflow-hidden bg-transparent"
+                  className="group w-12 h-12 rounded-[50%] border border-stroke hover:border-accent hover:shadow-[0_0_12px_var(--color-accent-glow)] transition-[border-color,box-shadow] duration-500 ease-[0.16,1,0.3,1] flex items-center justify-center cursor-pointer relative overflow-hidden bg-transparent"
                 >
                   {/* Diagonal Sweep Background Overlay */}
                   <div className="absolute inset-y-0 -right-[15%] w-[130%] bg-accent translate-x-full skew-x-12 group-hover:translate-x-0 transition-transform duration-500 ease-[0.16,1,0.3,1] z-0" />
@@ -294,7 +294,7 @@ export function Testimonials() {
                 <button
                   onClick={() => scrollGSAP("next")}
                   aria-label="Next testimonial"
-                  className="group w-12 h-12 rounded-full border border-stroke hover:border-accent hover:shadow-[0_0_12px_var(--color-accent-glow)] transition-[border-color,box-shadow] duration-500 ease-[0.16,1,0.3,1] flex items-center justify-center cursor-pointer relative overflow-hidden bg-transparent"
+                  className="group w-12 h-12 rounded-[50%] border border-stroke hover:border-accent hover:shadow-[0_0_12px_var(--color-accent-glow)] transition-[border-color,box-shadow] duration-500 ease-[0.16,1,0.3,1] flex items-center justify-center cursor-pointer relative overflow-hidden bg-transparent"
                 >
                   {/* Diagonal Sweep Background Overlay */}
                   <div className="absolute inset-y-0 -left-[15%] w-[130%] bg-accent -translate-x-full skew-x-12 group-hover:translate-x-0 transition-transform duration-500 ease-[0.16,1,0.3,1] z-0" />
