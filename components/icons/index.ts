@@ -18,4 +18,4 @@ export {
   FacebookIcon,
 } from "./social";
 
-export { LogoMarkIcon } from "./brand";
+export { LogoMarkIcon, GlobeLogoIcon } from "./brand";

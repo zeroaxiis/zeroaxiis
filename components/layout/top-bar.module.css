@@ -30,7 +30,7 @@
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 18px;
+  gap: 8px;
   color: var(--color-bone);
   text-decoration: none;
   font-family: "Geist", sans-serif;
@@ -41,7 +41,7 @@
 }
 
 .logo > span + span {
-  margin-left: 4px;
+  margin-left: 0;
 }
 
 .logo .status {
