@@ -1,7 +1,13 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowUpRightIcon } from "@/components/icons";
+import { ArrowUpRightSmallIcon } from "@/components/icons";
+import { Magnetic } from "@/components/ui/magnetic";
+import styles from "@/components/sections/hero/hero.module.css";
+import { Canvas } from "@react-three/fiber";
+import { Float } from "@react-three/drei";
+import { Suspense } from "react";
+import { Globe } from "@/components/sections/hero/scene";
 
 const ORBIT_NODES = [
   {
@@ -86,23 +92,49 @@ export function ProjectsHero() {
             </motion.p>
 
             {/* CTA */}
-            <motion.a
-              href="#"
-              className="inline-flex items-center gap-2 font-label-mono text-label-mono text-accent uppercase tracking-[0.18em] group"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              START A PROJECT
-              <span className="inline-flex items-center justify-center w-6 h-6 border border-accent rounded-sm group-hover:bg-accent group-hover:text-ink transition-all duration-300">
-                <ArrowUpRightIcon width={12} height={12} strokeWidth={2} />
-              </span>
-            </motion.a>
+            <Magnetic strength={0.35} className="inline-block w-fit">
+              <motion.a
+                href="#"
+                className={styles.cta}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <span>Start a project</span>
+                <span className={styles.ctaArrow}>
+                  <ArrowUpRightSmallIcon />
+                </span>
+              </motion.a>
+            </Magnetic>
           </div>
 
           {/* Right: orbit diagram */}
           <div className="relative flex-1 min-w-0 h-[380px] hidden md:block">
             <OrbitDiagram />
+
+            {/* 3D Globe overlay at the center */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
+              <div className="w-[180px] h-[180px]">
+                <Canvas
+                  camera={{ position: [0, 0, 4.5], fov: 42 }}
+                  dpr={[1, 1.6]}
+                  gl={{ antialias: true, alpha: true }}
+                  style={{ background: "transparent" }}
+                >
+                  <Suspense fallback={null}>
+                    <ambientLight intensity={0.4} />
+                    <Float
+                      speed={0.5}
+                      rotationIntensity={0.15}
+                      floatIntensity={0.25}
+                      floatingRange={[-0.06, 0.06]}
+                    >
+                      <Globe tiltX={(20 * Math.PI) / 180} tiltZ={(18 * Math.PI) / 180} interactive={false} />
+                    </Float>
+                  </Suspense>
+                </Canvas>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,11 +147,11 @@ function OrbitDiagram() {
   const cx = 340;
   const cy = 190;
   // Outer ellipse
-  const rx1 = 280;
-  const ry1 = 140;
+  const rx1 = 240;
+  const ry1 = 120;
   // Inner ellipse
-  const rx2 = 160;
-  const ry2 = 80;
+  const rx2 = 140;
+  const ry2 = 70;
 
   // Compute node positions on the outer ellipse
   const nodes = [
@@ -150,87 +182,85 @@ function OrbitDiagram() {
         </radialGradient>
       </defs>
 
-      {/* Glow circle behind centre */}
-      <ellipse cx={cx} cy={cy} rx={rx2 + 20} ry={ry2 + 20} fill="url(#orbit-glow)" />
+      <g transform={`rotate(-12 ${cx} ${cy})`}>
+        {/* Glow circle behind centre */}
+        <ellipse cx={cx} cy={cy} rx={rx2 + 20} ry={ry2 + 20} fill="url(#orbit-glow)" />
 
-      {/* Outer dashed ellipse */}
-      <ellipse
-        cx={cx}
-        cy={cy}
-        rx={rx1}
-        ry={ry1}
-        fill="none"
-        stroke="rgba(245,241,232,0.12)"
-        strokeWidth="1"
-        strokeDasharray="6 8"
-      />
-      {/* Inner dashed ellipse */}
-      <ellipse
-        cx={cx}
-        cy={cy}
-        rx={rx2}
-        ry={ry2}
-        fill="none"
-        stroke="rgba(245,241,232,0.18)"
-        strokeWidth="1"
-        strokeDasharray="4 6"
-      />
+        {/* Outer dashed ellipse */}
+        <ellipse
+          cx={cx}
+          cy={cy}
+          rx={rx1}
+          ry={ry1}
+          fill="none"
+          stroke="rgba(245,241,232,0.12)"
+          strokeWidth="1"
+          strokeDasharray="6 8"
+        />
+        {/* Inner dashed ellipse */}
+        <ellipse
+          cx={cx}
+          cy={cy}
+          rx={rx2}
+          ry={ry2}
+          fill="none"
+          stroke="rgba(245,241,232,0.18)"
+          strokeWidth="1"
+          strokeDasharray="4 6"
+        />
 
-      {/* Centre icon */}
-      <circle cx={cx} cy={cy} r={32} fill="#181614" stroke="rgba(245,241,232,0.18)" strokeWidth="1" />
-      {/* X mark (zeroaxiis logo-ish) */}
-      <line x1={cx - 10} y1={cy - 10} x2={cx + 10} y2={cy + 10} stroke="#c8ff00" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1={cx + 10} y1={cy - 10} x2={cx - 10} y2={cy + 10} stroke="#c8ff00" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Nodes */}
+        {nodes.map((node) => {
+          const outerPt = ellipsePoint(rx1, ry1, node.angleDeg);
+          const innerPt = ellipsePoint(rx2, ry2, node.angleDeg);
+          const isLeft = outerPt.x < cx;
+          const textAnchor = isLeft ? "end" : "start";
+          const labelX = isLeft ? outerPt.x - 16 : outerPt.x + 16;
 
-      {/* Nodes */}
-      {nodes.map((node) => {
-        const outerPt = ellipsePoint(rx1, ry1, node.angleDeg);
-        const innerPt = ellipsePoint(rx2, ry2, node.angleDeg);
-        const isLeft = outerPt.x < cx;
-        const textAnchor = isLeft ? "end" : "start";
-        const labelX = isLeft ? outerPt.x - 16 : outerPt.x + 16;
-
-        return (
-          <g key={node.id}>
-            {/* Spoke from inner to outer ellipse */}
-            <line
-              x1={innerPt.x}
-              y1={innerPt.y}
-              x2={outerPt.x}
-              y2={outerPt.y}
-              stroke="rgba(245,241,232,0.1)"
-              strokeWidth="1"
-              strokeDasharray="3 5"
-            />
-            {/* Node dot */}
-            <circle cx={outerPt.x} cy={outerPt.y} r={5} fill="#c8ff00" opacity="0.9" />
-            <circle cx={outerPt.x} cy={outerPt.y} r={10} fill="none" stroke="#c8ff00" strokeWidth="0.5" opacity="0.4" />
-            {/* Labels */}
-            <text
-              x={labelX}
-              y={outerPt.y - 6}
-              textAnchor={textAnchor}
-              fill="rgba(245,241,232,0.85)"
-              fontSize="9"
-              fontFamily="JetBrains Mono, monospace"
-              fontWeight="600"
-              letterSpacing="0.12em"
-            >
-              {node.label}
-            </text>
-            <text
-              x={labelX}
-              y={outerPt.y + 9}
-              textAnchor={textAnchor}
-              fill="rgba(245,241,232,0.38)"
-              fontSize="8"
-              fontFamily="JetBrains Mono, monospace"
-            >
-              {node.sub}
-            </text>
-          </g>
-        );
-      })}
+          return (
+            <g key={node.id}>
+              {/* Spoke from inner to outer ellipse */}
+              <line
+                x1={innerPt.x}
+                y1={innerPt.y}
+                x2={outerPt.x}
+                y2={outerPt.y}
+                stroke="rgba(245,241,232,0.1)"
+                strokeWidth="1"
+                strokeDasharray="3 5"
+              />
+              {/* Node dot */}
+              <circle cx={outerPt.x} cy={outerPt.y} r={5} fill="#c8ff00" opacity="0.9" />
+              <circle cx={outerPt.x} cy={outerPt.y} r={10} fill="none" stroke="#c8ff00" strokeWidth="0.5" opacity="0.4" />
+              {/* Labels */}
+              <text
+                x={labelX}
+                y={outerPt.y - 6}
+                textAnchor={textAnchor}
+                fill="rgba(245,241,232,0.85)"
+                fontSize="9"
+                fontFamily="JetBrains Mono, monospace"
+                fontWeight="600"
+                letterSpacing="0.12em"
+                transform={`rotate(12 ${labelX} ${outerPt.y - 6})`}
+              >
+                {node.label}
+              </text>
+              <text
+                x={labelX}
+                y={outerPt.y + 9}
+                textAnchor={textAnchor}
+                fill="rgba(245,241,232,0.38)"
+                fontSize="8"
+                fontFamily="JetBrains Mono, monospace"
+                transform={`rotate(12 ${labelX} ${outerPt.y + 9})`}
+              >
+                {node.sub}
+              </text>
+            </g>
+          );
+        })}
+      </g>
     </svg>
   );
 }
