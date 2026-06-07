@@ -5,8 +5,9 @@ import { motion } from "motion/react";
 import type { Project } from "@/types";
 import { TechTag } from "@/components/ui";
 import { ArrowDiagonalSmallIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 
-export type ProjectCardProps = Project;
+export type ProjectCardProps = Project & { index?: number };
 
 export function ProjectCard({
   title,
@@ -15,56 +16,61 @@ export function ProjectCard({
   image,
   imageAlt,
   icon,
-  colSpan = "col-span-1",
-  height = "h-card-image-lg",
+  index,
   href = "#",
 }: ProjectCardProps) {
   return (
     <motion.a
       href={href}
-      className={`group relative block bg-surface-layer border border-stroke p-8 sm:p-10 flex flex-col justify-between min-h-card ${colSpan} hover:border-stroke-hover transition-colors duration-500 overflow-hidden`}
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className={cn(
+        "group flex flex-col lg:flex-row w-full bg-transparent hover:bg-surface-layer transition-all duration-500 py-8 lg:py-12 items-start lg:items-center relative z-10 overflow-hidden px-4 sm:px-8",
+      )}
     >
-      <span
-        aria-hidden="true"
-        className="absolute top-0 left-0 h-px w-0 bg-accent group-hover:w-full transition-all duration-700"
-      />
-
-      <div className="flex justify-between items-start mb-10 relative z-10">
-        <div className="max-w-2xl">
-          <h3 className="font-display text-[clamp(28px,3.5vw,48px)] leading-[1] tracking-[-0.025em] text-bone mb-4 group-hover:text-bone transition-colors">
-            {title}
-          </h3>
-          <p className="font-body-md text-body-md text-bone-mute max-w-md leading-relaxed">
-            {description}
-          </p>
-        </div>
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-stroke text-bone-mute group-hover:border-accent group-hover:text-accent group-hover:rotate-[-45deg] transition-all duration-500">
-          <ArrowDiagonalSmallIcon />
+      {/* Number and Title Column */}
+      <div className="flex-1 w-full lg:w-[40%] flex items-start gap-6 lg:gap-8 mb-6 lg:mb-0 pr-8">
+        <span className="font-label-mono text-[10px] sm:text-[12px] text-bone-mute mt-2 sm:mt-3 lg:mt-4 opacity-50 flex-shrink-0">
+          {index ? String(index).padStart(2, "0") : "01"}
         </span>
+        <h3 className="text-[36px] sm:text-[48px] lg:text-[56px] xl:text-[64px] font-display text-bone leading-[0.9] tracking-[-0.02em] group-hover:text-accent transition-colors duration-500">
+          {title}
+        </h3>
       </div>
 
-      <div className="mt-auto relative z-10">
-        <div className="flex flex-wrap gap-2 mb-6">
+      {/* Description and Tags Column */}
+      <div className="flex-1 w-full lg:w-[35%] lg:pr-12 mb-8 lg:mb-0 flex flex-col justify-center">
+        <p className="text-bone-mute font-body text-[14px] sm:text-[15px] leading-relaxed max-w-sm mb-6 lg:mb-8 group-hover:text-bone-dim transition-colors">
+          {description}
+        </p>
+        <div className="flex flex-wrap gap-2">
           {tags.map((tag) => (
             <TechTag key={tag}>{tag}</TechTag>
           ))}
         </div>
-        <div
-          className={`${height} w-full bg-canvas border border-stroke relative overflow-hidden flex items-center justify-center group-hover:border-stroke-hover transition-colors duration-500`}
-        >
+      </div>
+
+      {/* Media and Action Column */}
+      <div className="w-full lg:w-[25%] flex items-center justify-between gap-6 lg:gap-8">
+        <div className="w-full max-w-[280px] lg:max-w-none aspect-[16/9] lg:aspect-[4/3] xl:aspect-video rounded-[12px] overflow-hidden bg-surface-layer-raised border border-stroke flex-shrink-0 relative group-hover:border-accent/40 transition-colors duration-500 shadow-2xl shadow-black/20">
           {image ? (
             <img
               alt={imageAlt || title}
-              className="w-full h-full object-cover opacity-50 grayscale group-hover:opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+              className="w-full h-full object-cover transition-all duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105 group-hover:opacity-90 opacity-70 grayscale group-hover:grayscale-0"
               src={image}
             />
           ) : icon ? (
-            <span className="material-symbols-outlined text-5xl text-bone-mute opacity-60 group-hover:text-accent group-hover:opacity-100 transition-all duration-500">
-              {icon}
-            </span>
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="material-symbols-outlined text-[48px] lg:text-[64px] text-bone-mute opacity-40 group-hover:text-accent group-hover:opacity-100 transition-all duration-500 group-hover:scale-110">
+                {icon}
+              </span>
+            </div>
           ) : null}
+        </div>
+
+        {/* Action Arrow */}
+        <div className="hidden sm:flex flex-shrink-0">
+          <span className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-stroke text-bone-mute group-hover:border-accent group-hover:bg-accent/5 group-hover:text-accent group-hover:rotate-[-45deg] transition-all duration-500">
+            <ArrowDiagonalSmallIcon />
+          </span>
         </div>
       </div>
     </motion.a>
