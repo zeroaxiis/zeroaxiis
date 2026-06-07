@@ -34,7 +34,7 @@ export function FooterVisualization() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="absolute w-4 h-4 sm:w-5 h-5 rounded-full bg-accent flex items-center justify-center"
+            className="absolute w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-accent flex items-center justify-center"
             style={{ filter: "drop-shadow(0px 0px 8px rgba(200, 255, 0, 0.6))" }}
           >
             <span className="absolute inset-0 rounded-full bg-accent animate-ping opacity-45" />
