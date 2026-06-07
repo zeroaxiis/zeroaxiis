@@ -11,7 +11,7 @@ import styles from "./top-bar.module.css";
 export function TopBar() {
   useEffect(() => {
     (async function () {
-      const cal = await getCalApi();
+      const cal = await getCalApi({ namespace: "30min" });
       cal("ui", {
         theme: "dark",
         styles: { branding: { brandColor: "#c8ff00" } },
@@ -22,14 +22,15 @@ export function TopBar() {
   }, []);
 
   const handleOpenModal = async () => {
-    const cal = await getCalApi();
-    const link = process.env.NEXT_PUBLIC_CAL_LINK || "rick/get-rick-rolled";
+    const cal = await getCalApi({ namespace: "30min" });
+    const link = "zerozxiis/30min";
     cal("modal", {
       calLink: link,
       config: {
         layout: "month_view",
         theme: "dark",
-        hideBranding: true
+        hideBranding: "true",
+        useSlotsViewOnSmallScreen: "true"
       }
     });
   };
