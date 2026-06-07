@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { TopBar } from "@/components/layout/top-bar";
 import { ScrollReset } from "@/components/layout/scroll-reset";
-import { Preloader } from "@/components/ui/preloader";
+import { InlinePreloader } from "@/components/layout/inline-preloader";
 
 export const metadata: Metadata = {
   title: {
@@ -45,7 +45,7 @@ export default function RootLayout({
           crossOrigin=""
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
         <link
@@ -54,7 +54,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Preloader />
+        <InlinePreloader />
         <ScrollReset />
         <TopBar />
         <Header />

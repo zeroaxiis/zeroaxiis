@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
       <LegalContent>
         <LegalSection title="1. Introduction">
           <LegalParagraph>
-            Welcome to ZeroAxiis ("ZeroAxiis", "we", "our", or "us").
+            Welcome to ZeroAxiis (&ldquo;ZeroAxiis&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;).
           </LegalParagraph>
           <LegalParagraph>
             We are a technology company focused on software development, open-source initiatives, digital products, research, innovation, and educational content.
@@ -249,7 +249,7 @@ export default function PrivacyPolicyPage() {
             We may update this Privacy Policy from time to time.
           </LegalParagraph>
           <LegalParagraph>
-            Any updates will be reflected by revising the "Last Updated" date at the top of this page.
+            Any updates will be reflected by revising the &ldquo;Last Updated&rdquo; date at the top of this page.
           </LegalParagraph>
           <LegalParagraph>
             Continued use of our website after updates constitutes acceptance of the revised policy.

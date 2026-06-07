@@ -134,7 +134,7 @@ export default function TermsAndConditionsPage() {
 
         <LegalSection title="8. Disclaimer of Warranties">
           <LegalParagraph>
-            The website and all content are provided on an "as is" and "as available" basis.
+            The website and all content are provided on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo; basis.
           </LegalParagraph>
           <LegalParagraph>
             To the fullest extent permitted by law, ZeroAxiis disclaims all warranties, whether express or implied, including warranties of:

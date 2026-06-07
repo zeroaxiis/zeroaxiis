@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "ZeroAxiis",
-  tagline: "Helping Businesses Grow!",
+  tagline: "Not your very\nAverage",
   description:
     "A digital agency helping businesses grow through scalable software solutions, creative design, and high-performance engineering.",
   url: "https://zeroaxiis.com",
@@ -34,6 +34,22 @@ export const siteConfig = {
       { label: "Case Studies", href: "/projects" },
       { label: "Creative", href: "/creative" },
       { label: "Insights", href: "/blog" },
+    ],
+    exploreGroups: [
+      {
+        heading: "Company",
+        items: [
+          { label: "About", href: "/about" },
+          { label: "Creative", href: "/creative" },
+        ],
+      },
+      {
+        heading: "Work",
+        items: [
+          { label: "Projects & Open Source", href: "/projects" },
+          { label: "Blogs", href: "/blog" },
+        ],
+      },
     ],
     connect: [
       { label: "Instagram", href: "https://instagram.com/zeroaxiis" },
