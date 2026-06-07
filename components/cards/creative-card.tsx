@@ -18,7 +18,6 @@ export function CreativeCard({
   thumbnail,
   duration,
   publishDate,
-  href = "#",
   className,
   priority = false,
 }: CreativeCardProps) {

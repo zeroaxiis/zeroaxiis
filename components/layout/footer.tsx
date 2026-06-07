@@ -29,12 +29,9 @@ function FooterTop() {
   return (
     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-10 pb-14 border-b border-stroke">
       <div className="max-w-xl">
-        <p className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em] mb-6 flex items-center gap-3">
-          Closing transmission
-        </p>
-        <p className="font-display text-[clamp(36px,5vw,64px)] leading-[0.95] text-bone tracking-[-0.025em] text-balance">
+        <p className="font-display text-[clamp(36px,5vw,64px)] leading-[1.02] text-bone tracking-[-0.025em] whitespace-pre-line">
           {siteConfig.tagline.replace("!", "")}{" "}
-          <span className="italic text-bone-dim">together.</span>
+          <span className="italic text-accent">footer.</span>
         </p>
       </div>
       <Magnetic strength={0.25}>
@@ -56,10 +53,7 @@ function FooterTop() {
 
 function FooterSocials() {
   return (
-    <div className="py-14 border-b border-stroke">
-      <p className="font-label-mono text-[10px] uppercase tracking-[0.28em] text-bone-mute mb-10 flex items-center gap-3">
-        Follow along
-      </p>
+    <div className="py-8 border-b border-stroke">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12">
         {socialItems.map(({ name, href, Icon }) => (
           <Magnetic key={name} strength={0.22}>
@@ -90,32 +84,31 @@ function FooterSocials() {
 
 function FooterNav() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 py-14 border-b border-stroke">
-      <div>
-        <h3 className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone mb-6">
-          Explore
-        </h3>
-        <ul className="space-y-4">
-          {siteConfig.footerNav.explore.map((item) => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                className="font-body-sm text-body-sm text-bone-mute hover:text-accent transition-colors duration-200"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 py-8 border-b border-stroke">
+      {siteConfig.footerNav.exploreGroups.map((group) => (
+        <div key={group.heading}>
+          <h3 className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone mb-6">
+            {group.heading}
+          </h3>
+          <ul className="space-y-4">
+            {group.items.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  className="font-body-sm text-body-sm text-bone-mute hover:text-accent transition-colors duration-200"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
 
       <div>
         <h3 className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone mb-6">
-          Get in touch
+          Contact
         </h3>
-        <p className="font-body-sm text-body-sm text-bone-mute mb-2">
-          Start a project
-        </p>
         <Link
           href={`mailto:${siteConfig.email}`}
           className="font-body-sm text-body-sm text-bone hover:text-accent transition-colors duration-200 break-all"
@@ -128,11 +121,11 @@ function FooterNav() {
         <h3 className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone mb-6">
           Studio
         </h3>
-        <p className="font-body-sm text-body-sm text-bone-mute mb-2">
-          {siteConfig.address.note}
-        </p>
         <p className="font-body-sm text-body-sm text-bone">
           {siteConfig.address.city}
+        </p>
+        <p className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone-mute mt-2">
+          {siteConfig.address.note}
         </p>
       </div>
     </div>
@@ -145,16 +138,16 @@ function FooterBrand() {
   // ScrollTrigger positions from the previous page.
   const pathname = usePathname();
   return (
-    <div className="pt-12 pb-4 overflow-hidden">
+    <div className="pt-8 pb-8">
       <ScrollFloat
         key={pathname}
         animationDuration={1.2}
         ease="back.inOut(2)"
         scrollStart="top bottom"
-        scrollEnd="bottom bottom"
+        scrollEnd="center bottom"
         stagger={0.05}
         containerClassName="font-display font-normal text-bone w-full"
-        textClassName="text-[clamp(3.5rem,17vw,18rem)] tracking-[-0.05em] leading-[0.85]"
+        textClassName="text-[clamp(3.5rem,17vw,18rem)] tracking-[-0.05em] leading-[1]"
       >
         {siteConfig.name.toLowerCase()}
       </ScrollFloat>
@@ -189,7 +182,7 @@ function FooterBottom() {
 
 export function Footer() {
   return (
-    <footer className="relative w-full bg-ink border-t border-stroke z-10">
+    <footer className="relative w-full bg-ink z-10 border-t border-stroke pt-6">
       <Container>
         <FooterTop />
         <FooterSocials />

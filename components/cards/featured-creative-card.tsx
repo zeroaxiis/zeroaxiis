@@ -17,7 +17,6 @@ export function FeaturedCreativeCard({
   thumbnail,
   duration,
   publishDate,
-  href = "#",
   className,
 }: FeaturedCreativeCardProps) {
   const isMedia = type === "Video" || type === "Podcast" || type === "Series" || type === "Interview";

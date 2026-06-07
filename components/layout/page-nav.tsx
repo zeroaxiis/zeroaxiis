@@ -73,10 +73,17 @@ export function PageNav({ pages }: PageNavProps) {
     };
   }, [isOpen]);
 
-  // Wheel cycles items inside the hitbox.
+  // Wheel and Touch cycle items inside the hitbox.
   useEffect(() => {
     const container = document.getElementById("page-nav-hitbox");
     if (!container) return;
+
+    const triggerLock = () => {
+      isScrollingRef.current = true;
+      window.setTimeout(() => {
+        isScrollingRef.current = false;
+      }, SCROLL_LOCK_MS);
+    };
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
@@ -94,15 +101,41 @@ export function PageNav({ pages }: PageNavProps) {
       }
     };
 
-    const triggerLock = () => {
-      isScrollingRef.current = true;
-      window.setTimeout(() => {
-        isScrollingRef.current = false;
-      }, SCROLL_LOCK_MS);
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault(); // Prevent page scroll while interacting with dial
+      if (isScrollingRef.current) return;
+
+      const touchY = e.touches[0].clientY;
+      const deltaY = touchStartY - touchY;
+
+      // Require a minimum swipe distance to prevent accidental triggering
+      if (Math.abs(deltaY) > 20) {
+        if (deltaY > 0 && currentIndex < pages.length - 1) {
+          setCurrentIndex((p) => p + 1);
+          touchStartY = touchY; // Reset origin to allow continuous swipe
+          triggerLock();
+        } else if (deltaY < 0 && currentIndex > 0) {
+          setCurrentIndex((p) => p - 1);
+          touchStartY = touchY;
+          triggerLock();
+        }
+      }
     };
 
     container.addEventListener("wheel", handleWheel, { passive: false });
-    return () => container.removeEventListener("wheel", handleWheel);
+    container.addEventListener("touchstart", handleTouchStart, { passive: true });
+    container.addEventListener("touchmove", handleTouchMove, { passive: false });
+    
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+    };
   }, [currentIndex, pages.length]);
 
   const navigateWithFade = (href: string, newIndex: number) => {
@@ -178,7 +211,7 @@ export function PageNav({ pages }: PageNavProps) {
         onMouseLeave={handleMouseLeave}
         onClick={handleZoneClick}
       >
-        {/* Resting edge rail */}
+        {/* Resting edge rail (Desktop) */}
         <div className={styles.edge} aria-hidden="true">
           <span className={styles.edgeLabel}>{activeLabel}</span>
           <div className={styles.edgeCurrent}>
@@ -193,6 +226,19 @@ export function PageNav({ pages }: PageNavProps) {
           </div>
           <span className={styles.edgeHint}>Menu · Scroll</span>
         </div>
+
+        {/* Mobile Assistive Ball */}
+        <button
+          className={`${styles.mobileBall} ${isOpen ? styles.mobileBallOpen : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsOpen(!isOpen);
+          }}
+          aria-label="Toggle Menu"
+          aria-expanded={isOpen}
+        >
+          <span className={styles.mobileBallInner} />
+        </button>
 
         {/* Italic serif label of the currently-focused dial item */}
         <div className={styles.trigger}>{triggerLabel}</div>
