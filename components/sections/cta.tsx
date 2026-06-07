@@ -1,14 +1,27 @@
+"use client";
+
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { Reveal } from "@/components/ui/reveal";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./cta.module.css";
 
-const PATH_1 = "M 140 40 L 140 180 L 510 180 L 510 80 L 810 80 L 810 180 L 960 180";
-const PATH_2 = "M 510 180 L 510 280 L 810 280 L 810 180";
+const PATH_1 = "M 140 40 L 140 170 L 150 180 L 500 180 L 510 170 L 510 90 L 520 80 L 800 80 L 810 90 L 810 170 L 820 180 L 960 180";
+const PATH_2 = "M 500 180 L 510 180 L 510 270 L 520 280 L 800 280 L 810 270 L 810 180 L 820 180";
 
-const MOBILE_PATH_1 = "M 200 60 L 200 200 L 200 420 L 200 570 L 300 570 L 300 720 L 300 870 L 200 870 L 200 1020";
-const MOBILE_PATH_2 = "M 200 570 L 100 570 L 100 720 L 100 870 L 200 870";
+const MOBILE_PATH_1 = "M 200 60 L 200 560 L 210 570 L 290 570 L 300 580 L 300 860 L 290 870 L 210 870 L 200 880 L 200 1020";
+const MOBILE_PATH_2 = "M 210 570 L 200 570 L 110 570 L 100 580 L 100 860 L 110 870 L 200 870 L 210 870";
+
+const DESKTOP_VIAS = [
+  [140, 170], [150, 180], [500, 180], [510, 170], [510, 90], [520, 80],
+  [800, 80], [810, 90], [810, 170], [820, 180],
+  [510, 270], [520, 280], [800, 280], [810, 270]
+];
+
+const MOBILE_VIAS = [
+  [200, 560], [210, 570], [290, 570], [300, 580], [300, 860], [290, 870], [210, 870], [200, 880],
+  [110, 570], [100, 580], [100, 860], [110, 870]
+];
 
 type NodeKind = "client" | "brand" | "step";
 
@@ -32,9 +45,9 @@ const NODES: Array<{
       x: 140,
       y: 40,
       mobile_x: 200,
-      mobile_y: 60,
-      delay: "1.0s",
-      description: "Request lands — the brief drops in.",
+      mobile_y: 50,
+      delay: "0s",
+      description: "Request lands. Brief drops in.",
     },
     {
       id: "zero",
@@ -44,26 +57,26 @@ const NODES: Array<{
       x: 140,
       y: 180,
       mobile_x: 200,
-      mobile_y: 200,
-      delay: "3.5s",
-      description: "Studio scopes, owns, and queues the work.",
+      mobile_y: 250,
+      delay: "2.5s",
+      description: "Studio scopes and queues the work.",
     },
     {
       id: "ideate",
       label: "Ideate",
-      icon: "description",
+      icon: "lightbulb",
       kind: "step",
       x: 360,
       y: 180,
       mobile_x: 200,
-      mobile_y: 420,
-      delay: "6.0s",
+      mobile_y: 450,
+      delay: "5.0s",
       description: "Architecture mapped. Scope locked.",
     },
     {
       id: "engineering",
       label: "Build",
-      icon: "code_blocks",
+      icon: "terminal",
       kind: "step",
       x: 660,
       y: 80,
@@ -97,6 +110,19 @@ const NODES: Array<{
       description: "Shipped — documented, monitored, supported.",
     },
   ];
+
+function ViaNodes({ points }: { points: number[][] }) {
+  return (
+    <g>
+      {points.map(([x, y], i) => (
+        <g key={`via-${i}`} transform={`translate(${x}, ${y})`}>
+          <circle r="3.5" fill="#0a0a0a" stroke="#d4af37" strokeWidth="1" opacity="0.75" />
+          <circle r="1" fill="#d4af37" opacity="0.9" />
+        </g>
+      ))}
+    </g>
+  );
+}
 
 function SocketFootprint({ x, y }: { x: number; y: number }) {
   const padPositions = Array.from({ length: 12 }).map((_, i) => -55 + i * 10);
@@ -158,6 +184,49 @@ function NodeMark({ kind }: { kind: NodeKind }) {
 }
 
 export function CTA() {
+  const [activeNode, setActiveNode] = useState("Client Brief");
+  const [timeToNext, setTimeToNext] = useState("2.50s");
+  const nodeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const cycleDuration = 15000;
+
+    // Map exact CSS delays to phases
+    const phases = [
+      { name: "Client Brief", start: 0, next: 2.5 },
+      { name: "ZeroAxiis", start: 2.5, next: 5.0 },
+      { name: "Ideate", start: 5.0, next: 8.5 },
+      { name: "Build & Triage", start: 8.5, next: 11.0 },
+      { name: "Delivery", start: 11.0, next: 15.0 },
+    ];
+
+    const interval = setInterval(() => {
+      let elapsedSec = 0;
+      
+      // Sync perfectly with the physical CSS animation running in the DOM
+      if (nodeRef.current) {
+        const animations = nodeRef.current.getAnimations();
+        // The animation we want to track is the 15s nodePulse
+        const pulseAnim = animations.find(a => typeof a.animationName === 'string' && a.animationName.includes('nodePulse'));
+        
+        if (pulseAnim && pulseAnim.currentTime !== null) {
+          elapsedSec = (Number(pulseAnim.currentTime) % cycleDuration) / 1000;
+        } else {
+          return; // Animation hasn't initialized yet
+        }
+      } else {
+        return;
+      }
+      
+      const currentPhase = phases.find(p => elapsedSec >= p.start && elapsedSec < p.next) || phases[0];
+      
+      setActiveNode(currentPhase.name);
+      setTimeToNext((currentPhase.next - elapsedSec).toFixed(2) + "s");
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Section
       id="workflow"
@@ -181,10 +250,16 @@ export function CTA() {
           </div>
         </Reveal>
 
-        <div className="w-full pb-8">
+        <div className="w-full pb-8 relative">
+          {/* Fixed Terminal Easter Egg */}
+          <div className="absolute top-[60%] md:top-[70%] right-0 w-[320px] text-left font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em] whitespace-pre leading-loose pointer-events-none z-20">
+            {`SYNCING_NODES\nCURRENT NODE: ${activeNode}\nLATENCY: ${timeToNext} TO NEXT\nPACKET_LOSS: 0%\n> OVERRIDE_AUTH\n[ EXECUTING ]\nZEROAXIIS_FRAMEWORK_V1`}
+          </div>
+
           <div
             className={`${styles.canvas} relative w-full aspect-[400/1100] md:w-[1100px] md:min-w-[1100px] md:aspect-auto md:h-[360px] mx-auto`}
           >
+
             {/* Desktop SVG */}
             <svg
               aria-hidden="true"
@@ -198,18 +273,20 @@ export function CTA() {
                 <SocketFootprint key={`socket-desktop-${node.id}`} x={node.x} y={node.y} />
               ))}
 
-              <path
-                d={PATH_1}
-                stroke="rgba(200,255,0,0.15)"
-                strokeWidth="2"
-                fill="none"
-              />
-              <path
-                d={PATH_2}
-                stroke="rgba(200,255,0,0.15)"
-                strokeWidth="2"
-                fill="none"
-              />
+              {/* Vias */}
+              <ViaNodes points={DESKTOP_VIAS} />
+
+              {/* Base Thick Trace */}
+              <path d={PATH_1} stroke="rgba(255,255,255,0.02)" strokeWidth="12" fill="none" />
+              <path d={PATH_2} stroke="rgba(255,255,255,0.02)" strokeWidth="12" fill="none" />
+              
+              {/* ENIG Gold Trace */}
+              <path d={PATH_1} stroke="#d4af37" strokeWidth="1.5" fill="none" opacity="0.3" />
+              <path d={PATH_2} stroke="#d4af37" strokeWidth="1.5" fill="none" opacity="0.3" />
+              
+              {/* Digital Data Pattern Overlay */}
+              <path d={PATH_1} stroke="#c8ff00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
+              <path d={PATH_2} stroke="#c8ff00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
 
               {[0, 1, 2, 3].map((layer) => (
                 <React.Fragment key={`trace1-${layer}`}>
@@ -267,23 +344,25 @@ export function CTA() {
             >
               <rect width="100%" height="100%" fill="transparent" />
 
-              {/* Sockets */}
+              {/* Sockets Mobile */}
               {NODES.map((node) => (
                 <SocketFootprint key={`socket-mobile-${node.id}`} x={node.mobile_x} y={node.mobile_y} />
               ))}
 
-              <path
-                d={MOBILE_PATH_1}
-                stroke="rgba(200,255,0,0.15)"
-                strokeWidth="2"
-                fill="none"
-              />
-              <path
-                d={MOBILE_PATH_2}
-                stroke="rgba(200,255,0,0.15)"
-                strokeWidth="2"
-                fill="none"
-              />
+              {/* Vias */}
+              <ViaNodes points={MOBILE_VIAS} />
+
+              {/* Base Thick Trace */}
+              <path d={MOBILE_PATH_1} stroke="rgba(255,255,255,0.02)" strokeWidth="12" fill="none" />
+              <path d={MOBILE_PATH_2} stroke="rgba(255,255,255,0.02)" strokeWidth="12" fill="none" />
+              
+              {/* ENIG Gold Trace */}
+              <path d={MOBILE_PATH_1} stroke="#d4af37" strokeWidth="1.5" fill="none" opacity="0.3" />
+              <path d={MOBILE_PATH_2} stroke="#d4af37" strokeWidth="1.5" fill="none" opacity="0.3" />
+              
+              {/* Digital Data Pattern Overlay */}
+              <path d={MOBILE_PATH_1} stroke="#c8ff00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
+              <path d={MOBILE_PATH_2} stroke="#c8ff00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
 
               {[0, 1, 2, 3].map((layer) => (
                 <React.Fragment key={`mobile-trace1-${layer}`}>
@@ -332,9 +411,11 @@ export function CTA() {
               ))}
             </svg>
 
-            {NODES.map((node) => (
+            {/* Nodes */}
+            {NODES.map((node, i) => (
               <div
                 key={node.id}
+                ref={i === 0 ? nodeRef : null}
                 className={`${styles.unifiedNode} ${node.kind === "brand" ? styles.unifiedNodeBrand : ""
                   } ${node.kind === "client" ? styles.unifiedNodeClient : ""}`}
                 style={
@@ -360,6 +441,7 @@ export function CTA() {
             ))}
           </div>
         </div>
+
       </Container>
     </Section>
   );

@@ -695,3 +695,36 @@
     top: var(--mobile-y);
   }
 }
+
+
+
+.terminalScroll1 {
+  animation: terminalScrollUp 20s linear infinite;
+}
+
+.terminalScroll2 {
+  animation: terminalScrollDown 25s linear infinite;
+}
+
+@keyframes terminalScrollUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+
+@keyframes terminalScrollDown {
+  0% { transform: translateY(-20px); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+
+.easterEggPulse {
+  animation: eggPulse 4s ease-in-out infinite;
+}
+
+@keyframes eggPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
