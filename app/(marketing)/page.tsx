@@ -2,7 +2,7 @@ import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
 import { Features } from "@/components/sections/features";
 import { Testimonials } from "@/components/sections/testimonials";
-import { CTA } from "@/components/sections/cta";
+import { ExecutionProtocol } from "@/components/sections/execution-protocol";
 
 export default function HomePage() {
   return (
@@ -15,7 +15,7 @@ export default function HomePage() {
           className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,black_0%,black_90%,transparent_100%)]"
         />
         <Features />
-        <CTA />
+        <ExecutionProtocol />
       </div>
       <Testimonials />
     </>
