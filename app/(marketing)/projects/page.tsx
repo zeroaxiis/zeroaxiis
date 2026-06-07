@@ -3,7 +3,7 @@ import { OpenSourceCard } from "@/components/cards";
 import { Reveal } from "@/components/ui/reveal";
 import { projects, openSourceTools } from "@/lib/data";
 import { ProjectsHero } from "@/components/sections/projects-hero";
-import { ProjectsClientSection } from "@/components/sections/projects-client-section";
+
 import { ProjectsGrid } from "@/components/sections/projects-grid";
 
 export const metadata = {

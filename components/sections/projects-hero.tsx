@@ -64,8 +64,7 @@ export function ProjectsHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              CLIENT PROJECTS{" "}
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse-ring" />
+              CLIENT PROJECTS
             </motion.p>
 
             {/* Headline */}
