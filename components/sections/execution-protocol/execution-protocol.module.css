@@ -17,307 +17,71 @@
 }
 
 @keyframes traceMove1_0 {
-  0% {
-    stroke-dashoffset: 80;
-  }
-
-  6.66% {
-    stroke-dashoffset: 40;
-  }
-
-  23.33% {
-    stroke-dashoffset: -60;
-  }
-
-  40% {
-    stroke-dashoffset: -280;
-  }
-
-  48.33% {
-    stroke-dashoffset: -430;
-  }
-
-  56.66% {
-    stroke-dashoffset: -680;
-  }
-
-  67.08% {
-    stroke-dashoffset: -930;
-  }
-
-  73.33% {
-    stroke-dashoffset: -1080;
-  }
-
-  100% {
-    stroke-dashoffset: -1360;
-  }
+  0% { stroke-dashoffset: 40; }
+  16.66% { stroke-dashoffset: -104; }
+  33.33% { stroke-dashoffset: -314; }
+  56.66% { stroke-dashoffset: -702; }
+  73.33% { stroke-dashoffset: -1090; }
+  100% { stroke-dashoffset: -1360; }
 }
 
 @keyframes traceMove1_1 {
-  0% {
-    stroke-dashoffset: 120;
-  }
-
-  6.66% {
-    stroke-dashoffset: 80;
-  }
-
-  23.33% {
-    stroke-dashoffset: -20;
-  }
-
-  40% {
-    stroke-dashoffset: -240;
-  }
-
-  48.33% {
-    stroke-dashoffset: -390;
-  }
-
-  56.66% {
-    stroke-dashoffset: -640;
-  }
-
-  67.08% {
-    stroke-dashoffset: -890;
-  }
-
-  73.33% {
-    stroke-dashoffset: -1040;
-  }
-
-  100% {
-    stroke-dashoffset: -1320;
-  }
+  0% { stroke-dashoffset: 80; }
+  16.66% { stroke-dashoffset: -64; }
+  33.33% { stroke-dashoffset: -274; }
+  56.66% { stroke-dashoffset: -662; }
+  73.33% { stroke-dashoffset: -1050; }
+  100% { stroke-dashoffset: -1320; }
 }
 
 @keyframes traceMove1_2 {
-  0% {
-    stroke-dashoffset: 160;
-  }
-
-  6.66% {
-    stroke-dashoffset: 120;
-  }
-
-  23.33% {
-    stroke-dashoffset: 20;
-  }
-
-  40% {
-    stroke-dashoffset: -200;
-  }
-
-  48.33% {
-    stroke-dashoffset: -350;
-  }
-
-  56.66% {
-    stroke-dashoffset: -600;
-  }
-
-  67.08% {
-    stroke-dashoffset: -850;
-  }
-
-  73.33% {
-    stroke-dashoffset: -1000;
-  }
-
-  100% {
-    stroke-dashoffset: -1280;
-  }
+  0% { stroke-dashoffset: 120; }
+  16.66% { stroke-dashoffset: -24; }
+  33.33% { stroke-dashoffset: -234; }
+  56.66% { stroke-dashoffset: -622; }
+  73.33% { stroke-dashoffset: -1010; }
+  100% { stroke-dashoffset: -1280; }
 }
 
 @keyframes traceMove1_3 {
-  0% {
-    stroke-dashoffset: 200;
-  }
-
-  6.66% {
-    stroke-dashoffset: 160;
-  }
-
-  23.33% {
-    stroke-dashoffset: 60;
-  }
-
-  40% {
-    stroke-dashoffset: -160;
-  }
-
-  48.33% {
-    stroke-dashoffset: -310;
-  }
-
-  56.66% {
-    stroke-dashoffset: -560;
-  }
-
-  67.08% {
-    stroke-dashoffset: -810;
-  }
-
-  73.33% {
-    stroke-dashoffset: -960;
-  }
-
-  100% {
-    stroke-dashoffset: -1240;
-  }
+  0% { stroke-dashoffset: 160; }
+  16.66% { stroke-dashoffset: 16; }
+  33.33% { stroke-dashoffset: -194; }
+  56.66% { stroke-dashoffset: -582; }
+  73.33% { stroke-dashoffset: -970; }
+  100% { stroke-dashoffset: -1240; }
 }
 
 @keyframes traceMove2_0 {
-  0% {
-    stroke-dashoffset: 550;
-  }
-
-  6.66% {
-    stroke-dashoffset: 510;
-  }
-
-  23.33% {
-    stroke-dashoffset: 410;
-  }
-
-  40% {
-    stroke-dashoffset: 190;
-  }
-
-  48.33% {
-    stroke-dashoffset: 40;
-  }
-
-  56.66% {
-    stroke-dashoffset: -210;
-  }
-
-  67.08% {
-    stroke-dashoffset: -460;
-  }
-
-  73.33% {
-    stroke-dashoffset: -610;
-  }
-
-  100% {
-    stroke-dashoffset: -890;
-  }
+  0% { stroke-dashoffset: 500; }
+  41.75% { stroke-dashoffset: 40; }
+  56.66% { stroke-dashoffset: -214; }
+  67.34% { stroke-dashoffset: -468; }
+  100% { stroke-dashoffset: -1250; }
 }
 
 @keyframes traceMove2_1 {
-  0% {
-    stroke-dashoffset: 590;
-  }
-
-  6.66% {
-    stroke-dashoffset: 550;
-  }
-
-  23.33% {
-    stroke-dashoffset: 450;
-  }
-
-  40% {
-    stroke-dashoffset: 230;
-  }
-
-  48.33% {
-    stroke-dashoffset: 80;
-  }
-
-  56.66% {
-    stroke-dashoffset: -170;
-  }
-
-  67.08% {
-    stroke-dashoffset: -420;
-  }
-
-  73.33% {
-    stroke-dashoffset: -570;
-  }
-
-  100% {
-    stroke-dashoffset: -850;
-  }
+  0% { stroke-dashoffset: 540; }
+  41.75% { stroke-dashoffset: 80; }
+  56.66% { stroke-dashoffset: -174; }
+  67.34% { stroke-dashoffset: -428; }
+  100% { stroke-dashoffset: -1210; }
 }
 
 @keyframes traceMove2_2 {
-  0% {
-    stroke-dashoffset: 630;
-  }
-
-  6.66% {
-    stroke-dashoffset: 590;
-  }
-
-  23.33% {
-    stroke-dashoffset: 490;
-  }
-
-  40% {
-    stroke-dashoffset: 270;
-  }
-
-  48.33% {
-    stroke-dashoffset: 120;
-  }
-
-  56.66% {
-    stroke-dashoffset: -130;
-  }
-
-  67.08% {
-    stroke-dashoffset: -380;
-  }
-
-  73.33% {
-    stroke-dashoffset: -530;
-  }
-
-  100% {
-    stroke-dashoffset: -810;
-  }
+  0% { stroke-dashoffset: 580; }
+  41.75% { stroke-dashoffset: 120; }
+  56.66% { stroke-dashoffset: -134; }
+  67.34% { stroke-dashoffset: -388; }
+  100% { stroke-dashoffset: -1170; }
 }
 
 @keyframes traceMove2_3 {
-  0% {
-    stroke-dashoffset: 670;
-  }
-
-  6.66% {
-    stroke-dashoffset: 630;
-  }
-
-  23.33% {
-    stroke-dashoffset: 530;
-  }
-
-  40% {
-    stroke-dashoffset: 310;
-  }
-
-  48.33% {
-    stroke-dashoffset: 160;
-  }
-
-  56.66% {
-    stroke-dashoffset: -90;
-  }
-
-  67.08% {
-    stroke-dashoffset: -340;
-  }
-
-  73.33% {
-    stroke-dashoffset: -490;
-  }
-
-  100% {
-    stroke-dashoffset: -770;
-  }
+  0% { stroke-dashoffset: 620; }
+  41.75% { stroke-dashoffset: 160; }
+  56.66% { stroke-dashoffset: -94; }
+  67.34% { stroke-dashoffset: -348; }
+  100% { stroke-dashoffset: -1130; }
 }
 
 .trace {
