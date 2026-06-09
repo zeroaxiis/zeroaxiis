@@ -12,15 +12,11 @@ interface ProjectsGridProps {
 export function ProjectsGrid({ projects }: ProjectsGridProps) {
   return (
     <RevealStagger
-      className="flex flex-col border-t border-stroke"
+      className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12"
       stagger={0.1}
     >
       {projects.map((project, index) => (
-        <motion.div
-          key={project.title}
-          variants={revealItem}
-          className="w-full border-b border-stroke last:border-b-0"
-        >
+        <motion.div key={project.title} variants={revealItem}>
           <ProjectCard {...project} index={index + 1} />
         </motion.div>
       ))}
