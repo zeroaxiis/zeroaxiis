@@ -3,7 +3,8 @@ import { OpenSourceCard } from "@/components/cards";
 import { Reveal } from "@/components/ui/reveal";
 import { projects, openSourceTools } from "@/lib/data";
 import { ProjectsHero } from "@/components/sections/projects-hero";
-import { ProjectsClientSection } from "@/components/sections/projects-client-section";
+
+import { ProjectsCarousel } from "@/components/sections/projects-carousel";
 
 export const metadata = {
   title: "Projects – Client Work | Zeroaxiis",
@@ -23,7 +24,7 @@ export default function ProjectsPage() {
           aria-hidden="true"
           className="absolute inset-0 bg-grid-pattern-lg opacity-20 [mask-image:radial-gradient(ellipse_at_top,black_10%,transparent_70%)] pointer-events-none"
         />
-        <ProjectsClientSection projects={projects} />
+        <ProjectsCarousel projects={projects} />
       </Container>
 
       {/* ── Open source section (untouched) ── */}

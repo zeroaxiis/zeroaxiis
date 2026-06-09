@@ -181,6 +181,7 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
             } as React.CSSProperties
           }
         >
+          <div className={styles.nodeHole} />
           <div className={styles.nodeHead}>
             {node.kind === "step" ? (
               <span className="material-symbols-outlined">{node.icon}</span>
