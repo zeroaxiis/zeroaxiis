@@ -17,7 +17,13 @@ import { useWindowPointer } from "./use-window-pointer";
  * - cursor-following tilt + velocity-driven spin boost
  * - hover halo + grid pulse
  */
-export function Globe() {
+export interface GlobeProps {
+  tiltX?: number;
+  tiltZ?: number;
+  interactive?: boolean;
+}
+
+export function Globe({ tiltX = AXIAL_TILT, tiltZ = 0, interactive = true }: GlobeProps = {}) {
   const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Group>(null);
   const wireRef = useRef<THREE.LineSegments>(null);
@@ -47,7 +53,7 @@ export function Globe() {
   // the hit-sphere and outside the canvas bounds.
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
-      if (!dragging.current) return;
+      if (!interactive || !dragging.current) return;
       const dx = e.clientX - dragLast.current.x;
       const dy = e.clientY - dragLast.current.y;
       dragLast.current.x = e.clientX;
@@ -106,8 +112,8 @@ export function Globe() {
     const t = state.clock.elapsedTime;
 
     // Pointer velocity → drives spin boost + halo intensity
-    const px = winPointer.current.x;
-    const py = winPointer.current.y;
+    const px = interactive ? winPointer.current.x : 0;
+    const py = interactive ? winPointer.current.y : 0;
     const dpx = px - winPointerLast.current.x;
     const dpy = py - winPointerLast.current.y;
     const v = Math.min(Math.sqrt(dpx * dpx + dpy * dpy) * 60, 1.5);
@@ -144,10 +150,11 @@ export function Globe() {
     }
     if (groupRef.current) {
       groupRef.current.rotation.x =
-        AXIAL_TILT +
+        tiltX +
         rotX.current +
         followX.current +
         Math.sin(t * 0.15) * 0.02;
+      groupRef.current.rotation.z = tiltZ;
       const breath = 1 + winVelocity.current * 0.04;
       const s = (hovered ? 1.06 : 1) * breath;
       groupRef.current.scale.lerp(new THREE.Vector3(s, s, s), 0.18);
@@ -194,15 +201,18 @@ export function Globe() {
   });
 
   const onOver = (e: ThreeEvent<PointerEvent>) => {
+    if (!interactive) return;
     e.stopPropagation();
     setHovered(true);
     if (!dragging.current) document.body.style.cursor = "grab";
   };
   const onOut = () => {
+    if (!interactive) return;
     setHovered(false);
     if (!dragging.current) document.body.style.cursor = "";
   };
   const onDown = (e: ThreeEvent<PointerEvent>) => {
+    if (!interactive) return;
     e.stopPropagation();
     dragging.current = true;
     dragLast.current.x = e.clientX;
@@ -213,7 +223,7 @@ export function Globe() {
   };
 
   return (
-    <group ref={groupRef} rotation={[AXIAL_TILT, 0, 0]}>
+    <group ref={groupRef} rotation={[tiltX, 0, tiltZ]}>
       {/* Invisible hit-sphere — captures pointer events for the whole globe */}
       <mesh onPointerOver={onOver} onPointerOut={onOut} onPointerDown={onDown}>
         <sphereGeometry args={[GLOBE_R + 0.15, 24, 24]} />

@@ -5,7 +5,7 @@ export { workflowSteps } from "./workflow";
 export type { WorkflowStep } from "@/types";
 
 export { projects, openSourceTools } from "./projects";
-export type { Project, OpenSourceTool, Contributor } from "@/types";
+export type { Project, OpenSourceTool, Contributor, ProjectCategory } from "@/types";
 
 export { teamMembers, contactItems } from "./team";
 export type { TeamMember, ContactItem } from "@/types";
