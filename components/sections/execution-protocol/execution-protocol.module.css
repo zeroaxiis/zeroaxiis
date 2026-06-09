@@ -1,0 +1,548 @@
+.canvas {
+  position: relative;
+}
+
+
+
+.canvas {
+  /* Provide a base size so ems in nodes scale down on mobile */
+  font-size: 10px;
+}
+
+@media (max-width: 768px) {
+  .canvas {
+    /* Slightly smaller font on very narrow phones, but mostly 10px */
+    font-size: clamp(8px, 2.5vw, 10px);
+  }
+}
+
+@keyframes traceMove1_0 {
+  0% { stroke-dashoffset: 40; }
+  16.66% { stroke-dashoffset: -104; }
+  33.33% { stroke-dashoffset: -314; }
+  56.66% { stroke-dashoffset: -702; }
+  73.33% { stroke-dashoffset: -1090; }
+  100% { stroke-dashoffset: -1360; }
+}
+
+@keyframes traceMove1_1 {
+  0% { stroke-dashoffset: 80; }
+  16.66% { stroke-dashoffset: -64; }
+  33.33% { stroke-dashoffset: -274; }
+  56.66% { stroke-dashoffset: -662; }
+  73.33% { stroke-dashoffset: -1050; }
+  100% { stroke-dashoffset: -1320; }
+}
+
+@keyframes traceMove1_2 {
+  0% { stroke-dashoffset: 120; }
+  16.66% { stroke-dashoffset: -24; }
+  33.33% { stroke-dashoffset: -234; }
+  56.66% { stroke-dashoffset: -622; }
+  73.33% { stroke-dashoffset: -1010; }
+  100% { stroke-dashoffset: -1280; }
+}
+
+@keyframes traceMove1_3 {
+  0% { stroke-dashoffset: 160; }
+  16.66% { stroke-dashoffset: 16; }
+  33.33% { stroke-dashoffset: -194; }
+  56.66% { stroke-dashoffset: -582; }
+  73.33% { stroke-dashoffset: -970; }
+  100% { stroke-dashoffset: -1240; }
+}
+
+@keyframes traceMove2_0 {
+  0% { stroke-dashoffset: 500; }
+  41.75% { stroke-dashoffset: 40; }
+  56.66% { stroke-dashoffset: -214; }
+  67.34% { stroke-dashoffset: -468; }
+  100% { stroke-dashoffset: -1250; }
+}
+
+@keyframes traceMove2_1 {
+  0% { stroke-dashoffset: 540; }
+  41.75% { stroke-dashoffset: 80; }
+  56.66% { stroke-dashoffset: -174; }
+  67.34% { stroke-dashoffset: -428; }
+  100% { stroke-dashoffset: -1210; }
+}
+
+@keyframes traceMove2_2 {
+  0% { stroke-dashoffset: 580; }
+  41.75% { stroke-dashoffset: 120; }
+  56.66% { stroke-dashoffset: -134; }
+  67.34% { stroke-dashoffset: -388; }
+  100% { stroke-dashoffset: -1170; }
+}
+
+@keyframes traceMove2_3 {
+  0% { stroke-dashoffset: 620; }
+  41.75% { stroke-dashoffset: 160; }
+  56.66% { stroke-dashoffset: -94; }
+  67.34% { stroke-dashoffset: -348; }
+  100% { stroke-dashoffset: -1130; }
+}
+
+.trace {
+  filter: drop-shadow(0 0 4px rgba(200, 255, 0, 0.55));
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.traceHalo {
+  filter: blur(2px);
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.traceLayer0 {
+  opacity: 1;
+}
+
+.traceLayer1 {
+  opacity: 0.5;
+}
+
+.traceLayer2 {
+  opacity: 0.2;
+}
+
+.traceLayer3 {
+  opacity: 0.05;
+}
+
+.traceHaloLayer0 {
+  opacity: 0.9;
+}
+
+.traceHaloLayer1 {
+  opacity: 0.4;
+}
+
+.traceHaloLayer2 {
+  opacity: 0.15;
+}
+
+.traceHaloLayer3 {
+  opacity: 0;
+}
+
+.trace1_0 {
+  animation-name: traceMove1_0;
+}
+
+.trace1_1 {
+  animation-name: traceMove1_1;
+}
+
+.trace1_2 {
+  animation-name: traceMove1_2;
+}
+
+.trace1_3 {
+  animation-name: traceMove1_3;
+}
+
+.trace2_0 {
+  animation-name: traceMove2_0;
+}
+
+.trace2_1 {
+  animation-name: traceMove2_1;
+}
+
+.trace2_2 {
+  animation-name: traceMove2_2;
+}
+
+.trace2_3 {
+  animation-name: traceMove2_3;
+}
+
+/* Sequential pulse — each pill ignites at its --delay, holds lit for
+   ~2.5s, then decays. Window per node ≈ 17% of the 15s cycle. */
+@keyframes nodePulse {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    border-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.8) rgba(255, 255, 255, 0.05);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.05),
+      inset 0 -1px 3px rgba(0, 0, 0, 0.9),
+      0 15px 35px -5px rgba(0, 0, 0, 0.8);
+  }
+
+  1% {
+    transform: translate(-50%, -50%) scale(1.04);
+    border-color: #c8ff00;
+    box-shadow:
+      inset 0 0 15px rgba(200, 255, 0, 0.3),
+      0 0 32px rgba(200, 255, 0, 0.65),
+      0 0 45px rgba(200, 255, 0, 0.2),
+      0 18px 40px -5px rgba(0, 0, 0, 0.8);
+  }
+
+  13% {
+    transform: translate(-50%, -50%) scale(1.04);
+    border-color: #c8ff00;
+    box-shadow:
+      inset 0 0 15px rgba(200, 255, 0, 0.3),
+      0 0 24px rgba(200, 255, 0, 0.45),
+      0 0 35px rgba(200, 255, 0, 0.15),
+      0 18px 40px -5px rgba(0, 0, 0, 0.8);
+  }
+
+  16% {
+    transform: translate(-50%, -50%) scale(1);
+    border-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.8) rgba(255, 255, 255, 0.05);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.05),
+      inset 0 -1px 3px rgba(0, 0, 0, 0.9),
+      0 15px 35px -5px rgba(0, 0, 0, 0.8);
+  }
+}
+
+@keyframes iconPulse {
+
+  0%,
+  100% {
+    color: rgba(245, 241, 232, 0.78);
+  }
+
+  1%,
+  13% {
+    color: #c8ff00;
+  }
+
+  16% {
+    color: rgba(245, 241, 232, 0.78);
+  }
+}
+
+/* Body grows inside pill — opens 0.3s after pulse fires, holds ~2s,
+   collapses smoothly. Synced to nodePulse window. */
+@keyframes bodyReveal {
+
+  0%,
+  2%,
+  16%,
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    padding-top: 0;
+    border-top-color: transparent;
+  }
+
+  5%,
+  13% {
+    opacity: 1;
+    max-height: 100px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top-color: rgba(200, 255, 0, 0.22);
+  }
+}
+
+/* Idle blink on brand/client glyphs */
+@keyframes markBlink {
+
+  0%,
+  46%,
+  54%,
+  100% {
+    opacity: 0.88;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  48%,
+  52% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(200, 255, 0, 0.6));
+  }
+}
+
+/* 2.5D pill — gradient depth, dual inset highlights, soft drop shadow.
+   transform-origin top so body growth doesn't shift the head off the path. */
+.unifiedNode {
+  position: absolute;
+  left: var(--desktop-x);
+  top: var(--desktop-y);
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 50%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  width: 16em;
+  background-color: #151515;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(0,0,0,0.5) 100%);
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.8) rgba(255, 255, 255, 0.05);
+  color: #a3a093;
+  padding: 1.2em 1.4em;
+  border-radius: 0.3em;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.9),
+    0 15px 35px -5px rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  animation-name: nodePulse;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-delay: var(--delay, 0s);
+}
+
+.unifiedNode::before,
+.unifiedNode::after {
+  content: "";
+  position: absolute;
+  left: 2.3em;
+  width: 11.4em;
+  height: 0.5em;
+  background-image: repeating-linear-gradient(90deg,
+      #555 0,
+      #555 0.4em,
+      transparent 0.4em,
+      transparent 1em);
+  z-index: -1;
+  animation: pinsPulse 15s infinite cubic-bezier(0.16, 1, 0.3, 1);
+  animation-delay: var(--delay, 0s);
+}
+
+.unifiedNode::before {
+  top: -0.5em;
+}
+
+.unifiedNode::after {
+  bottom: -0.5em;
+}
+
+@keyframes pinsPulse {
+
+  0%,
+  100% {
+    background-image: repeating-linear-gradient(90deg, #555 0, #555 0.4em, transparent 0.4em, transparent 1em);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  1%,
+  13% {
+    background-image: repeating-linear-gradient(90deg, #c8ff00 0, #c8ff00 0.4em, transparent 0.4em, transparent 1em);
+    filter: drop-shadow(0 0 8px rgba(200, 255, 0, 0.8));
+  }
+
+  16% {
+    background-image: repeating-linear-gradient(90deg, #555 0, #555 0.4em, transparent 0.4em, transparent 1em);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+}
+
+.unifiedNode :global(.material-symbols-outlined) {
+  color: rgba(245, 241, 232, 0.88);
+  font-size: 1.4em;
+  font-weight: 300;
+}
+
+.unifiedNodeBrand {
+  background-color: #0e1105;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, rgba(200, 255, 0, 0.05) 0%, rgba(0,0,0,0.6) 100%);
+}
+
+.unifiedNodeClient {
+  border-color: rgba(245, 241, 232, 0.3);
+}
+
+.nodeHead {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  font-size: 1.2em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #a3a093;
+  text-shadow:
+    -1px -1px 1px rgba(0, 0, 0, 0.9),
+    1px 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.nodeBody {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1em;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  text-transform: none;
+  color: #8c8a80;
+  text-align: center;
+  border-top: 0.1em solid transparent;
+  overflow: hidden;
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  padding-top: 0;
+  animation-name: bodyReveal;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-delay: var(--delay, 0s);
+}
+
+/* 2.5D glyph — soft drop shadow + inner glow gives raised look. */
+.markIcon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1.4em;
+  height: 1.4em;
+  filter:
+    drop-shadow(0 0.1em 0 rgba(0, 0, 0, 0.6)) drop-shadow(0 0 0.2em rgba(245, 241, 232, 0.15));
+  animation: markBlink 3s ease-in-out infinite;
+}
+
+.markIconBrand {
+  color: #c8ff00;
+  filter:
+    drop-shadow(0 0.1em 0 rgba(0, 0, 0, 0.6)) drop-shadow(0 0 0.4em rgba(200, 255, 0, 0.4));
+  animation-duration: 2.4s;
+}
+
+/* Body grows inside pill — opens 0.3s after pulse fires, holds ~2s,
+   collapses smoothly. Synced to nodePulse window. */
+@keyframes bodyReveal {
+
+  0%,
+  2%,
+  16%,
+  100% {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    padding-top: 0;
+    border-top-color: transparent;
+  }
+
+  5%,
+  13% {
+    opacity: 1;
+    max-height: 6em;
+    margin-top: 0.8em;
+    padding-top: 0.8em;
+    border-top-color: rgba(245, 241, 232, 0.1);
+  }
+}
+
+/* Idle blink on brand/client glyphs */
+@keyframes markBlink {
+
+  0%,
+  46%,
+  54%,
+  100% {
+    opacity: 0.88;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  48%,
+  52% {
+    opacity: 1;
+    filter: drop-shadow(0 0 0.8em rgba(200, 255, 0, 0.45));
+  }
+}
+
+@media (max-width: 768px) {
+  .unifiedNode {
+    left: var(--mobile-x);
+    top: var(--mobile-y);
+  }
+}
+
+.nodeHole {
+  position: absolute;
+  left: 1.2em;
+  top: 1.8em;
+  transform: translateY(-50%);
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background-color: #050505;
+  box-shadow: inset 0 0 0 transparent, 0 0 0 0.05em rgba(255, 255, 255, 0.05);
+}
+
+.nodeHole::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: #c8ff00;
+  box-shadow: inset 0 0 4px rgba(200, 255, 0, 1), 0 0 8px rgba(200, 255, 0, 0.8);
+  opacity: 0;
+  will-change: opacity;
+  animation-name: holeBlink;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-delay: var(--delay, 0s);
+}
+
+.unifiedNodeBrand .nodeHole {
+  box-shadow: 0 0 0 0.05em rgba(200, 255, 0, 0.05);
+}
+
+@keyframes holeBlink {
+  0%, 3%, 15%, 100% {
+    opacity: 0;
+  }
+  
+  6%, 12% {
+    opacity: 1;
+  }
+  
+  9% {
+    opacity: 0.15;
+  }
+}
+
+
+
+.terminalScroll1 {
+  animation: terminalScrollUp 20s linear infinite;
+}
+
+.terminalScroll2 {
+  animation: terminalScrollDown 25s linear infinite;
+}
+
+@keyframes terminalScrollUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+
+@keyframes terminalScrollDown {
+  0% { transform: translateY(-20px); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+
+.easterEggPulse {
+  animation: eggPulse 4s ease-in-out infinite;
+}
+
+@keyframes eggPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}

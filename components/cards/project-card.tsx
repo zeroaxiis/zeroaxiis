@@ -1,61 +1,61 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { motion } from "motion/react";
+import Link from "next/link";
 import type { Project } from "@/types";
-import { ArrowUpRightSmallIcon } from "@/components/icons";
+import { ArrowDiagonalSmallIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
-export type ProjectCardProps = Project & { index?: number };
+export type ProjectCardProps = Project & {
+  index?: number;
+  className?: string;
+  priority?: boolean;
+};
 
 export function ProjectCard({
   title,
   description,
   image,
   imageAlt,
+  icon,
   href = "#",
+  className,
 }: ProjectCardProps) {
   return (
-    <motion.a
+    <Link
       href={href}
-      className="group flex flex-col gap-4"
-      whileHover="hover"
+      className={cn(
+        "group flex flex-col w-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 h-full",
+        className
+      )}
     >
-      {/* Image Thumbnail */}
-      <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-surface-layer border border-stroke/60">
+      {/* Compact thumbnail */}
+      <div className="relative w-full aspect-video overflow-hidden rounded-xl bg-[#1a1c20]">
         {image ? (
           <img
             src={image}
             alt={imageAlt || title}
-            className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />
-        ) : (
-          <div className="w-full h-full bg-surface-layer-raised" />
-        )}
-        {/* Subtle overlay on hover */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+        ) : icon ? (
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="material-symbols-outlined text-[40px] text-bone-mute opacity-40 group-hover:text-accent group-hover:opacity-100 transition-all duration-400">
+              {icon}
+            </span>
+          </div>
+        ) : null}
       </div>
 
-      {/* Title + Arrow */}
-      <div className="flex items-center gap-2">
-        <h3 className="font-display text-[18px] sm:text-[20px] tracking-[-0.02em] text-bone group-hover:text-accent transition-colors duration-300">
-          {title}
-        </h3>
-        <span
-          className={cn(
-            "inline-flex items-center justify-center w-5 h-5 rounded-full border border-bone/30 text-bone/50",
-            "group-hover:border-accent group-hover:text-accent group-hover:rotate-0 transition-all duration-300",
-            "-rotate-45"
-          )}
-        >
-          <ArrowUpRightSmallIcon width={10} height={10} strokeWidth={1.8} />
-        </span>
-      </div>
+      {/* Title + arrow */}
+      <h3 className="text-[15px] font-medium text-bone leading-snug flex items-center gap-1 mt-3 mb-1 group-hover:text-accent transition-colors duration-300">
+        {title}
+        <ArrowDiagonalSmallIcon width={11} height={11} className="text-bone-mute group-hover:text-accent flex-shrink-0 transition-colors duration-300" />
+      </h3>
 
       {/* Description */}
-      <p className="font-body text-[13px] sm:text-[14px] text-bone-mute leading-relaxed -mt-1">
+      <p className="text-bone-mute text-[12px] leading-[1.5] line-clamp-2">
         {description}
       </p>
-    </motion.a>
+    </Link>
   );
 }

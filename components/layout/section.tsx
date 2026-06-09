@@ -16,8 +16,8 @@ export function Section({ children, id, className }: SectionProps) {
     <section
       id={id}
       className={cn(
-        // Fluid vertical padding — 56px mobile → 128px desktop
-        "py-[clamp(3.5rem,8vw,8rem)]",
+        // Uniform vertical padding — 48px mobile → 64px desktop
+        "py-12 md:py-16",
         className,
       )}
     >

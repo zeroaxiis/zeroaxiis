@@ -134,14 +134,15 @@ export function Testimonials() {
     >
       <Container>
         <Reveal className="mb-20 flex flex-col sm:flex-row sm:items-end justify-between gap-10">
-          <div className="max-w-3xl">
-            <p className="font-label-mono text-label-mono text-bone-mute uppercase tracking-[0.22em] mb-5 flex items-center gap-3">
-              <span className="inline-block w-7 h-px bg-accent" />
-              In Their Words / 03
-            </p>
-            <h2 className="font-display text-[clamp(40px,6vw,80px)] leading-[0.95] text-bone tracking-[-0.03em] text-balance">
+          <div className="max-w-none md:max-w-4xl">
+            <div className="flex items-center gap-6 mb-5">
+              <span className="font-label-mono text-[10px] md:text-[11px] text-accent uppercase tracking-[0.4em]">
+                In Their Words
+              </span>
+            </div>
+            <h2 className="font-display text-[clamp(40px,6vw,80px)] leading-[0.95] text-bone tracking-[-0.03em]">
               Quiet partners.{" "}
-              <span className="italic text-bone-dim">Loud results.</span>
+              <span className="font-serif italic text-accent font-light">Loud results.</span>
             </h2>
           </div>
 

@@ -1,10 +1,11 @@
 import { Marquee } from "@/components/ui/marquee";
+import { GlobeLogoIcon } from "@/components/icons";
 import styles from "./hero.module.css";
 
 const DEFAULT_LOGOS = [
   "Stripe",
   "Linear",
-  "Vercel",
+  "ZeroAxiis",
   "Framer",
   "Arc",
   "Raycast",
@@ -28,7 +29,14 @@ export function ClientLogos({ logos = DEFAULT_LOGOS }: ClientLogosProps) {
       <Marquee gap="4.5rem" pauseOnHover>
         {logos.map((logo) => (
           <span key={logo} className={styles.clientLogo}>
-            {logo}
+            {logo === "ZeroAxiis" ? (
+              <span className="flex items-center gap-2">
+                <GlobeLogoIcon width={24} height={24} className="opacity-80 -rotate-12" />
+                {logo}
+              </span>
+            ) : (
+              logo
+            )}
           </span>
         ))}
       </Marquee>

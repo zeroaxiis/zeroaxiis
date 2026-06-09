@@ -29,7 +29,7 @@ const PILLARS = [
 export function About() {
 
   return (
-    <Section id="about" className="relative w-full min-h-[100svh] flex flex-col justify-center bg-surface-container-lowest overflow-hidden py-12 md:py-16">
+    <Section id="about" className="relative w-full min-h-[100svh] flex flex-col justify-center bg-surface-container-lowest overflow-hidden">
       {/* Background Grid Pattern */}
       <div
         aria-hidden="true"
