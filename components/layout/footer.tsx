@@ -84,7 +84,7 @@ function FooterSocials() {
 
 function FooterNav() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 py-8 border-b border-stroke">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 py-8 border-b border-stroke">
       {siteConfig.footerNav.exploreGroups.map((group) => (
         <div key={group.heading}>
           <h3 className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone mb-6">

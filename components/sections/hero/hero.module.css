@@ -546,6 +546,7 @@
   .metaCluster {
     gap: 14px;
     font-size: 9px;
+    flex-wrap: wrap;
   }
 
   .description {
@@ -559,5 +560,24 @@
 
   .scrollHint {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .subRow {
+    gap: 24px;
+  }
+  
+  .ctaCluster {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .cta {
+    /* removed width: 100% and justify-content: space-between */
+  }
+  
+  .ctaSecondary {
+    /* removed width: 100% and justify-content: center */
   }
 }

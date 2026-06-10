@@ -94,14 +94,12 @@ export function HeroContent({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 1.25, ease: easeOut }}
           >
-            <Magnetic strength={0.35}>
               <a href={ctaHref} className={styles.cta}>
                 <span>{ctaLabel}</span>
                 <span className={styles.ctaArrow}>
                   <ArrowUpRightSmallIcon />
                 </span>
               </a>
-            </Magnetic>
 
             <a href={secondaryHref} className={styles.ctaSecondary}>
               {secondaryLabel}
