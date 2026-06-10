@@ -54,9 +54,9 @@ export function ProjectsHero() {
       />
 
       <div className="mx-auto max-w-footer-max px-[clamp(1rem,6vw,7rem)]">
-        <div className="flex items-start justify-between gap-8">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-12">
           {/* Left: copy */}
-          <div className="max-w-lg shrink-0 pb-20 pt-4">
+          <div className="w-full max-w-lg shrink-0 pb-12 lg:pb-20 pt-4">
             {/* Label */}
             <motion.p
               className="font-label-mono text-label-mono text-accent uppercase tracking-[0.22em] mb-8 flex items-center gap-3"
@@ -108,7 +108,7 @@ export function ProjectsHero() {
           </div>
 
           {/* Right: orbit diagram */}
-          <div className="relative flex-1 min-w-0 h-[380px] hidden md:block">
+          <div className="relative w-full max-w-2xl lg:flex-1 h-[380px] hidden md:block">
             <OrbitDiagram />
 
             {/* 3D Globe overlay at the center */}
