@@ -5,8 +5,8 @@
 
 
 .canvas {
-  /* Provide a base size so ems in nodes scale down on mobile */
-  font-size: 10px;
+  /* Provide a base size so ems in nodes scale down fluidly alongside the SVG */
+  font-size: clamp(6px, 0.85vw, 10px);
 }
 
 @media (max-width: 768px) {
