@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="pb-32 relative bg-surface-container-lowest min-h-[100svh] overflow-hidden">
+    <main className="pb-32 relative bg-surface-container-lowest min-h-[clamp(600px,100svh,1080px)] overflow-hidden">
       {/* Background Grid Pattern from Vision */}
       <div
         aria-hidden="true"

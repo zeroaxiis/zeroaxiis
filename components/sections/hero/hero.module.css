@@ -3,7 +3,9 @@
 .section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: auto;
+  padding-top: clamp(140px, 15vh, 220px);
+  padding-bottom: clamp(60px, 8vh, 120px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
