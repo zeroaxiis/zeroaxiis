@@ -27,6 +27,15 @@ export function TeamRoster({ members }: TeamRosterProps) {
     setScrollProgress(progress);
   };
 
+  const handleScrollClick = (direction: "prev" | "next") => {
+    if (!scrollRef.current) return;
+    const scrollAmount = 324; // Approximate card width + gap
+    scrollRef.current.scrollBy({
+      left: direction === "next" ? scrollAmount : -scrollAmount,
+      behavior: "smooth"
+    });
+  };
+
   if (!members || members.length === 0) return null;
 
   return (
