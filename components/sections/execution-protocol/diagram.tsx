@@ -12,7 +12,7 @@ interface ExecutionProtocolDiagramProps {
 export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiagramProps) {
   return (
     <div
-      className={`${styles.canvas} relative w-full aspect-[400/1100] md:w-[1100px] md:min-w-[1100px] md:aspect-auto md:h-[360px] mx-auto`}
+      className={`${styles.canvas} relative w-full aspect-[400/1100] md:w-full md:max-w-[1100px] md:aspect-[1100/360] md:h-auto mx-auto`}
     >
       {/* Desktop SVG */}
       <svg

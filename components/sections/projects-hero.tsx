@@ -91,7 +91,6 @@ export function ProjectsHero() {
             </motion.p>
 
             {/* CTA */}
-            <Magnetic strength={0.35} className="inline-block w-fit">
               <motion.a
                 href="#"
                 className={styles.cta}
@@ -104,7 +103,6 @@ export function ProjectsHero() {
                   <ArrowUpRightSmallIcon />
                 </span>
               </motion.a>
-            </Magnetic>
           </div>
 
           {/* Right: orbit diagram */}

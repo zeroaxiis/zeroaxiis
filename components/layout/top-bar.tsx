@@ -48,10 +48,10 @@ export function TopBar() {
         <Magnetic strength={0.25}>
           <button 
             onClick={handleOpenModal} 
-            className={`${styles.connect} group !gap-2 !pl-4 !pr-2`}
+            className={`${styles.connect} group`}
           >
             Hire us
-            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-ink text-bone transition-transform duration-300 group-hover:rotate-45">
+            <span className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6 rounded-full bg-ink text-bone transition-transform duration-300 group-hover:rotate-45">
               <ArrowUpRightIcon width={12} height={12} strokeWidth={2} />
             </span>
           </button>
