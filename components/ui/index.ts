@@ -14,3 +14,9 @@ export { Reveal, RevealStagger, revealItem } from "./reveal";
 export { Magnetic } from "./magnetic";
 export { Marquee } from "./marquee";
 export { TextReveal } from "./text-reveal";
+
+export * from './cta-button';
+export * from './secondary-button';
+export * from './background-grid';
+export * from './background-watermark';
+export * from './eyebrow';

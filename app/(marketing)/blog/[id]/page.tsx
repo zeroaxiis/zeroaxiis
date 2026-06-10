@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { Container } from "@/components/layout";
 import { Reveal } from "@/components/ui/reveal";
 import { ReadingProgress } from "@/components/ui/reading-progress";
-import { ChevronLeftIcon } from "@/components/icons";
+import { CircleButton } from "@/components/ui/circle-button";
+import { ArrowLeftIcon } from "@/components/icons";
 import { getAllPosts, getPostById } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 
@@ -44,13 +44,9 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="relative z-10">
           <Reveal>
-            <Link
-              href="/blog"
-              className="mb-12 inline-flex items-center gap-2 font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone-mute hover:text-accent transition-colors"
-            >
-              <ChevronLeftIcon />
-              All field notes
-            </Link>
+            <CircleButton href="/blog" aria-label="Back to all field notes" className="mb-12">
+              <ArrowLeftIcon width={18} height={18} strokeWidth={1.4} />
+            </CircleButton>
           </Reveal>
 
           <article>

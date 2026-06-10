@@ -2,135 +2,108 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useMotionValue, useAnimationFrame, animate, useMotionValueEvent } from "motion/react";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { testimonials } from "@/lib/data/testimonials";
-import { Magnetic } from "@/components/ui/magnetic";
 import { Reveal } from "@/components/ui/reveal";
+import { CircleButton } from "@/components/ui/circle-button";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 
+// We need enough duplicates to fill the screen while scrolling continuously
 const extendedTestimonials = [
+  ...testimonials,
   ...testimonials,
   ...testimonials,
   ...testimonials,
 ];
 
 export function Testimonials() {
-  const carouselRef = useRef<HTMLDivElement>(null);
   const [activeIdx, setActiveIdx] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [itemWidth, setItemWidth] = useState(452); // fallback
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
 
+  // Measure card width dynamically on mount/resize
   useEffect(() => {
-    if (isHovered) return;
-
-    const interval = setInterval(() => {
-      const el = carouselRef.current;
-      if (!el) return;
-      const card = el.querySelector<HTMLElement>("[data-card]");
-      const gap = 32;
-      const cardWidth = card?.offsetWidth || 420;
-      const amount = cardWidth + gap;
-
-      const currentIdx = Math.round(el.scrollLeft / amount);
-
-      if (currentIdx === testimonials.length * 2 - 1) {
-        el.scrollLeft = amount * (testimonials.length - 1);
-        setTimeout(() => {
-          el.scrollTo({ left: amount * testimonials.length, behavior: "smooth" });
-        }, 0);
-      } else {
-        el.scrollBy({ left: amount, behavior: "smooth" });
+    const measure = () => {
+      const card = containerRef.current?.querySelector<HTMLElement>("[data-card]");
+      if (card) {
+        setItemWidth(card.offsetWidth + 32); // 32px is the gap
       }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isHovered, activeIdx]);
-
-  useEffect(() => {
-    const el = carouselRef.current;
-    if (!el) return;
-
-    const handleResize = () => {
-      const card = el.querySelector<HTMLElement>("[data-card]");
-      const gap = 32;
-      const cardWidth = card?.offsetWidth || 420;
-      const amount = cardWidth + gap;
-      el.scrollLeft = amount * (testimonials.length + activeIdx);
     };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
-    handleResize();
-    const timer = setTimeout(handleResize, 50);
+  // Fluid continuous GPU-accelerated marquee
+  useAnimationFrame((time, delta) => {
+    if (isHovered || isScrolling || !itemWidth) return;
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [activeIdx]);
+    // Move left continuously at ~60px per second
+    const moveBy = -60 * (delta / 1000);
+    let newX = x.get() + moveBy;
 
-  const handleScroll = () => {
-    const el = carouselRef.current;
-    if (!el) return;
-    const card = el.querySelector<HTMLElement>("[data-card]");
-    const gap = 32;
-    const cardWidth = card?.offsetWidth || 420;
-    const amount = cardWidth + gap;
-    const scrollLeft = el.scrollLeft;
+    const totalWidth = itemWidth * testimonials.length;
 
-    const computedIdx = Math.round(scrollLeft / amount);
-    const relativeIdx = computedIdx % testimonials.length;
-
-    if (relativeIdx >= 0 && relativeIdx < testimonials.length && relativeIdx !== activeIdx) {
-      setActiveIdx(relativeIdx);
+    // Wrap around seamlessly
+    if (newX <= -totalWidth) {
+      newX += totalWidth;
+    } else if (newX > 0) {
+      newX -= totalWidth;
     }
+    
+    x.set(newX);
+  });
 
-    // Silent boundary reset for manual scrolling/swipe
-    const minScroll = amount * (testimonials.length - 1);
-    const maxScroll = amount * (testimonials.length * 2);
-
-    if (scrollLeft < minScroll) {
-      el.scrollLeft = scrollLeft + amount * testimonials.length;
-    } else if (scrollLeft > maxScroll) {
-      el.scrollLeft = scrollLeft - amount * testimonials.length;
+  // Track active index
+  useMotionValueEvent(x, "change", (latestX) => {
+    if (!itemWidth) return;
+    const totalWidth = itemWidth * testimonials.length;
+    let normalizedX = latestX % totalWidth;
+    if (normalizedX > 0) normalizedX -= totalWidth;
+    
+    let computedIdx = Math.round(Math.abs(normalizedX) / itemWidth);
+    if (computedIdx >= testimonials.length) computedIdx = 0;
+    
+    if (computedIdx !== activeIdx) {
+      setActiveIdx(computedIdx);
     }
-  };
+  });
 
-  const scroll = (direction: "prev" | "next") => {
-    const el = carouselRef.current;
-    if (!el) return;
-    const card = el.querySelector<HTMLElement>("[data-card]");
-    const gap = 32;
-    const cardWidth = card?.offsetWidth || 420;
-    const amount = cardWidth + gap;
+  // Fluid spring animation for manual controls
+  const scrollBtn = (direction: "prev" | "next") => {
+    if (isScrolling || !itemWidth) return;
+    setIsScrolling(true);
 
-    const currentIdx = Math.round(el.scrollLeft / amount);
+    const currentX = x.get();
+    const targetX = direction === "next" ? currentX - itemWidth : currentX + itemWidth;
+    const totalWidth = itemWidth * testimonials.length;
 
-    if (direction === "next") {
-      if (currentIdx === testimonials.length * 2 - 1) {
-        el.scrollLeft = amount * (testimonials.length - 1);
-        setTimeout(() => {
-          el.scrollTo({ left: amount * testimonials.length, behavior: "smooth" });
-        }, 0);
-      } else {
-        el.scrollBy({ left: amount, behavior: "smooth" });
+    animate(x, targetX, {
+      type: "spring",
+      stiffness: 150,
+      damping: 25,
+      onComplete: () => {
+        const finalX = x.get();
+        if (finalX <= -totalWidth) {
+          x.set(finalX + totalWidth);
+        } else if (finalX > 0) {
+          x.set(finalX - totalWidth);
+        }
+        setIsScrolling(false);
       }
-    } else {
-      if (currentIdx === testimonials.length) {
-        el.scrollLeft = amount * (testimonials.length * 2);
-        setTimeout(() => {
-          el.scrollTo({ left: amount * (testimonials.length * 2 - 1), behavior: "smooth" });
-        }, 0);
-      } else {
-        el.scrollBy({ left: -amount, behavior: "smooth" });
-      }
-    }
+    });
   };
 
   return (
     <Section
       id="testimonials"
-      className="border-t border-stroke bg-surface-container-lowest relative overflow-hidden"
+      className="relative overflow-hidden"
     >
       <Container>
         <Reveal className="mb-20 flex flex-col sm:flex-row sm:items-end justify-between gap-10">
@@ -141,8 +114,7 @@ export function Testimonials() {
               </span>
             </div>
             <h2 className="font-display text-[clamp(40px,6vw,80px)] leading-[0.95] text-bone tracking-[-0.03em]">
-              Quiet partners.{" "}
-              <span className="font-serif italic text-accent font-light">Loud results.</span>
+              What our <span className="font-serif italic text-accent font-light">clients</span> say
             </h2>
           </div>
 
@@ -152,24 +124,12 @@ export function Testimonials() {
               <span className="opacity-50">/ {String(testimonials.length).padStart(2, "0")}</span>
             </span>
             <div className="flex gap-3">
-              <Magnetic strength={0.4}>
-                <button
-                  onClick={() => scroll("prev")}
-                  aria-label="Previous testimonial"
-                  className="w-12 h-12 rounded-full border border-stroke text-bone-mute hover:text-accent hover:border-accent transition-all duration-300 flex items-center justify-center"
-                >
-                  <ArrowLeftIcon width={18} height={18} strokeWidth={1.4} />
-                </button>
-              </Magnetic>
-              <Magnetic strength={0.4}>
-                <button
-                  onClick={() => scroll("next")}
-                  aria-label="Next testimonial"
-                  className="w-12 h-12 rounded-full border border-stroke text-bone-mute hover:text-accent hover:border-accent transition-all duration-300 flex items-center justify-center"
-                >
-                  <ArrowRightIcon width={18} height={18} strokeWidth={1.4} />
-                </button>
-              </Magnetic>
+              <CircleButton onClick={() => scrollBtn("prev")} aria-label="Previous testimonial">
+                <ArrowLeftIcon width={18} height={18} strokeWidth={1.4} />
+              </CircleButton>
+              <CircleButton onClick={() => scrollBtn("next")} aria-label="Next testimonial">
+                <ArrowRightIcon width={18} height={18} strokeWidth={1.4} />
+              </CircleButton>
             </div>
           </div>
         </Reveal>
@@ -177,67 +137,51 @@ export function Testimonials() {
 
       <Container
         className="!px-0 sm:!px-[clamp(0.75rem,3vw,2rem)]"
-      ><div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         <div
-          ref={carouselRef}
-          onScroll={handleScroll}
-          className="flex gap-8 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-none"
-          style={{ scrollbarWidth: "none" }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="overflow-hidden"
         >
-          {extendedTestimonials.map((t, i) => (
-            <motion.article
-              key={`${t.name}-${i}`}
-              data-card
-              className="snap-start shrink-0 w-[88vw] sm:w-[440px] flex flex-col"
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.7,
-                delay: (i % testimonials.length) * 0.06,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            >
-              <div className="flex items-center justify-between mb-10">
-                <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em]">
-                  {String((i % testimonials.length) + 1).padStart(2, "0")} / {t.tag}
-                </span>
-                <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.18em] border border-stroke rounded-full px-3 py-1.5">
-                  {t.location}
-                </span>
-              </div>
-
-              <p className="font-display text-[28px] sm:text-[34px] leading-[1.2] text-bone tracking-[-0.015em] mb-10 grow">
-                <span className="text-accent mr-1">&ldquo;</span>
-                {t.quote}
-                <span className="text-accent ml-0.5">&rdquo;</span>
-              </p>
-
-              <div className="flex items-center gap-4 pt-6 border-t border-stroke">
-                <Image
-                  src={t.avatar}
-                  alt={t.name}
-                  width={44}
-                  height={44}
-                  className="rounded-full object-cover grayscale"
-                  unoptimized
-                />
-                <div>
-                  <p className="font-body-sm text-body-sm font-medium text-bone">
-                    {t.name}
-                  </p>
-                  <p className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.16em] mt-1">
-                    {t.title} · {t.company}
-                  </p>
+          <motion.div
+            ref={containerRef}
+            style={{ x }}
+            className="flex gap-8 pb-6 cursor-grab active:cursor-grabbing w-max"
+          >
+            {extendedTestimonials.map((t, i) => (
+              <article
+                key={`${t.name}-${i}`}
+                data-card
+                className="shrink-0 w-[88vw] sm:w-[420px] flex flex-col p-6 sm:p-8 border border-stroke bg-[#040404] hover:bg-[#0a0a0a] transition-colors duration-300 rounded-[20px] overflow-hidden"
+              >
+                {/* Twitter-Inspired Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <Image src={t.avatar} alt={t.name} width={48} height={48} className="rounded-full object-cover" unoptimized />
+                  <div className="flex flex-col justify-center">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-body-md font-bold text-[16px] text-bone">{t.name}</span>
+                    </div>
+                    <span className="font-body-sm text-[14px] text-bone-mute">@{t.name.toLowerCase().replace(/\s+/g, '')}</span>
+                  </div>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+
+                <p className="font-body-md text-[16px] sm:text-[18px] leading-[1.6] text-bone-dim tracking-wide mb-8 grow">
+                  {t.quote}
+                </p>
+
+                {/* Clean Footer replacing fake engagement metrics */}
+                <div className="flex items-center justify-between pt-5 border-t border-stroke mt-auto">
+                  <span className="font-label-mono text-[10px] text-accent uppercase tracking-widest bg-accent/10 px-2.5 py-1.5 rounded-sm">
+                    {t.tag}
+                  </span>
+                  <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-widest">
+                    {t.title} <span className="text-accent mx-1">·</span> {t.company}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </motion.div>
         </div>
-      </div>
       </Container>
     </Section>
   );

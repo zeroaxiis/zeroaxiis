@@ -16,8 +16,8 @@ export default function HomePage() {
         />
         <Features />
         <ExecutionProtocol />
+        <Testimonials />
       </div>
-      <Testimonials />
     </>
   );
 }

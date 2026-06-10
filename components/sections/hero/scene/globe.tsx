@@ -78,7 +78,7 @@ export function Globe({ tiltX = AXIAL_TILT, tiltZ = 0, interactive = true }: Glo
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
     };
-  }, []);
+  }, [interactive]);
 
   // Geometries — computed once, shared across all matching positions
   const sphereForWire = useMemo(

@@ -22,6 +22,7 @@ export function Magnetic({
   const springY = useSpring(y, { stiffness: 180, damping: 18, mass: 0.4 });
 
   const handleMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();

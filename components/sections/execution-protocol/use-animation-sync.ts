@@ -24,7 +24,7 @@ export function useAnimationSync(nodeRef: RefObject<HTMLDivElement | null>) {
         const animations = nodeRef.current.getAnimations();
         // The animation we want to track is the 15s nodePulse
         const pulseAnim = animations.find(a => {
-          const animName = (a as any).animationName;
+          const animName = (a as { animationName?: string }).animationName;
           return typeof animName === 'string' && animName.includes('nodePulse');
         });
         

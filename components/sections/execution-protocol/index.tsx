@@ -11,7 +11,7 @@ export function ExecutionProtocol() {
   const nodeRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Section id="workflow" className="relative">
+    <Section id="workflow" className="relative !pb-10 md:!pb-10">
       <Container>
         <Reveal className="mb-20 flex items-end justify-between flex-wrap gap-8">
           <div className="max-w-2xl">
@@ -30,7 +30,7 @@ export function ExecutionProtocol() {
           </div>
         </Reveal>
 
-        <div className="w-full pb-8 relative">
+        <div className="w-full relative">
           {/* Isolated Terminal Readout to prevent parent re-renders */}
           <TerminalReadout nodeRef={nodeRef} />
           

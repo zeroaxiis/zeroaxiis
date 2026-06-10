@@ -2,6 +2,7 @@ import type { TeamMember, ContactItem } from "@/types";
 
 export const teamMembers: TeamMember[] = [
   {
+    id: "AX-01",
     name: "Elias Vance",
     role: "Systems Architect",
     description:
@@ -14,8 +15,18 @@ export const teamMembers: TeamMember[] = [
       { label: "GitHub", href: "#" },
       { label: "Twitter", href: "#" },
     ],
+    specializations: [
+      "System Architecture",
+      "Backend Engineering",
+      "Cloud Infrastructure",
+      "Product Strategy"
+    ],
+    techStack: ["RUST", "TYPESCRIPT", "POSTGRESQL", "AWS", "DOCKER"],
+    focus: "Building core infrastructure and distributed systems.",
+    since: "2024"
   },
   {
+    id: "AX-02",
     name: "Sarah Chen",
     role: "Frontend Engineer",
     description:
@@ -28,8 +39,18 @@ export const teamMembers: TeamMember[] = [
       { label: "GitHub", href: "#" },
       { label: "LinkedIn", href: "#" },
     ],
+    specializations: [
+      "WebGL rendering",
+      "Frontend Architecture",
+      "UI/UX Implementation",
+      "Performance Tuning"
+    ],
+    techStack: ["REACT", "THREE.JS", "TYPESCRIPT", "TAILWIND", "NEXT.JS"],
+    focus: "Pushing the boundaries of browser rendering.",
+    since: "2024"
   },
   {
+    id: "AX-03",
     name: "Marcus Thorne",
     role: "Security Researcher",
     description:
@@ -42,6 +63,15 @@ export const teamMembers: TeamMember[] = [
       { label: "GitHub", href: "#" },
       { label: "Twitter", href: "#" },
     ],
+    specializations: [
+      "Smart Contract Security",
+      "Zero-Knowledge Proofs",
+      "Network Auditing",
+      "Cryptography"
+    ],
+    techStack: ["SOLIDITY", "CIRCOM", "PYTHON", "RUST", "GO"],
+    focus: "Auditing L2 networks and core DeFi primitives.",
+    since: "2025"
   },
 ];
 

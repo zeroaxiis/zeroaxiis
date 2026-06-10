@@ -59,6 +59,7 @@ export type SocialLink = {
 };
 
 export type TeamMember = {
+  id?: string;
   name: string;
   role: string;
   description: string;
@@ -66,6 +67,10 @@ export type TeamMember = {
   imageAlt: string;
   icon: string;
   socialLinks: SocialLink[];
+  specializations?: string[];
+  techStack?: string[];
+  focus?: string;
+  since?: string;
 };
 
 export type ContactItem = {
