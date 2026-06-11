@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/section";
 import { Reveal } from "@/components/ui/reveal";
 import { CreativeGallery } from "@/components/sections/creative-gallery";
 import { creativeItems } from "@/lib/data";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 export const metadata = {
   title: "Creative Media | ZeroAxiis",
@@ -13,10 +14,7 @@ export default function CreativePage() {
   return (
     <main className="pt-32 pb-32 relative bg-surface-container-lowest min-h-[clamp(600px,100svh,1080px)] overflow-hidden">
       {/* Background Grid Pattern from Vision */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_100%)]"
-      />
+      <BackgroundGrid />
 
       <Section className="!py-0 relative z-10">
         <Container>

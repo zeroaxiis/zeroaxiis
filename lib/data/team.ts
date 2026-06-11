@@ -2,16 +2,53 @@ import type { TeamMember, ContactItem } from "@/types";
 
 export const teamMembers: TeamMember[] = [
   {
+    id: "AX-03",
+    slug: "ashish",
+    githubProfile: {
+      username: "DrDead0",
+      followers: "124",
+      following: "12",
+      repos: 42
+    },
+    name: "Ashish Chaurasia",
+    role: "Backend Developer",
+    description:
+      "Building robust APIs, scalable systems, and the invisible logic that powers everything. Mining data. Crafting logic. Building the backbone.",
+    image: "https://avatars.githubusercontent.com/u/112349103?v=4",
+    imageAlt: "Team member Ashish Chaurasia",
+    icon: "shield",
+    socialLinks: [
+      { label: "GitHub", href: "https://github.com/DrDead0" },
+      { label: "Twitter", href: "#" },
+    ],
+    specializations: [
+      "API Development",
+      "System Scalability",
+      "Data Mining",
+      "Core Logic"
+    ],
+    techStack: ["JAVA", "NODE.JS", "POSTGRESQL", "REDIS"],
+    focus: "Crafting the invisible logic that powers everything.",
+    since: "2024"
+  },
+  {
     id: "AX-01",
-    name: "Bella Goth",
+    slug: "aashishraj",
+    githubProfile: {
+      username: "aashishrajdev",
+      followers: "892",
+      following: "45",
+      repos: 28
+    },
+    name: "Aashish Raj",
     role: "Frontend Developer",
     description:
       "Crafting intuitive, responsive, and beautiful user experiences that bring ideas to life. UI/UX is more than design, it's how it feels.",
-    image: "/Image/Team_bella.png",
-    imageAlt: "Team member Bella Goth",
+    image: "https://avatars.githubusercontent.com/u/113645205?v=4",
+    imageAlt: "Team member Aashish Raj",
     icon: "terminal",
     socialLinks: [
-      { label: "GitHub", href: "#" },
+      { label: "GitHub", href: "https://github.com/aashishrajdev" },
       { label: "Twitter", href: "#" },
     ],
     specializations: [
@@ -26,15 +63,22 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "AX-02",
-    name: "Johnny Silverhand",
+    slug: "atomic-joy",
+    githubProfile: {
+      username: "Atomic-Joy",
+      followers: "4.2k",
+      following: "0",
+      repos: 15
+    },
+    name: "Atomic Joy",
     role: "AI Developer",
     description:
       "Turning chaos into code. Building systems that think, adapt, and evolve. Code is logic. AI is imagination. Together, we create intelligence.",
-    image: "/Image/Team_jhonny.png",
-    imageAlt: "Team member Johnny Silverhand",
+    image: "https://avatars.githubusercontent.com/u/100767870?v=4",
+    imageAlt: "Team member Atomic Joy",
     icon: "code",
     socialLinks: [
-      { label: "GitHub", href: "#" },
+      { label: "GitHub", href: "https://github.com/Atomic-Joy" },
       { label: "LinkedIn", href: "#" },
     ],
     specializations: [
@@ -48,26 +92,33 @@ export const teamMembers: TeamMember[] = [
     since: "2023"
   },
   {
-    id: "AX-03",
-    name: "Steve",
-    role: "Backend Developer",
+    id: "AX-04",
+    slug: "varchasva",
+    githubProfile: {
+      username: "varchasvakhare2022",
+      followers: "24",
+      following: "10",
+      repos: 15
+    },
+    name: "Varchasva Khare",
+    role: "Full Stack Developer",
     description:
-      "Building robust APIs, scalable systems, and the invisible logic that powers everything. Mining data. Crafting logic. Building the backbone.",
-    image: "/Image/Team_Steve.png",
-    imageAlt: "Team member Steve",
-    icon: "shield",
+      "Crafting seamless applications from the database to the browser. Bridging the gap between robust logic and fluid interfaces.",
+    image: "https://github.com/varchasvakhare2022.png",
+    imageAlt: "Team member Varchasva Khare",
+    icon: "terminal",
     socialLinks: [
-      { label: "GitHub", href: "#" },
-      { label: "Twitter", href: "#" },
+      { label: "GitHub", href: "https://github.com/varchasvakhare2022" },
+      { label: "LinkedIn", href: "#" },
     ],
     specializations: [
-      "API Development",
-      "System Scalability",
-      "Data Mining",
-      "Core Logic"
+      "Full Stack Development",
+      "API Architecture",
+      "System Integration",
+      "Web Technologies"
     ],
-    techStack: ["JAVA", "NODE.JS", "POSTGRESQL", "REDIS"],
-    focus: "Crafting the invisible logic that powers everything.",
+    techStack: ["TYPESCRIPT", "NEXT.JS", "NODE.JS", "POSTGRESQL"],
+    focus: "Bridging the gap between robust logic and fluid interfaces.",
     since: "2024"
   },
 ];

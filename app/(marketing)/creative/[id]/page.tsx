@@ -9,6 +9,7 @@ import {
 } from "@/components/sections/creative-detail";
 import { CircleButton } from "@/components/ui/circle-button";
 import { ArrowLeftIcon } from "@/components/icons";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 interface CreativeDetailPageProps {
   params: Promise<{
@@ -50,10 +51,7 @@ export default async function CreativeDetailPage({ params }: CreativeDetailPageP
   return (
     <main className="pt-24 md:pt-28 pb-16 relative bg-surface-container-lowest min-h-[100svh] overflow-hidden">
       {/* Background Grid Pattern from Vision */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_100%)]"
-      />
+      <BackgroundGrid />
       
       <Section className="!py-0 relative z-10">
         <Container>

@@ -7,6 +7,7 @@ import { CircleButton } from "@/components/ui/circle-button";
 import { ArrowLeftIcon } from "@/components/icons";
 import { getAllPosts, getPostById } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -34,10 +35,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <main className="pt-32 pb-32 relative bg-surface-container-lowest min-h-[100svh] overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_100%)]"
-      />
+      <BackgroundGrid />
 
       <Container className="relative max-w-3xl z-10 pt-8">
         <ReadingProgress />

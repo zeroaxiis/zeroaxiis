@@ -4,6 +4,7 @@ import { Section } from "@/components/layout/section";
 import { Reveal } from "@/components/ui/reveal";
 import { Container } from "@/components/layout/container";
 import { BrutalistCard } from "@/components/cards";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 const PILLARS = [
   {
@@ -31,10 +32,7 @@ export function About() {
   return (
     <Section id="about" className="relative w-full py-16 lg:py-20 bg-surface-container-lowest overflow-hidden">
       {/* Background Grid Pattern */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_100%)]"
-      />
+      <BackgroundGrid />
 
       <Container className="grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-20 items-center w-full relative z-10">
 
