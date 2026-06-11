@@ -20,18 +20,7 @@ export default function NotFound() {
       <BackgroundWatermark text="404" />
 
       <Container className="relative z-10 flex flex-col items-center text-center">
-        {/* Animated Pill Label */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-stroke bg-surface-container/50 backdrop-blur-sm mb-8"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-error" />
-          <span className="font-label-mono text-[10px] tracking-wider uppercase text-bone">
-            Error 404
-          </span>
-        </motion.div>
+
 
         {/* Display Typography */}
         <motion.h1 

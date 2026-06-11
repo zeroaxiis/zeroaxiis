@@ -152,46 +152,7 @@ function FooterBrand() {
         {siteConfig.name.toLowerCase()}
       </ScrollFloat>
 
-      <div className="absolute top-1/2 -translate-y-1/2 right-[5%] lg:right-[15%] w-[clamp(3.5rem,17vw,18rem)] h-[clamp(3.5rem,17vw,18rem)] pointer-events-none z-20">
-        <style>{`
-          @keyframes cellPop {
-            0%, 100% { opacity: 0.1; }
-            40% { opacity: 1; }
-          }
-          .band-4 { animation: cellPop 2.5s ease-in-out infinite 0.0s; }
-          .band-3 { animation: cellPop 2.5s ease-in-out infinite 0.25s; }
-          .band-2 { animation: cellPop 2.5s ease-in-out infinite 0.5s; }
-          .band-1 { animation: cellPop 2.5s ease-in-out infinite 0.75s; }
-        `}</style>
-        <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-          <defs>
-            <mask id="globeGridMask">
-              <circle cx="50" cy="50" r="46" fill="white" />
-              <g stroke="black" strokeWidth="3.5" fill="none">
-                <circle cx="50" cy="50" r="46" strokeWidth="5" />
-                <path d="M 50 4 L 50 96" />
-                <ellipse cx="50" cy="50" rx="22" ry="46" />
-                <path d="M 10 26 Q 50 10 90 26" strokeLinecap="round" />
-                <path d="M 4 50 Q 50 35 96 50" strokeLinecap="round" />
-                <path d="M 10 74 Q 50 60 90 74" strokeLinecap="round" />
-              </g>
-            </mask>
-          </defs>
-          
-          <g transform="rotate(23.5 50 50)">
-            <g mask="url(#globeGridMask)" fill="#ffffff">
-              {/* Top Band */}
-              <path d="M 0 0 L 100 0 L 100 26 L 90 26 Q 50 10 10 26 L 0 26 Z" className="band-1" />
-              {/* Upper Middle Band */}
-              <path d="M 0 26 L 10 26 Q 50 10 90 26 L 100 26 L 100 50 L 96 50 Q 50 35 4 50 L 0 50 Z" className="band-2" />
-              {/* Lower Middle Band */}
-              <path d="M 0 50 L 4 50 Q 50 35 96 50 L 100 50 L 100 74 L 90 74 Q 50 60 10 74 L 0 74 Z" className="band-3" />
-              {/* Bottom Band */}
-              <path d="M 0 74 L 10 74 Q 50 60 90 74 L 100 74 L 100 100 L 0 100 Z" className="band-4" />
-            </g>
-          </g>
-        </svg>
-      </div>
+
     </div>
   );
 }
