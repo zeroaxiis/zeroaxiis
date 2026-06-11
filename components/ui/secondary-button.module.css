@@ -1,0 +1,19 @@
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-bone-dim);
+  text-decoration: none;
+  padding: 14px 4px;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.ctaSecondary:hover {
+  color: var(--color-bone);
+  border-bottom-color: var(--color-accent);
+}

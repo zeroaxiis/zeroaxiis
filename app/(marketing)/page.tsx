@@ -3,6 +3,7 @@ import { About } from "@/components/sections/about";
 import { Features } from "@/components/sections/features";
 import { Testimonials } from "@/components/sections/testimonials";
 import { ExecutionProtocol } from "@/components/sections/execution-protocol";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 export default function HomePage() {
   return (
@@ -10,14 +11,11 @@ export default function HomePage() {
       <Hero />
       <About />
       <div className="relative bg-surface-container-lowest overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,black_0%,black_90%,transparent_100%)]"
-        />
+        <BackgroundGrid maskImage="linear-gradient(to bottom, black 0%, black 90%, transparent 100%)" />
         <Features />
         <ExecutionProtocol />
+        <Testimonials />
       </div>
-      <Testimonials />
     </>
   );
 }

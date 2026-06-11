@@ -5,35 +5,11 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import { GlobeLogoIcon, ArrowUpRightIcon } from "@/components/icons";
 import { Magnetic } from "@/components/ui/magnetic";
-import { getCalApi } from "@calcom/embed-react";
+import { useCalModal } from "@/hooks";
 import styles from "./top-bar.module.css";
 
 export function TopBar() {
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", {
-        theme: "dark",
-        styles: { branding: { brandColor: "#c8ff00" } },
-        hideEventTypeDetails: false,
-        layout: "month_view"
-      });
-    })();
-  }, []);
-
-  const handleOpenModal = async () => {
-    const cal = await getCalApi({ namespace: "30min" });
-    const link = "zerozxiis/30min";
-    cal("modal", {
-      calLink: link,
-      config: {
-        layout: "month_view",
-        theme: "dark",
-        hideBranding: "true",
-        useSlotsViewOnSmallScreen: "true"
-      }
-    });
-  };
+  const handleOpenModal = useCalModal();
 
   return (
     <header className={styles.bar} aria-label="Primary">
@@ -46,12 +22,12 @@ export function TopBar() {
         </Link>
 
         <Magnetic strength={0.25}>
-          <button 
-            onClick={handleOpenModal} 
-            className={`${styles.connect} group !gap-2 !pl-4 !pr-2`}
+          <button
+            onClick={handleOpenModal}
+            className={`${styles.connect} group`}
           >
             Hire us
-            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-ink text-bone transition-transform duration-300 group-hover:rotate-45">
+            <span className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6 rounded-full bg-ink text-bone transition-transform duration-300 group-hover:-rotate-45">
               <ArrowUpRightIcon width={12} height={12} strokeWidth={2} />
             </span>
           </button>

@@ -59,6 +59,14 @@ export type SocialLink = {
 };
 
 export type TeamMember = {
+  id?: string;
+  slug?: string;
+  githubProfile?: {
+    username: string;
+    followers: string;
+    following: string;
+    repos: number;
+  };
   name: string;
   role: string;
   description: string;
@@ -66,6 +74,10 @@ export type TeamMember = {
   imageAlt: string;
   icon: string;
   socialLinks: SocialLink[];
+  specializations?: string[];
+  techStack?: string[];
+  focus?: string;
+  since?: string;
 };
 
 export type ContactItem = {

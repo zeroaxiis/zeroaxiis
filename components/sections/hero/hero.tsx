@@ -10,7 +10,7 @@ export function Hero() {
       <HeroContent
         headlineLead="Engineering systems"
         headlineSlant="that scale beautifully."
-        description="A small collective shipping high-craft software, brand systems, and infrastructure for teams who care about how it feels — not just what it does."
+        description="Software systems, infrastructure, and digital experiences engineered to endure."
         ctaLabel="Start a project"
         ctaHref="#workflow"
         secondaryLabel="See selected work"

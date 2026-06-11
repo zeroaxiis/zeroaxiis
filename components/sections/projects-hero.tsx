@@ -1,71 +1,40 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowUpRightSmallIcon } from "@/components/icons";
-import { Magnetic } from "@/components/ui/magnetic";
-import styles from "@/components/sections/hero/hero.module.css";
 import { Canvas } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import { Suspense } from "react";
 import { Globe } from "@/components/sections/hero/scene";
 
-const ORBIT_NODES = [
-  {
-    id: "collaboration",
-    label: "COLLABORATION",
-    sub: "Long-term partnerships",
-    angle: 270, // top centre
-    rx: 38,
-    ry: 38,
-  },
-  {
-    id: "product",
-    label: "PRODUCT THINKING",
-    sub: "Solutions that scale",
-    angle: 190, // bottom left
-    rx: 38,
-    ry: 38,
-  },
-  {
-    id: "clean",
-    label: "CLEAN DESIGN",
-    sub: "Interfaces that connect",
-    angle: 350, // top right
-    rx: 38,
-    ry: 38,
-  },
-  {
-    id: "tech",
-    label: "TECHNOLOGY",
-    sub: "Built for performance",
-    angle: 155, // bottom right
-    rx: 38,
-    ry: 38,
-  },
-];
+import { BackgroundGrid } from "@/components/ui/background-grid";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { CtaButton } from "@/components/ui/cta-button";
+import { useCalModal } from "@/hooks";
 
 export function ProjectsHero() {
+  const openCalModal = useCalModal();
+
   return (
     <section className="relative w-full overflow-hidden pt-36 pb-0">
       {/* Subtle background grid */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-grid-pattern-lg opacity-30 [mask-image:radial-gradient(ellipse_at_top_left,black_20%,transparent_70%)] pointer-events-none"
+      <BackgroundGrid 
+        maskImage="radial-gradient(ellipse at top left, black 20%, transparent 70%)" 
+        opacity={30} 
       />
 
       <div className="mx-auto max-w-footer-max px-[clamp(1rem,6vw,7rem)]">
-        <div className="flex items-start justify-between gap-8">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-12">
           {/* Left: copy */}
-          <div className="max-w-lg shrink-0 pb-20 pt-4">
+          <div className="w-full max-w-lg shrink-0 pb-12 lg:pb-20 pt-4">
             {/* Label */}
-            <motion.p
-              className="font-label-mono text-label-mono text-accent uppercase tracking-[0.22em] mb-8 flex items-center gap-3"
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              className="mb-8"
             >
-              CLIENT PROJECTS
-            </motion.p>
+              <Eyebrow>CLIENT PROJECTS</Eyebrow>
+            </motion.div>
 
             {/* Headline */}
             <motion.h1
@@ -91,24 +60,17 @@ export function ProjectsHero() {
             </motion.p>
 
             {/* CTA */}
-            <Magnetic strength={0.35} className="inline-block w-fit">
-              <motion.a
-                href="#"
-                className={styles.cta}
+              <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <span>Start a project</span>
-                <span className={styles.ctaArrow}>
-                  <ArrowUpRightSmallIcon />
-                </span>
-              </motion.a>
-            </Magnetic>
+                <CtaButton href="#" onClick={openCalModal}>Start a project</CtaButton>
+              </motion.div>
           </div>
 
           {/* Right: orbit diagram */}
-          <div className="relative flex-1 min-w-0 h-[380px] hidden md:block">
+          <div className="relative w-full max-w-2xl lg:flex-1 h-[380px] hidden md:block">
             <OrbitDiagram />
 
             {/* 3D Globe overlay at the center */}

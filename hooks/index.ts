@@ -4,3 +4,4 @@
  */
 
 export { useCarouselScroll } from "./useCarouselScroll";
+export { useCalModal } from "./useCalModal";

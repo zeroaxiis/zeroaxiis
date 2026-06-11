@@ -11,7 +11,7 @@ export function ExecutionProtocol() {
   const nodeRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Section id="workflow" className="relative">
+    <Section id="workflow" className="relative !pb-10 md:!pb-10">
       <Container>
         <Reveal className="mb-20 flex items-end justify-between flex-wrap gap-8">
           <div className="max-w-2xl">
@@ -25,17 +25,17 @@ export function ExecutionProtocol() {
               <span className="font-serif italic text-accent font-light">to scale.</span>
             </h2>
           </div>
-          <div className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em] max-w-xs">
+          <div className="font-label-mono text-[10px] text-bone-mute uppercase tracking-[0.22em] max-w-xs translate-y-3 md:translate-y-6">
             Every engagement travels the same six rituals — stripped of ceremony, shaped by craft. Watch a request move.
           </div>
         </Reveal>
 
-        <div className="w-full pb-8 relative">
-          {/* Isolated Terminal Readout to prevent parent re-renders */}
-          <TerminalReadout nodeRef={nodeRef} />
-          
+        <div className="w-full relative">
           {/* Static SVG Diagram with purely CSS-driven animations */}
           <ExecutionProtocolDiagram firstNodeRef={nodeRef} />
+
+          {/* Isolated Terminal Readout to prevent parent re-renders */}
+          <TerminalReadout nodeRef={nodeRef} />
         </div>
       </Container>
     </Section>

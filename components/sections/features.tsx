@@ -39,7 +39,7 @@ export function Features() {
             <motion.article
               key={service.title}
               variants={revealItem}
-              className="group relative p-10 border-r border-b border-stroke hover:bg-surface-layer transition-colors duration-500"
+              className="group relative p-6 md:p-8 lg:p-10 border-r border-b border-stroke hover:bg-surface-layer transition-colors duration-500"
             >
               <span
                 aria-hidden="true"

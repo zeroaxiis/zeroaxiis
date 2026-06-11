@@ -2,8 +2,12 @@
 
 import { motion } from "motion/react";
 import { type ReactNode } from "react";
-import { Magnetic, TextReveal } from "@/components/ui";
-import { ArrowUpRightSmallIcon, ArrowLongRightIcon } from "@/components/icons";
+import { TextReveal } from "@/components/ui";
+import { ArrowLongRightIcon } from "@/components/icons";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { CtaButton, CtaButtonCluster } from "@/components/ui/cta-button";
+import { SecondaryButton } from "@/components/ui/secondary-button";
+import { useCalModal } from "@/hooks";
 import styles from "./hero.module.css";
 
 interface HeroContentProps {
@@ -32,30 +36,21 @@ export function HeroContent({
   secondaryHref = "/projects",
   children,
 }: HeroContentProps) {
+  const openCalModal = useCalModal();
+
   return (
     <div className={styles.content}>
-      <motion.div
-        className={styles.eyebrowRow}
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.2, ease: easeOut }}
-      >
-        <span className={styles.eyebrow}>
-          {eyebrow && <span className={styles.eyebrowAccent} />}
-          {eyebrow}
-        </span>
-        <span className={styles.metaCluster}>
-          <span className={styles.metaItem}>
-            <strong>EST</strong>2024
-          </span>
-          <span className={styles.metaItem}>
-            <strong>BASE</strong>Terra // Virtual Terra
-          </span>
-          <span className={styles.metaItem}>
-            <strong>v</strong>1.0
-          </span>
-        </span>
-      </motion.div>
+      {eyebrow && (
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: easeOut }}
+        >
+          <Eyebrow className={styles.eyebrowRow}>
+            {eyebrow}
+          </Eyebrow>
+        </motion.div>
+      )}
 
       <div className={styles.headlineWrap}>
         <h1 className={styles.headline}>
@@ -89,24 +84,20 @@ export function HeroContent({
           </motion.p>
 
           <motion.div
-            className={styles.ctaCluster}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 1.25, ease: easeOut }}
           >
-            <Magnetic strength={0.35}>
-              <a href={ctaHref} className={styles.cta}>
-                <span>{ctaLabel}</span>
-                <span className={styles.ctaArrow}>
-                  <ArrowUpRightSmallIcon />
-                </span>
-              </a>
-            </Magnetic>
+            <CtaButtonCluster>
+              <CtaButton href="#" onClick={openCalModal}>
+                {ctaLabel}
+              </CtaButton>
 
-            <a href={secondaryHref} className={styles.ctaSecondary}>
-              {secondaryLabel}
-              <ArrowLongRightIcon />
-            </a>
+              <SecondaryButton href={secondaryHref}>
+                {secondaryLabel}
+                <ArrowLongRightIcon />
+              </SecondaryButton>
+            </CtaButtonCluster>
           </motion.div>
         </div>
       </div>

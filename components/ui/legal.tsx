@@ -1,15 +1,13 @@
 import { ReactNode } from "react";
 import { Container, Section } from "@/components/layout";
 import { Reveal } from "@/components/ui/reveal";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 export function LegalLayout({ children }: { children: ReactNode }) {
   return (
     <main className="pt-32 pb-32 relative bg-surface-container-lowest min-h-[100svh] overflow-hidden">
       {/* Background Grid Pattern */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-grid-pattern-lg opacity-50 pointer-events-none [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_100%)]"
-      />
+      <BackgroundGrid />
       <Section className="!py-0 relative z-10">
         <Container>{children}</Container>
       </Section>

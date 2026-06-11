@@ -10,9 +10,9 @@ import {
   InstagramIcon,
   TwitterIcon,
   LinkedInIcon,
-  DribbbleIcon,
-  BehanceIcon,
-  FacebookIcon,
+  DiscordIcon,
+  GithubIcon,
+  YoutubeIcon,
   ArrowUpRightIcon,
 } from "@/components/icons";
 
@@ -20,9 +20,9 @@ const socialItems = [
   { name: "Instagram", href: siteConfig.links.instagram, Icon: InstagramIcon },
   { name: "Twitter / X", href: siteConfig.links.twitter, Icon: TwitterIcon },
   { name: "LinkedIn", href: siteConfig.links.linkedin, Icon: LinkedInIcon },
-  { name: "Dribbble", href: siteConfig.links.dribbble, Icon: DribbbleIcon },
-  { name: "Behance", href: siteConfig.links.behance, Icon: BehanceIcon },
-  { name: "Facebook", href: siteConfig.links.facebook, Icon: FacebookIcon },
+  { name: "Discord", href: siteConfig.links.discord, Icon: DiscordIcon },
+  { name: "GitHub", href: siteConfig.links.github, Icon: GithubIcon },
+  { name: "YouTube", href: siteConfig.links.youtube, Icon: YoutubeIcon },
 ];
 
 function FooterTop() {
@@ -84,7 +84,7 @@ function FooterSocials() {
 
 function FooterNav() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 py-8 border-b border-stroke">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 py-8 border-b border-stroke">
       {siteConfig.footerNav.exploreGroups.map((group) => (
         <div key={group.heading}>
           <h3 className="font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone mb-6">
@@ -138,7 +138,7 @@ function FooterBrand() {
   // ScrollTrigger positions from the previous page.
   const pathname = usePathname();
   return (
-    <div className="pt-8 pb-8">
+    <div className="pt-8 pb-8 relative w-full">
       <ScrollFloat
         key={pathname}
         animationDuration={1.2}
@@ -151,6 +151,8 @@ function FooterBrand() {
       >
         {siteConfig.name.toLowerCase()}
       </ScrollFloat>
+
+
     </div>
   );
 }
