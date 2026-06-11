@@ -7,6 +7,7 @@ import { ArrowLongRightIcon } from "@/components/icons";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { CtaButton, CtaButtonCluster } from "@/components/ui/cta-button";
 import { SecondaryButton } from "@/components/ui/secondary-button";
+import { useCalModal } from "@/hooks";
 import styles from "./hero.module.css";
 
 interface HeroContentProps {
@@ -35,6 +36,8 @@ export function HeroContent({
   secondaryHref = "/projects",
   children,
 }: HeroContentProps) {
+  const openCalModal = useCalModal();
+
   return (
     <div className={styles.content}>
       {eyebrow && (
@@ -86,7 +89,7 @@ export function HeroContent({
             transition={{ duration: 0.9, delay: 1.25, ease: easeOut }}
           >
             <CtaButtonCluster>
-              <CtaButton href={ctaHref}>
+              <CtaButton href="#" onClick={openCalModal}>
                 {ctaLabel}
               </CtaButton>
 

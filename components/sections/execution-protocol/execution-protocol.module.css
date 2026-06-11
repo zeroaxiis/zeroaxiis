@@ -9,7 +9,7 @@
   font-size: clamp(6px, 0.85vw, 10px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .canvas {
     /* Slightly smaller font on very narrow phones, but mostly 10px */
     font-size: clamp(8px, 2.5vw, 10px);
@@ -461,7 +461,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .unifiedNode {
     left: var(--mobile-x);
     top: var(--mobile-y);

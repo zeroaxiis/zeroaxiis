@@ -5,35 +5,11 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import { GlobeLogoIcon, ArrowUpRightIcon } from "@/components/icons";
 import { Magnetic } from "@/components/ui/magnetic";
-import { getCalApi } from "@calcom/embed-react";
+import { useCalModal } from "@/hooks";
 import styles from "./top-bar.module.css";
 
 export function TopBar() {
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", {
-        theme: "dark",
-        styles: { branding: { brandColor: "#c8ff00" } },
-        hideEventTypeDetails: false,
-        layout: "month_view"
-      });
-    })();
-  }, []);
-
-  const handleOpenModal = async () => {
-    const cal = await getCalApi({ namespace: "30min" });
-    const link = "zerozxiis/30min";
-    cal("modal", {
-      calLink: link,
-      config: {
-        layout: "month_view",
-        theme: "dark",
-        hideBranding: "true",
-        useSlotsViewOnSmallScreen: "true"
-      }
-    });
-  };
+  const handleOpenModal = useCalModal();
 
   return (
     <header className={styles.bar} aria-label="Primary">
@@ -46,8 +22,8 @@ export function TopBar() {
         </Link>
 
         <Magnetic strength={0.25}>
-          <button 
-            onClick={handleOpenModal} 
+          <button
+            onClick={handleOpenModal}
             className={`${styles.connect} group`}
           >
             Hire us

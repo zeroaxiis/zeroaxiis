@@ -9,8 +9,11 @@ import { Globe } from "@/components/sections/hero/scene";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { CtaButton } from "@/components/ui/cta-button";
+import { useCalModal } from "@/hooks";
 
 export function ProjectsHero() {
+  const openCalModal = useCalModal();
+
   return (
     <section className="relative w-full overflow-hidden pt-36 pb-0">
       {/* Subtle background grid */}
@@ -62,7 +65,7 @@ export function ProjectsHero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <CtaButton href="#">Start a project</CtaButton>
+                <CtaButton href="#" onClick={openCalModal}>Start a project</CtaButton>
               </motion.div>
           </div>
 
