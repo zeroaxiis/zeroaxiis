@@ -3,75 +3,72 @@ import type { TeamMember, ContactItem } from "@/types";
 export const teamMembers: TeamMember[] = [
   {
     id: "AX-01",
-    name: "Elias Vance",
-    role: "Systems Architect",
+    name: "Bella Goth",
+    role: "Frontend Developer",
     description:
-      "Specializes in distributed systems and high-throughput rust backends.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCERUXPT59vz5srXdc0UJe75R86GLXzBpV4zHgsAb8_HpUBoOtpspHMArqUZXa2eTMYxZwpdLUJE0RU69U1F_10WQ2wonbwAD7kYCH-OwERcsbS5ATYFi308Pvea7LTtQGLyR8otvtexfMPBV_q47sDMj6VIbJQS9mca7wzh609B4vfBJvX8jaeeQ8c7MDi3aF40AF6E7B-7AHMYMsbqE46Sd7BuF1YrvgYvuVjFldIzpeDX3ZRHEeJD2vSb6rX9wCYOlZinwB4bUFp",
-    imageAlt: "Team member Elias Vance",
-    icon: "code",
+      "Crafting intuitive, responsive, and beautiful user experiences that bring ideas to life. UI/UX is more than design, it's how it feels.",
+    image: "/Image/Team_bella.png",
+    imageAlt: "Team member Bella Goth",
+    icon: "terminal",
     socialLinks: [
       { label: "GitHub", href: "#" },
       { label: "Twitter", href: "#" },
     ],
     specializations: [
-      "System Architecture",
-      "Backend Engineering",
-      "Cloud Infrastructure",
-      "Product Strategy"
+      "UI/UX Design",
+      "Frontend Architecture",
+      "Responsive Interfaces",
+      "User Experience"
     ],
-    techStack: ["RUST", "TYPESCRIPT", "POSTGRESQL", "AWS", "DOCKER"],
-    focus: "Building core infrastructure and distributed systems.",
+    techStack: ["REACT", "TYPESCRIPT", "TAILWIND", "NEXT.JS"],
+    focus: "Bringing ideas to life through intuitive interfaces.",
     since: "2024"
   },
   {
     id: "AX-02",
-    name: "Sarah Chen",
-    role: "Frontend Engineer",
+    name: "Johnny Silverhand",
+    role: "AI Developer",
     description:
-      "Focuses on high-performance WebGL interfaces and React architecture.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuA6r2NfARmSrR1lf7byxDvKpiyqnCvO3MoDc3p8Bh-z13KC_-aGyUKfo66l1JVL5A3EX3VdxORdgl71A3TNQ7wZ7RdLBppHqczyi28HmIgBaZ2bCDTS07r2bzpbXsDIoPGp56EKwPlV7AWGylRi2sjVe3tlZt5vcI2GGK4W9hxyolsMen00q3215v7ZOwGKXuXMPn1IAMwBuvi7Fio_YGkjGSy3mUs0HiqNEEAnmWnPcHM-uLfRCt1UDMZzuj5HDxqEWaBxPbPEwwDL",
-    imageAlt: "Team member Sarah Chen",
-    icon: "terminal",
+      "Turning chaos into code. Building systems that think, adapt, and evolve. Code is logic. AI is imagination. Together, we create intelligence.",
+    image: "/Image/Team_jhonny.png",
+    imageAlt: "Team member Johnny Silverhand",
+    icon: "code",
     socialLinks: [
       { label: "GitHub", href: "#" },
       { label: "LinkedIn", href: "#" },
     ],
     specializations: [
-      "WebGL rendering",
-      "Frontend Architecture",
-      "UI/UX Implementation",
-      "Performance Tuning"
+      "Artificial Intelligence",
+      "Machine Learning",
+      "System Evolution",
+      "Neural Networks"
     ],
-    techStack: ["REACT", "THREE.JS", "TYPESCRIPT", "TAILWIND", "NEXT.JS"],
-    focus: "Pushing the boundaries of browser rendering.",
-    since: "2024"
+    techStack: ["PYTHON", "PYTORCH", "TENSORFLOW", "C++"],
+    focus: "Building systems that think and adapt.",
+    since: "2023"
   },
   {
     id: "AX-03",
-    name: "Marcus Thorne",
-    role: "Security Researcher",
+    name: "Steve",
+    role: "Backend Developer",
     description:
-      "Expert in cryptographic protocols and smart contract auditing.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuD7ALyrFrMV_dRyKa-q5j1TciAzbUaxNOO5gIRtoubHNLZwkGOgXXBrI3qvj9Phu8ddv8JCiaI-LFcAZJdIq7FEBZPs9KA_cYqRkLMjmhVGU7Jdz8xpa5jSJ1EAOUauOf0GW_NjalJoWNBGvKcs-WeWPdkViXt0D3do_YEBtgboSoHD1CFJXwidj_JE3LEkCviSgpEdY2pyuShh7WWQf5ww350VvPp7vAbdgcz07ibiDfw09cUTRXt8KSm-bPK2NftspNklsyFcWzQz",
-    imageAlt: "Team member Marcus Thorne",
+      "Building robust APIs, scalable systems, and the invisible logic that powers everything. Mining data. Crafting logic. Building the backbone.",
+    image: "/Image/Team_Steve.png",
+    imageAlt: "Team member Steve",
     icon: "shield",
     socialLinks: [
       { label: "GitHub", href: "#" },
       { label: "Twitter", href: "#" },
     ],
     specializations: [
-      "Smart Contract Security",
-      "Zero-Knowledge Proofs",
-      "Network Auditing",
-      "Cryptography"
+      "API Development",
+      "System Scalability",
+      "Data Mining",
+      "Core Logic"
     ],
-    techStack: ["SOLIDITY", "CIRCOM", "PYTHON", "RUST", "GO"],
-    focus: "Auditing L2 networks and core DeFi primitives.",
-    since: "2025"
+    techStack: ["JAVA", "NODE.JS", "POSTGRESQL", "REDIS"],
+    focus: "Crafting the invisible logic that powers everything.",
+    since: "2024"
   },
 ];
 

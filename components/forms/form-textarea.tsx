@@ -15,23 +15,27 @@ export function FormTextarea({
   ...props
 }: FormTextareaProps) {
   return (
-    <div className="input-focus-ring border-b border-stroke bg-transparent transition-all duration-300 group">
+    <div className="relative group flex flex-col gap-2">
       {label && (
         <label
-          className="block font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone-mute mb-2 group-focus-within:text-accent transition-colors"
+          className="block font-label-mono text-[9px] uppercase tracking-[0.2em] text-bone-mute group-focus-within:text-accent transition-colors duration-300"
           htmlFor={id}
         >
           {label}
         </label>
       )}
-      <textarea
-        className="w-full bg-transparent border-none text-bone font-body-md text-body-md pb-4 placeholder-bone-low focus:outline-none focus:ring-0 resize-none"
-        id={id}
-        placeholder={placeholder}
-        rows={rows}
-        {...props}
-      />
-      {error && <p className="text-error text-xs mt-1 pb-2">{error}</p>}
+      <div className="relative overflow-hidden">
+        <textarea
+          className="w-full bg-[#050505] border border-stroke text-bone font-body-sm px-4 py-4 placeholder-stroke focus:border-accent focus:bg-[#0a0a0a] focus:outline-none transition-all duration-300 rounded-none resize-none"
+          id={id}
+          placeholder={placeholder}
+          rows={rows}
+          {...props}
+        />
+        {/* Animated accent bar on focus */}
+        <div className="absolute bottom-[5px] left-0 h-[2px] w-0 bg-accent transition-all duration-500 group-focus-within:w-full pointer-events-none" />
+      </div>
+      {error && <p className="text-error text-xs mt-1">{error}</p>}
     </div>
   );
 }

@@ -12,10 +12,41 @@ export function ContactForm() {
     subject: "",
     message: "",
   });
+  
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setStatus("submitting");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          ...formData,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus("success");
+        setFormData({ email: "", subject: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setErrorMessage(result.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage("Network error. Please try again later.");
+    }
   };
 
   const handleChange = (
@@ -42,7 +73,7 @@ export function ContactForm() {
           id="subject"
           name="subject"
           label="Subject"
-          placeholder="What are you building?"
+          placeholder="How can we help?"
           value={formData.subject}
           onChange={handleChange}
           required
@@ -51,23 +82,37 @@ export function ContactForm() {
           id="message"
           name="message"
           label="Message"
-          placeholder="Tell us the shape of the problem..."
+          placeholder="Describe your question or issue in detail..."
           rows={5}
           value={formData.message}
           onChange={handleChange}
           required
         />
-        <Magnetic strength={0.3}>
-          <button
-            type="submit"
-            className="group inline-flex items-center gap-4 px-8 py-4 rounded-full bg-bone text-ink font-body-sm text-body-sm font-medium hover:bg-accent transition-colors duration-300"
-          >
-            Transmit signal
-            <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ink text-bone group-hover:rotate-[-45deg] transition-transform duration-500">
-              <ArrowUpRightSmallIcon />
-            </span>
-          </button>
-        </Magnetic>
+        <div className="flex flex-col sm:flex-row items-center gap-6">
+          <Magnetic strength={0.3}>
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="group inline-flex items-center gap-4 px-8 py-4 rounded-full bg-bone text-ink font-body-sm text-body-sm font-medium hover:bg-accent transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === "submitting" ? "Transmitting..." : "Transmit signal"}
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ink text-bone group-hover:rotate-[-45deg] transition-transform duration-500">
+                <ArrowUpRightSmallIcon />
+              </span>
+            </button>
+          </Magnetic>
+          
+          {status === "success" && (
+            <p className="text-accent text-sm animate-in fade-in slide-in-from-bottom-2">
+              Signal transmitted successfully.
+            </p>
+          )}
+          {status === "error" && (
+            <p className="text-red-500 text-sm animate-in fade-in slide-in-from-bottom-2">
+              {errorMessage}
+            </p>
+          )}
+        </div>
       </form>
     </div>
   );
