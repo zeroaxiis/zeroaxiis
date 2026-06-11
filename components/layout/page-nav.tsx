@@ -50,9 +50,12 @@ export function PageNav({ pages }: PageNavProps) {
 
   // Prefetch real routes.
   useEffect(() => {
-    pages.forEach((p) => {
-      if (!p.href.startsWith("#")) router.prefetch(p.href);
-    });
+    const timer = setTimeout(() => {
+      pages.forEach((p) => {
+        if (!p.href.startsWith("#")) router.prefetch(p.href);
+      });
+    }, 100);
+    return () => clearTimeout(timer);
   }, [pages, router]);
 
   // Reset main opacity on pathname change (after fade-out navigation).

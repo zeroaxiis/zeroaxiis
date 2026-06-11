@@ -78,7 +78,7 @@ export const teamMembers: TeamMember[] = [
 export const contactItems: ContactItem[] = [
   {
     label: "Email",
-    value: "hello@zeroaxiis.com",
+    value: "zeroaxiis.support@gmail.com",
   },
   {
     label: "Timezone",

@@ -4,7 +4,7 @@ export const siteConfig = {
   description:
     "A digital agency helping businesses grow through scalable software solutions, creative design, and high-performance engineering.",
   url: "https://zeroaxiis.com",
-  email: "hello@zeroaxiis.com",
+  email: "zeroaxiis.support@gmail.com",
   address: {
     city: "With ♥ from India",
     note: "By Appointment Only",
@@ -15,9 +15,8 @@ export const siteConfig = {
     github: "https://github.com/zeroaxiis",
     instagram: "https://instagram.com/zeroaxiis",
     linkedin: "https://linkedin.com/company/zeroaxiis",
-    behance: "https://behance.net/zeroaxiis",
-    dribbble: "https://dribbble.com/zeroaxiis",
-    facebook: "https://facebook.com/zeroaxiis",
+    discord: "https://discord.gg/Vvfn9eKPqj",
+    youtube: "https://www.youtube.com/@ZeroAxiis",
   },
   nav: [
     { label: "Home", href: "/" },
@@ -54,7 +53,7 @@ export const siteConfig = {
     connect: [
       { label: "Instagram", href: "https://instagram.com/zeroaxiis" },
       { label: "LinkedIn", href: "https://linkedin.com/company/zeroaxiis" },
-      { label: "Dribbble", href: "https://dribbble.com/zeroaxiis" },
+      { label: "Discord", href: "https://discord.gg/Vvfn9eKPqj" },
     ],
   },
   legal: [

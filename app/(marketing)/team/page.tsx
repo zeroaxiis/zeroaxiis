@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function TeamPage() {
   return (
-    <Container className="relative min-h-screen overflow-x-hidden pt-40 pb-40" size="large">
+    <Container className="relative min-h-screen overflow-x-hidden pt-40 pb-40">
       <BackgroundGrid maskImage="radial-gradient(ellipse at top, black 10%, transparent 60%)" opacity={30} />
 
       <Section className="!py-0 relative z-10">

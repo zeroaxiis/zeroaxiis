@@ -34,8 +34,8 @@ export function CtaButton({
 
   return (
     <Magnetic>
-      {isExternal ? (
-        <a href={href} className={anchorClasses} target="_blank" rel="noopener noreferrer" {...props}>
+      {isExternal || href.startsWith("#") ? (
+        <a href={href} className={anchorClasses} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined} {...props}>
           {content}
         </a>
       ) : (

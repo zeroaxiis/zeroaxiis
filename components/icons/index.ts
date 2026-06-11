@@ -13,9 +13,9 @@ export {
   InstagramIcon,
   TwitterIcon,
   LinkedInIcon,
-  DribbbleIcon,
-  BehanceIcon,
-  FacebookIcon,
+  DiscordIcon,
+  GithubIcon,
+  YoutubeIcon,
 } from "./social";
 
 export { LogoMarkIcon, GlobeLogoIcon } from "./brand";
