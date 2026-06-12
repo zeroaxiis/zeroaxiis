@@ -154,30 +154,19 @@ export function Testimonials() {
                 data-card
                 className="shrink-0 w-[88vw] sm:w-[420px] flex flex-col p-6 sm:p-8 border border-stroke bg-[#040404] hover:bg-[#0a0a0a] transition-colors duration-300 rounded-[20px] overflow-hidden"
               >
-                {/* Twitter-Inspired Header */}
-                <div className="flex items-center gap-4 mb-6">
-                  <Image src={t.avatar} alt={t.name} width={48} height={48} className="rounded-full object-cover" unoptimized />
-                  <div className="flex flex-col justify-center">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-body-md font-bold text-[16px] text-bone">{t.name}</span>
-                    </div>
-                    <span className="font-body-sm text-[14px] text-bone-mute">@{t.name.toLowerCase().replace(/\s+/g, '')}</span>
+                {/* Header */}
+                <div className="flex flex-col justify-center mb-6">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-body-md font-bold text-[16px] text-bone">{t.name}</span>
                   </div>
-                </div>
-
-                <p className="font-body-md text-[16px] sm:text-[18px] leading-[1.6] text-bone-dim tracking-wide mb-8 grow">
-                  {t.quote}
-                </p>
-
-                {/* Clean Footer replacing fake engagement metrics */}
-                <div className="flex items-center justify-between pt-5 border-t border-stroke mt-auto">
-                  <span className="font-label-mono text-[10px] text-accent uppercase tracking-widest bg-accent/10 px-2.5 py-1.5 rounded-sm">
-                    {t.tag}
-                  </span>
-                  <span className="font-label-mono text-[10px] text-bone-mute uppercase tracking-widest">
+                  <span className="font-body-sm text-[14px] text-bone-mute">
                     {t.title} <span className="text-accent mx-1">·</span> {t.company}
                   </span>
                 </div>
+
+                <p className="font-body-md text-[16px] sm:text-[18px] leading-[1.6] text-bone-dim tracking-wide grow">
+                  {t.quote}
+                </p>
               </article>
             ))}
           </motion.div>
