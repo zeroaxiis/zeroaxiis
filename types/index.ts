@@ -61,12 +61,7 @@ export type SocialLink = {
 export type TeamMember = {
   id?: string;
   slug?: string;
-  githubProfile?: {
-    username: string;
-    followers: string;
-    following: string;
-    repos: number;
-  };
+
   name: string;
   role: string;
   description: string;
