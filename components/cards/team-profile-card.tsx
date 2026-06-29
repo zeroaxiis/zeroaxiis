@@ -14,6 +14,7 @@ export function TeamProfileCard({ member }: TeamProfileCardProps) {
       <div className="flex flex-col group cursor-pointer">
         <div className="relative w-full aspect-square mx-auto mb-2">
           <div className="w-full h-full overflow-hidden border border-stroke bg-[#0a0a0a] relative z-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]" style={{ borderRadius: '50%' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={member.image} 
               alt={member.name}

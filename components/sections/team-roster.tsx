@@ -1,11 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React from "react";
 import type { TeamMember } from "@/types";
 import { TeamProfileCard } from "@/components/cards/team-profile-card";
 
-import Link from "next/link";
 
 interface TeamRosterProps {
   members: TeamMember[];

@@ -43,7 +43,7 @@ export function ContactForm() {
         setStatus("error");
         setErrorMessage(result.message || "Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setErrorMessage("Network error. Please try again later.");
     }

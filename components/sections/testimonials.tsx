@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import { motion, useMotionValue, useAnimationFrame, animate, useMotionValueEvent } from "motion/react";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";

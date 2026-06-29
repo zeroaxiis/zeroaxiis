@@ -89,7 +89,7 @@ export function HeroContent({
             transition={{ duration: 0.9, delay: 1.25, ease: easeOut }}
           >
             <CtaButtonCluster>
-              <CtaButton href="#" onClick={openCalModal}>
+              <CtaButton href={ctaHref} onClick={openCalModal}>
                 {ctaLabel}
               </CtaButton>
 

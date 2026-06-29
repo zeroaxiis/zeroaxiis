@@ -18,7 +18,7 @@ async function fetchBlogs() {
     if (!res.ok) throw new Error("API not ready");
     const data = await res.json();
     return data && data.length > 0 ? data : null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
