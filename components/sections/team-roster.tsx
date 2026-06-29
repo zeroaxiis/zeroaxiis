@@ -1,11 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React from "react";
 import type { TeamMember } from "@/types";
-import { GithubProfileCard } from "@/components/cards/github-profile-card";
+import { TeamProfileCard } from "@/components/cards/team-profile-card";
 
-import Link from "next/link";
 
 interface TeamRosterProps {
   members: TeamMember[];
@@ -25,9 +23,11 @@ export function TeamRoster({ members }: TeamRosterProps) {
             </h2>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 sm:gap-x-6 gap-y-10 md:gap-y-16 pb-8 w-full">
+        <div className="flex flex-wrap justify-center gap-x-12 sm:gap-x-16 md:gap-x-24 gap-y-10 md:gap-y-16 pb-8 w-full max-w-5xl mx-auto">
           {members.map((member, i) => (
-            <GithubProfileCard key={i} member={member} />
+            <div key={i} className="w-[45%] sm:w-[30%] w-full max-w-[250px] flex justify-center">
+              <TeamProfileCard member={member} />
+            </div>
           ))}
         </div>
 

@@ -4,25 +4,21 @@ import React from "react";
 import type { TeamMember } from "@/types";
 import { Magnetic } from "@/components/ui/magnetic";
 
-interface GithubProfileCardProps {
+interface TeamProfileCardProps {
   member: TeamMember;
 }
 
-export function GithubProfileCard({ member }: GithubProfileCardProps) {
+export function TeamProfileCard({ member }: TeamProfileCardProps) {
   return (
     <Magnetic strength={0.15} className="flex flex-col gap-4 w-full max-w-[250px] mx-auto">
-      <a 
-        href={member.socialLinks?.find(l => l.label === 'GitHub')?.href || '#'} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="flex flex-col group cursor-pointer"
-      >
+      <div className="flex flex-col group cursor-pointer">
         <div className="relative w-full aspect-square mx-auto mb-2">
           <div className="w-full h-full overflow-hidden border border-stroke bg-[#0a0a0a] relative z-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]" style={{ borderRadius: '50%' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={member.image} 
               alt={member.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover scale-[1.15]"
               style={{ borderRadius: '50%' }}
             />
           </div>
@@ -36,12 +32,10 @@ export function GithubProfileCard({ member }: GithubProfileCardProps) {
             {member.name}
           </h3>
           <span className="text-[14px] sm:text-[16px] lg:text-[20px] font-light leading-[1.2] lg:leading-[24px] text-[#848d97] block mt-1">
-            {member.githubProfile?.username || member.name.toLowerCase().replace(' ', '-')}
-            <span className="mx-1">·</span>
-            <span>he/him</span>
+            {member.role}
           </span>
         </div>
-      </a>
+      </div>
     </Magnetic>
   );
 }

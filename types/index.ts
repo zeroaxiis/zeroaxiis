@@ -67,6 +67,7 @@ export type TeamMember = {
     following: string;
     repos: number;
   };
+
   name: string;
   role: string;
   description: string;

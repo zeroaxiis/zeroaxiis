@@ -3,24 +3,15 @@ import type { TeamMember, ContactItem } from "@/types";
 export const teamMembers: TeamMember[] = [
   {
     id: "AX-03",
-    slug: "ashish",
-    githubProfile: {
-      username: "DrDead0",
-      followers: "124",
-      following: "12",
-      repos: 42
-    },
-    name: "Ashish Chaurasia",
+    slug: "steve",
+    name: "Steve",
     role: "Backend Developer",
     description:
       "Building robust APIs, scalable systems, and the invisible logic that powers everything. Mining data. Crafting logic. Building the backbone.",
-    image: "https://avatars.githubusercontent.com/u/112349103?v=4",
-    imageAlt: "Team member Ashish Chaurasia",
+    image: "/Image/Steve.png",
+    imageAlt: "Steve from Minecraft",
     icon: "shield",
-    socialLinks: [
-      { label: "GitHub", href: "https://github.com/DrDead0" },
-      { label: "Twitter", href: "#" },
-    ],
+    socialLinks: [],
     specializations: [
       "API Development",
       "System Scalability",
@@ -33,24 +24,15 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "AX-01",
-    slug: "aashishraj",
-    githubProfile: {
-      username: "aashishrajdev",
-      followers: "892",
-      following: "45",
-      repos: 28
-    },
-    name: "Aashish Raj",
+    slug: "bella-goth",
+    name: "Bella Goth",
     role: "Frontend Developer",
     description:
       "Crafting intuitive, responsive, and beautiful user experiences that bring ideas to life. UI/UX is more than design, it's how it feels.",
-    image: "https://avatars.githubusercontent.com/u/113645205?v=4",
-    imageAlt: "Team member Aashish Raj",
+    image: "/Image/bella.png",
+    imageAlt: "Bella Goth from Sims 4",
     icon: "terminal",
-    socialLinks: [
-      { label: "GitHub", href: "https://github.com/aashishrajdev" },
-      { label: "Twitter", href: "#" },
-    ],
+    socialLinks: [],
     specializations: [
       "UI/UX Design",
       "Frontend Architecture",
@@ -63,24 +45,15 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "AX-02",
-    slug: "atomic-joy",
-    githubProfile: {
-      username: "Atomic-Joy",
-      followers: "4.2k",
-      following: "0",
-      repos: 15
-    },
-    name: "Atomic Joy",
+    slug: "johnny-silverhand",
+    name: "Johnny Silverhand",
     role: "AI Developer",
     description:
       "Turning chaos into code. Building systems that think, adapt, and evolve. Code is logic. AI is imagination. Together, we create intelligence.",
-    image: "https://avatars.githubusercontent.com/u/100767870?v=4",
-    imageAlt: "Team member Atomic Joy",
+    image: "/Image/Jhonny.png",
+    imageAlt: "Johnny Silverhand",
     icon: "code",
-    socialLinks: [
-      { label: "GitHub", href: "https://github.com/Atomic-Joy" },
-      { label: "LinkedIn", href: "#" },
-    ],
+    socialLinks: [],
     specializations: [
       "Artificial Intelligence",
       "Machine Learning",
@@ -91,36 +64,7 @@ export const teamMembers: TeamMember[] = [
     focus: "Building systems that think and adapt.",
     since: "2023"
   },
-  {
-    id: "AX-04",
-    slug: "varchasva",
-    githubProfile: {
-      username: "varchasvakhare2022",
-      followers: "24",
-      following: "10",
-      repos: 15
-    },
-    name: "Varchasva Khare",
-    role: "Full Stack Developer",
-    description:
-      "Crafting seamless applications from the database to the browser. Bridging the gap between robust logic and fluid interfaces.",
-    image: "https://github.com/varchasvakhare2022.png",
-    imageAlt: "Team member Varchasva Khare",
-    icon: "terminal",
-    socialLinks: [
-      { label: "GitHub", href: "https://github.com/varchasvakhare2022" },
-      { label: "LinkedIn", href: "#" },
-    ],
-    specializations: [
-      "Full Stack Development",
-      "API Architecture",
-      "System Integration",
-      "Web Technologies"
-    ],
-    techStack: ["TYPESCRIPT", "NEXT.JS", "NODE.JS", "POSTGRESQL"],
-    focus: "Bridging the gap between robust logic and fluid interfaces.",
-    since: "2024"
-  },
+
 ];
 
 export const contactItems: ContactItem[] = [

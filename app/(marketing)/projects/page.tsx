@@ -2,7 +2,6 @@ import { Container, Section } from "@/components/layout";
 import { ProjectsHero, SelectedWork, OpenSource } from "@/components/sections";
 import { UnderConstruction } from "@/components/ui/under-construction";
 import { BackgroundGrid } from "@/components/ui/background-grid";
-import { projects as fallbackProjects } from "@/lib/data";
 
 export const metadata = {
   title: "Projects – Client Work | Zeroaxiis",
@@ -17,7 +16,7 @@ async function fetchProjects() {
     if (!res.ok) throw new Error("API not ready");
     const data = await res.json();
     return data && data.length > 0 ? data : null;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

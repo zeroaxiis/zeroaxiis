@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import { GlobeLogoIcon, ArrowUpRightIcon } from "@/components/icons";
