@@ -5,6 +5,7 @@ import { getAllPosts as getFallbackPosts } from "@/lib/blog";
 import { UnderConstruction } from "@/components/ui/under-construction";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 
+
 export const metadata = {
   title: "Blog – Insights & Updates | Zeroaxiis",
   description:
