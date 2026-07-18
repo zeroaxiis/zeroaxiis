@@ -4,7 +4,7 @@ export const siteConfig = {
   description:
     "A digital agency helping businesses grow through scalable software solutions, creative design, and high-performance engineering.",
   url: "https://zeroaxiis.com",
-  email: "zeroaxiis.support@gmail.com",
+  email: "contact@zeroaxiis.tech",
   address: {
     city: "With ♥ from India",
     note: "By Appointment Only",

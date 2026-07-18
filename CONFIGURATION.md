@@ -24,7 +24,7 @@ export const siteConfig = {
   tagline: "Helping Businesses Grow!", // Short tagline
   description: "Full description...", // SEO description
   url: "https://zeroaxiis.com", // Site URL
-  email: "zeroaxiis.support@gmail.com", // Contact email
+  email: "contact@zeroaxiis.tech", // Contact email
 
   address: {
     city: "Mumbai, India",
