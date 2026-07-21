@@ -207,7 +207,7 @@ export default function TermsAndConditionsPage() {
           <LegalParagraph>For legal or general inquiries:</LegalParagraph>
           <LegalParagraph>
             ZeroAxiis<br />
-            Email: <a href="mailto:zeroaxiis.support@gmail.com" className="text-accent hover:underline">zeroaxiis.support@gmail.com</a>
+            Email: <a href="mailto:legal@zeroaxiis.tech" className="text-accent hover:underline">legal@zeroaxiis.tech</a>
           </LegalParagraph>
         </LegalSection>
       </LegalContent>
