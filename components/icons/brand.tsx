@@ -10,7 +10,7 @@ export function LogoMarkIcon({
   width = 28,
   height = 28,
   className = "",
-  accentColor = "#c8ff00",
+  accentColor = "#FFCC00",
 }: BrandIconProps) {
   return (
     <svg

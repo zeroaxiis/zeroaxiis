@@ -138,8 +138,8 @@ function OrbitDiagram() {
     >
       <defs>
         <radialGradient id="orbit-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#c8ff00" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#c8ff00" stopOpacity="0" />
+          <stop offset="0%" stopColor="#FFCC00" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="#FFCC00" stopOpacity="0" />
         </radialGradient>
       </defs>
 
@@ -191,8 +191,8 @@ function OrbitDiagram() {
                 strokeDasharray="3 5"
               />
               {/* Node dot */}
-              <circle cx={outerPt.x} cy={outerPt.y} r={5} fill="#c8ff00" opacity="0.9" />
-              <circle cx={outerPt.x} cy={outerPt.y} r={10} fill="none" stroke="#c8ff00" strokeWidth="0.5" opacity="0.4" />
+              <circle cx={outerPt.x} cy={outerPt.y} r={5} fill="#FFCC00" opacity="0.9" />
+              <circle cx={outerPt.x} cy={outerPt.y} r={10} fill="none" stroke="#FFCC00" strokeWidth="0.5" opacity="0.4" />
               {/* Labels */}
               <text
                 x={labelX}

@@ -47,7 +47,7 @@ export function FeaturedPostCard({ post, className }: FeaturedPostCardProps) {
       {/* Content panel */}
       <div className="relative flex flex-col flex-grow p-7 lg:p-10 justify-center gap-5">
         {/* Subtle background shimmer on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[rgba(200,255,0,0.02)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[rgba(255, 204, 0,0.02)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
         <div className="relative z-10 flex flex-col gap-5">
 
@@ -102,7 +102,7 @@ export function FeaturedPostCard({ post, className }: FeaturedPostCardProps) {
               <span className="text-xs font-mono uppercase tracking-[0.14em] text-[var(--color-bone-mute)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
                 Read
               </span>
-              <div className="w-9 h-9 border border-[var(--color-stroke)] flex items-center justify-center text-[var(--color-bone-mute)] group-hover:border-[var(--color-accent)] group-hover:text-[var(--color-accent)] group-hover:bg-[rgba(200,255,0,0.08)] transition-all duration-300">
+              <div className="w-9 h-9 border border-[var(--color-stroke)] flex items-center justify-center text-[var(--color-bone-mute)] group-hover:border-[var(--color-accent)] group-hover:text-[var(--color-accent)] group-hover:bg-[rgba(255, 204, 0,0.08)] transition-all duration-300">
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
             </div>

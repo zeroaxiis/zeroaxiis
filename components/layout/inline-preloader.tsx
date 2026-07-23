@@ -13,7 +13,7 @@ const PRELOADER_HTML = `
     <div class="zx-pre__ring">
       <svg viewBox="0 0 100 100" width="120" height="120" aria-hidden="true">
         <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(245,241,232,0.08)" stroke-width="2"/>
-        <circle cx="50" cy="50" r="44" fill="none" stroke="#c8ff00" stroke-width="2" stroke-linecap="round" stroke-dasharray="60 240" />
+        <circle cx="50" cy="50" r="44" fill="none" stroke="#FFCC00" stroke-width="2" stroke-linecap="round" stroke-dasharray="60 240" />
       </svg>
     </div>
     <div class="zx-pre__bar"><span></span></div>
@@ -26,7 +26,7 @@ const PRELOADER_HTML = `
   .zx-pre__stage{display:flex;flex-direction:column;align-items:center;gap:28px}
   .zx-pre__ring svg{animation:zxSpin 1.05s linear infinite}
   .zx-pre__bar{position:relative;width:clamp(180px,22vw,280px);height:2px;background:rgba(245,241,232,0.08);overflow:hidden}
-  .zx-pre__bar span{position:absolute;inset:0;background:#c8ff00;transform-origin:left;animation:zxSlide 1.4s cubic-bezier(.4,0,.2,1) infinite;box-shadow:0 0 12px rgba(200,255,0,0.55)}
+  .zx-pre__bar span{position:absolute;inset:0;background:#FFCC00;transform-origin:left;animation:zxSlide 1.4s cubic-bezier(.4,0,.2,1) infinite;box-shadow:0 0 12px rgba(255,204,0,0.55)}
   .zx-pre__label{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,241,232,0.5);margin:0}
   @keyframes zxSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
   @keyframes zxSlide{0%{transform:translateX(-100%) scaleX(.5)}50%{transform:translateX(0) scaleX(.85)}100%{transform:translateX(100%) scaleX(.5)}}

@@ -39,14 +39,14 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
         <path d={PATH_2} stroke="#d4af37" strokeWidth="1.5" fill="none" opacity="0.3" />
 
         {/* Digital Data Pattern Overlay */}
-        <path d={PATH_1} stroke="#c8ff00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
-        <path d={PATH_2} stroke="#c8ff00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
+        <path d={PATH_1} stroke="#FFCC00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
+        <path d={PATH_2} stroke="#FFCC00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
 
         {[0, 1, 2, 3].map((layer) => (
           <React.Fragment key={`trace1-${layer}`}>
             <path
               d={PATH_1}
-              stroke="rgba(200,255,0,0.32)"
+              stroke="rgba(255,204,0,0.32)"
               strokeWidth="6"
               fill="none"
               strokeLinecap="round"
@@ -55,7 +55,7 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
             />
             <path
               d={PATH_1}
-              stroke="#c8ff00"
+              stroke="#FFCC00"
               strokeWidth="2.2"
               fill="none"
               strokeLinecap="round"
@@ -69,7 +69,7 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
           <React.Fragment key={`trace2-${layer}`}>
             <path
               d={PATH_2}
-              stroke="rgba(200,255,0,0.32)"
+              stroke="rgba(255,204,0,0.32)"
               strokeWidth="6"
               fill="none"
               strokeLinecap="round"
@@ -78,7 +78,7 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
             />
             <path
               d={PATH_2}
-              stroke="#c8ff00"
+              stroke="#FFCC00"
               strokeWidth="2.2"
               fill="none"
               strokeLinecap="round"
@@ -114,14 +114,14 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
         <path d={MOBILE_PATH_2} stroke="#d4af37" strokeWidth="1.5" fill="none" opacity="0.3" />
 
         {/* Digital Data Pattern Overlay */}
-        <path d={MOBILE_PATH_1} stroke="#c8ff00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
-        <path d={MOBILE_PATH_2} stroke="#c8ff00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
+        <path d={MOBILE_PATH_1} stroke="#FFCC00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
+        <path d={MOBILE_PATH_2} stroke="#FFCC00" strokeWidth="1.5" strokeDasharray="4 12" fill="none" opacity="0.25" />
 
         {[0, 1, 2, 3].map((layer) => (
           <React.Fragment key={`mobile-trace1-${layer}`}>
             <path
               d={MOBILE_PATH_1}
-              stroke="rgba(200,255,0,0.32)"
+              stroke="rgba(255,204,0,0.32)"
               strokeWidth="6"
               fill="none"
               strokeLinecap="round"
@@ -130,7 +130,7 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
             />
             <path
               d={MOBILE_PATH_1}
-              stroke="#c8ff00"
+              stroke="#FFCC00"
               strokeWidth="2.2"
               fill="none"
               strokeLinecap="round"
@@ -144,7 +144,7 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
           <React.Fragment key={`mobile-trace2-${layer}`}>
             <path
               d={MOBILE_PATH_2}
-              stroke="rgba(200,255,0,0.32)"
+              stroke="rgba(255,204,0,0.32)"
               strokeWidth="6"
               fill="none"
               strokeLinecap="round"
@@ -153,7 +153,7 @@ export function ExecutionProtocolDiagram({ firstNodeRef }: ExecutionProtocolDiag
             />
             <path
               d={MOBILE_PATH_2}
-              stroke="#c8ff00"
+              stroke="#FFCC00"
               strokeWidth="2.2"
               fill="none"
               strokeLinecap="round"

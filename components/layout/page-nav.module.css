@@ -1,6 +1,6 @@
 /* Vars */
 .hitbox {
-  --accent: #c8ff00;
+  --accent: #FFCC00;
   --bone: #f5f1e8;
   --bone-mute: rgba(245, 241, 232, 0.62);
   --ink: #0a0a0a;
@@ -138,7 +138,7 @@
 .dotActive {
   background: var(--accent);
   opacity: 1;
-  box-shadow: 0 0 8px rgba(200, 255, 0, 0.6);
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
   transform: scale(1.5);
 }
 
@@ -258,7 +258,7 @@
   color: var(--ink);
   box-shadow:
     0 0 0 1px var(--accent),
-    0 0 32px rgba(200, 255, 0, 0.35);
+    0 0 32px rgba(255, 204, 0, 0.35);
 }
 
 .pillActive:hover {

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export const BONE = new THREE.Color("#ffefc8");
-export const LIME = new THREE.Color("#c8ff00");
+export const LIME = new THREE.Color("#FFCC00");
 export const DIM = new THREE.Color("#5a564d");
 
 /** Earth-like axial tilt in radians */

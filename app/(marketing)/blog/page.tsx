@@ -4,6 +4,7 @@ import { ContentSection } from "@/components/sections/ContentSection";
 import { getAllPosts as getFallbackPosts } from "@/lib/blog";
 import { UnderConstruction } from "@/components/ui/under-construction";
 import { BackgroundGrid } from "@/components/ui/background-grid";
+import { BackButton } from "@/components/ui/back-button";
 
 
 export const metadata = {
@@ -45,6 +46,9 @@ export default async function BlogPage() {
       <BackgroundGrid maskImage="linear-gradient(to bottom, transparent, black 15%, black 100%)" opacity={50} />
 
       <Container className="relative z-10 pt-8">
+        <div className="w-full mb-10 flex justify-start">
+          <BackButton />
+        </div>
         <ContentSection
           title="Latest Releases"
           description="Explore our most recent articles, podcasts, and case studies."

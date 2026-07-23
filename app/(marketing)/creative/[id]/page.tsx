@@ -7,7 +7,7 @@ import {
   ArticleHeader, 
   ArticleContent
 } from "@/components/sections/creative-detail";
-import { CircleButton } from "@/components/ui/circle-button";
+import { BackButton } from "@/components/ui/back-button";
 import { ArrowLeftIcon } from "@/components/icons";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 
@@ -56,9 +56,7 @@ export default async function CreativeDetailPage({ params }: CreativeDetailPageP
       <Section className="!py-0 relative z-10">
         <Container>
           <div className="w-full mb-10 flex justify-start">
-            <CircleButton href="/creative" aria-label="Go back">
-              <ArrowLeftIcon width={18} height={18} strokeWidth={1.4} />
-            </CircleButton>
+            <BackButton />
           </div>
           <VideoPlayer videoId={videoId} title={item.title} />
 
