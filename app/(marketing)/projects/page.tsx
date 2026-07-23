@@ -2,6 +2,7 @@ import { Container, Section } from "@/components/layout";
 import { ProjectsHero, SelectedWork, OpenSource } from "@/components/sections";
 import { UnderConstruction } from "@/components/ui/under-construction";
 import { BackgroundGrid } from "@/components/ui/background-grid";
+import { BackButton } from "@/components/ui/back-button";
 
 export const metadata = {
   title: "Projects – Client Work | Zeroaxiis",
@@ -41,6 +42,11 @@ export default async function ProjectsPage() {
       {/* Background Grid Pattern from Vision */}
       <BackgroundGrid maskImage="linear-gradient(to bottom, transparent, black 15%, black 100%)" opacity={50} />
 
+      <Container className="relative z-10 pt-8">
+        <div className="w-full flex justify-start">
+          <BackButton />
+        </div>
+      </Container>
       <ProjectsHero />
 
       <Section className="!py-0 relative z-10 mt-16">

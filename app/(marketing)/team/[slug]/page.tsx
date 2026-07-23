@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { teamMembers } from "@/lib/data/team";
 import { Container } from "@/components/layout";
 import { Users, MapPin, Building, Link as LinkIcon, Book, Star, GitFork } from "lucide-react";
+import { BackButton } from "@/components/ui/back-button";
 import React from "react";
 
 
@@ -28,7 +29,9 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
       
       <Container className="relative z-10 pt-32 pb-24">
         
-
+        <div className="w-full mb-10 flex justify-start">
+          <BackButton />
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Left Sidebar */}

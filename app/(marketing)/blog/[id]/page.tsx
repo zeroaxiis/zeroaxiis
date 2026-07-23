@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/layout";
 import { Reveal } from "@/components/ui/reveal";
 import { ReadingProgress } from "@/components/ui/reading-progress";
+import { BackButton } from "@/components/ui/back-button";
 import { CircleButton } from "@/components/ui/circle-button";
-import { ArrowLeftIcon } from "@/components/icons";
 import { getAllPosts, getPostById } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 import { BackgroundGrid } from "@/components/ui/background-grid";
@@ -41,16 +41,11 @@ export default async function BlogPostPage({ params }: Props) {
         <ReadingProgress />
 
         <div className="relative z-10">
-          <Reveal>
-            <CircleButton href="/blog" aria-label="Back to all field notes" className="mb-12">
-              <ArrowLeftIcon width={18} height={18} strokeWidth={1.4} />
-            </CircleButton>
-          </Reveal>
-
           <article>
             <header className="mb-16 flex flex-col gap-6">
               <Reveal>
                 <div className="flex flex-wrap items-center gap-3 font-label-mono text-[10px] uppercase tracking-[0.22em] text-bone-mute">
+                  <BackButton className="w-8 h-8 mr-2" />
                   <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
                   <span className="opacity-50">·</span>
                   <span>{post.author}</span>

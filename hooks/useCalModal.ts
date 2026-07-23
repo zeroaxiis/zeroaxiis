@@ -7,7 +7,7 @@ export function useCalModal() {
       const cal = await getCalApi({ namespace: "30min" });
       cal("ui", {
         theme: "dark",
-        styles: { branding: { brandColor: "#c8ff00" } },
+        styles: { branding: { brandColor: "#FFCC00" } },
         hideEventTypeDetails: false,
         layout: "month_view"
       });

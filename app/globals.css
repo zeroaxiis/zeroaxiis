@@ -15,9 +15,9 @@
   --color-bone-mute: #8a857a;
   --color-bone-low: #5a564d;
 
-  --color-accent: #c8ff00;
-  --color-accent-dim: #a3d100;
-  --color-accent-glow: rgba(200, 255, 0, 0.18);
+  --color-accent: #FFCC00;
+  --color-accent-dim: #e6b800;
+  --color-accent-glow: rgba(255, 204, 0, 0.18);
 
   /* ─── Surface colors (mapped to ink palette) ───────────── */
   --color-background: #0a0a0a;
@@ -63,14 +63,14 @@
   --color-on-secondary-fixed-variant: #25221f;
 
   /* ─── Tertiary (lime accent) ────────────────────────────── */
-  --color-tertiary: #c8ff00;
+  --color-tertiary: #FFCC00;
   --color-on-tertiary: #0a0a0a;
-  --color-tertiary-container: #2a3300;
-  --color-on-tertiary-container: #c8ff00;
-  --color-tertiary-fixed: #c8ff00;
-  --color-tertiary-fixed-dim: #a3d100;
+  --color-tertiary-container: #332900;
+  --color-on-tertiary-container: #FFCC00;
+  --color-tertiary-fixed: #FFCC00;
+  --color-tertiary-fixed-dim: #e6b800;
   --color-on-tertiary-fixed: #0a0a0a;
-  --color-on-tertiary-fixed-variant: #2a3300;
+  --color-on-tertiary-fixed-variant: #332900;
 
   /* ─── Error ─────────────────────────────────────────────── */
   --color-error: #ff9b8a;

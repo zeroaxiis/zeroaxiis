@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { teamMembers, contactItems } from "@/lib/data";
 import { TeamRoster } from "@/components/sections/team-roster";
 import { BackgroundGrid } from "@/components/ui/background-grid";
+import { BackButton } from "@/components/ui/back-button";
 
 export const metadata = {
   title: "Team & Contact",
@@ -17,6 +18,9 @@ export default function TeamPage() {
 
       <Container className="relative z-10">
         <Section className="!py-0 relative z-10">
+          <div className="w-full mb-10 flex justify-start">
+            <BackButton />
+          </div>
           <div className="flex flex-col gap-6 mb-12 pt-8">
             <Reveal>
               <div className="flex flex-col gap-4">

@@ -6,7 +6,7 @@ import { Stars, Float } from "@react-three/drei";
 import * as THREE from "three";
 
 const BONE = new THREE.Color("#ffefc8");
-const LIME = new THREE.Color("#c8ff00");
+const LIME = new THREE.Color("#FFCC00");
 const DIM = new THREE.Color("#5a564d");
 
 const AXIAL_TILT = (23.4 * Math.PI) / 180;

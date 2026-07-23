@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Container, Section } from "@/components/layout";
 import { Reveal } from "@/components/ui/reveal";
 import { BackgroundGrid } from "@/components/ui/background-grid";
+import { BackButton } from "@/components/ui/back-button";
 
 export function LegalLayout({ children }: { children: ReactNode }) {
   return (
@@ -9,7 +10,12 @@ export function LegalLayout({ children }: { children: ReactNode }) {
       {/* Background Grid Pattern */}
       <BackgroundGrid />
       <Section className="!py-0 relative z-10">
-        <Container>{children}</Container>
+        <Container>
+          <div className="w-full mb-6 flex justify-start">
+            <BackButton />
+          </div>
+          {children}
+        </Container>
       </Section>
     </main>
   );
