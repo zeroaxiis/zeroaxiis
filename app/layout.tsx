@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { TopBar } from "@/components/layout/top-bar";
 import { ScrollReset } from "@/components/layout/scroll-reset";
 import { InlinePreloader } from "@/components/layout/inline-preloader";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: {
@@ -60,6 +61,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );
