@@ -82,25 +82,25 @@ export function HeroContent({
           >
             {description}
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.25, ease: easeOut }}
-          >
-            <CtaButtonCluster>
-              <CtaButton href={ctaHref} onClick={openCalModal}>
-                {ctaLabel}
-              </CtaButton>
-
-              <SecondaryButton href={secondaryHref}>
-                {secondaryLabel}
-                <ArrowLongRightIcon />
-              </SecondaryButton>
-            </CtaButtonCluster>
-          </motion.div>
         </div>
       </div>
+
+      <motion.div
+        className={styles.bottomActions}
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 1.25, ease: easeOut }}
+      >
+        <CtaButtonCluster>
+          <CtaButton href={ctaHref} onClick={openCalModal}>
+            {ctaLabel}
+          </CtaButton>
+
+          <CtaButton variant="outline" href={secondaryHref}>
+            {secondaryLabel}
+          </CtaButton>
+        </CtaButtonCluster>
+      </motion.div>
 
       {children}
     </div>

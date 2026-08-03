@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
+import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { Stars, Float } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -432,6 +432,30 @@ function CursorParallax({ children }: { children: React.ReactNode }) {
   return <group ref={group}>{children}</group>;
 }
 
+function ResponsiveGlobe() {
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 5;
+  // Move to right side on desktop, keep centered on mobile
+  const x = isMobile ? 0 : viewport.width / 4.5;
+  // Position slightly above vertical center
+  const y = isMobile ? 0.2 : 0.1;
+
+  return (
+    <group position={[x, y, 0]}>
+      <Float
+        speed={0.5}
+        rotationIntensity={0.15}
+        floatIntensity={0.25}
+        floatingRange={[-0.06, 0.06]}
+      >
+        <CursorParallax>
+          <Globe />
+        </CursorParallax>
+      </Float>
+    </group>
+  );
+}
+
 export function HeroScene() {
   return (
     <Canvas
@@ -444,18 +468,7 @@ export function HeroScene() {
         <ambientLight intensity={0.4} />
 
         <DriftingStars />
-        <CursorParallax>
-          <group position={[0, 0.5, 0]}>
-            <Float
-              speed={0.5}
-              rotationIntensity={0.15}
-              floatIntensity={0.25}
-              floatingRange={[-0.06, 0.06]}
-            >
-              <Globe />
-            </Float>
-          </group>
-        </CursorParallax>
+        <ResponsiveGlobe />
       </Suspense>
     </Canvas>
   );

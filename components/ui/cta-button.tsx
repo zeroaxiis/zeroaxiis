@@ -12,6 +12,7 @@ interface CtaButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
   className?: string;
   isExternal?: boolean;
+  variant?: "solid" | "outline";
 }
 
 export function CtaButton({
@@ -19,6 +20,7 @@ export function CtaButton({
   children,
   className,
   isExternal,
+  variant = "solid",
   ...props
 }: CtaButtonProps) {
   const content = (
@@ -30,7 +32,10 @@ export function CtaButton({
     </>
   );
 
-  const anchorClasses = cn(styles.cta, className);
+  const anchorClasses = cn(
+    variant === "outline" ? styles.ctaOutline : styles.cta,
+    className
+  );
 
   return (
     <Magnetic>

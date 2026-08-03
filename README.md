@@ -1,5 +1,14 @@
 # Zeroaxiis
 
+## 🌟 Recent Updates (Latest Changes)
+
+- **Hero Section Overhaul**: Updated the main headline typography to use elegant `Instrument Serif`, featuring italicized neon green accent styling. Refined button interactions with a new outline variant, fixed magnetic hover overlaps, and corrected the arrow rotation on hover.
+- **Interactive 3D Globe**: Fixed the `CursorParallax` implementation so the interactive globe tilts cleanly in-place when tracking cursor movement, rather than swinging wildly out of position.
+- **Fluid Marquee Enhancements**: Applied smooth CSS gradient masking to the Testimonials infinite carousel to beautifully fade cards in and out at the screen edges.
+- **Typography Fixes**: Enhanced the `TextReveal` animation wrapper with targeted padding to ensure italic font descenders (tails of letters like 'y', 'p', 'g', 'e') are no longer clipped during animations.
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites

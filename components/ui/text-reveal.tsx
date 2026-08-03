@@ -38,7 +38,12 @@ export function TextReveal({
           key={i}
           aria-hidden="true"
           className="inline-block overflow-hidden align-bottom"
-          style={{ marginRight: splitBy === "word" ? "0.25em" : 0 }}
+          style={{ 
+            paddingBottom: "0.2em",
+            marginBottom: "-0.2em",
+            paddingRight: "0.1em",
+            marginRight: splitBy === "word" ? "0.15em" : "-0.1em"
+          }}
         >
           <motion.span
             className="inline-block"
