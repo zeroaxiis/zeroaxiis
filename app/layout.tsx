@@ -59,7 +59,7 @@ export default function RootLayout({
         <ScrollReset />
         <TopBar />
         <Header />
-        <main>{children}</main>
+        <main className="select-none">{children}</main>
         <Footer />
         <SpeedInsights />
       </body>
