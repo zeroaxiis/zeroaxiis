@@ -17,6 +17,15 @@ The codebase has been restructured to be more **modular**, **scalable**, and **e
 
 ---
 
+## 🌟 Recent UI & Animation Enhancements (August 2026)
+
+- **Hero Typography & Layout**: Upgraded the hero section to use `Instrument Serif`, fixed the magnetic CTA button spacing to prevent overlaps, and updated the hover arrow rotation to `45deg`.
+- **Globe Parallax Stability**: Reparented the `CursorParallax` component inside `ResponsiveGlobe` so the interactive 3D globe rotates cleanly in-place instead of swinging wildly across the screen.
+- **Fluid Marquee Fading**: Applied a CSS `mask-image` linear gradient to the Testimonials infinite carousel, creating a smooth fade-in/out effect at the screen edges.
+- **TextReveal Animation Fixes**: Fixed italic serif descender clipping (e.g., the letter 'y', 'g', 'e') in the `TextReveal` component by dynamically applying responsive padding and negative margin offsets.
+
+---
+
 ## 🆕 New Directories Created
 
 ### `/lib/constants/` - Centralized Configuration
