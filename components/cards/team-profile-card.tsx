@@ -16,7 +16,7 @@ export function TeamProfileCard({ member }: TeamProfileCardProps) {
           <div className="w-full h-full overflow-hidden border border-stroke bg-[#0a0a0a] relative z-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]" style={{ borderRadius: '50%' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
-              src={member.image} 
+              src={member.image_url} 
               alt={member.name}
               className="w-full h-full object-cover scale-[1.15]"
               style={{ borderRadius: '50%' }}

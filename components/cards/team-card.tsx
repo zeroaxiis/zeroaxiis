@@ -12,8 +12,7 @@ export function TeamCard({
   name,
   role,
   description,
-  image,
-  imageAlt,
+  image_url,
   socialLinks,
   className,
   priority = false,
@@ -28,8 +27,8 @@ export function TeamCard({
       {/* Aspect Ratio Thumbnail Container */}
       <div className="relative w-full aspect-[4/5] overflow-hidden flex-shrink-0">
         <Image
-          src={image}
-          alt={imageAlt || name}
+          src={image_url}
+          alt={name}
           fill
           priority={priority}
           className="object-cover object-center grayscale contrast-125 transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-105"

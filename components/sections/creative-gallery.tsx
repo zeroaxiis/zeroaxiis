@@ -31,7 +31,7 @@ export function CreativeGallery({ items }: CreativeGalleryProps) {
   const filteredItems = useMemo(() => {
     return activeFilter === "All" 
       ? baseGridItems 
-      : items.filter((item) => item.type === activeFilter);
+      : items.filter((item) => item.category === activeFilter);
   }, [activeFilter, baseGridItems, items]);
 
   return (

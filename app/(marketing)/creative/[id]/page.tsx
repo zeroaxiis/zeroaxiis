@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
-import { creativeItems } from "@/lib/data";
+import { API_BASE_URL } from "@/lib/config";
+import type { CreativeItem } from "@/types";
 import { 
   VideoPlayer, 
   ArticleHeader, 
@@ -17,15 +18,33 @@ interface CreativeDetailPageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return creativeItems.map((item) => ({
-    id: item.id,
-  }));
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/creative`);
+    const data = await res.json();
+    return (data.data || []).map((item: CreativeItem) => ({
+      id: item.id,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+async function getCreativeItem(id: string): Promise<CreativeItem | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/creative`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const items = data.data || [];
+    return items.find((item: CreativeItem) => item.id === id) || null;
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: CreativeDetailPageProps) {
   const resolvedParams = await params;
-  const item = creativeItems.find((c) => c.id === resolvedParams.id);
+  const item = await getCreativeItem(resolvedParams.id);
   if (!item) {
     return {
       title: "Not Found | ZeroAxiis",
@@ -33,20 +52,20 @@ export async function generateMetadata({ params }: CreativeDetailPageProps) {
   }
   return {
     title: `${item.title} | ZeroAxiis`,
-    description: item.description,
+    description: item.summary,
   };
 }
 
 export default async function CreativeDetailPage({ params }: CreativeDetailPageProps) {
   const resolvedParams = await params;
-  const item = creativeItems.find((c) => c.id === resolvedParams.id);
+  const item = await getCreativeItem(resolvedParams.id);
 
   if (!item) {
     notFound();
   }
 
   // Extract video ID from href. E.g. https://youtu.be/C842vFY5kRo -> C842vFY5kRo
-  const videoId = item.href.split("/").pop()?.split("?")[0];
+  const videoId = item.video_url.split("/").pop()?.split("?")[0];
 
   return (
     <main className="pt-24 md:pt-28 pb-16 relative bg-surface-container-lowest min-h-[100svh] overflow-hidden">
@@ -65,7 +84,7 @@ export default async function CreativeDetailPage({ params }: CreativeDetailPageP
           {/* Content Area */}
           <div className="max-w-4xl mx-auto flex flex-col gap-6">
             <ArticleHeader item={item} />
-            <ArticleContent description={item.description} />
+            <ArticleContent summary={item.summary} />
           </div>
         </Container>
       </Section>

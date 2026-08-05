@@ -36,7 +36,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
             <div className="relative w-full aspect-square rounded-full overflow-hidden border border-stroke p-2 bg-[#0a0a0a]">
               <div className="w-full h-full rounded-full overflow-hidden relative">
                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                 <img src={member.image} alt={member.name} className="w-full h-full object-cover scale-[1.08] block" />
+                 <img src={member.image_url} alt={member.name} className="w-full h-full object-cover scale-[1.08] block" />
               </div>
             </div>
             

@@ -58,43 +58,64 @@ export type SocialLink = {
   href: string;
 };
 
+export type ContactItem = {
+  label: string;
+  value: string;
+};
+
 export type TeamMember = {
-  id?: string;
+  id: string;
+  name: string;
+  role: string;
+  description: string;
+  image_url: string;
+  created_at?: string;
   slug?: string;
+  // Fallbacks for UI if necessary
+  socialLinks?: SocialLink[];
+  icon?: string;
   githubProfile?: {
     username: string;
     followers: string;
     following: string;
     repos: number;
   };
-
-  name: string;
-  role: string;
-  description: string;
-  image: string;
-  imageAlt: string;
-  icon: string;
-  socialLinks: SocialLink[];
   specializations?: string[];
   techStack?: string[];
   focus?: string;
   since?: string;
 };
 
-export type ContactItem = {
-  label: string;
-  value: string;
+export type ProjectItem = {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  project_url: string;
+  organization: string;
+  created_at: string;
+};
+
+export type BlogItem = {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  image_url: string;
+  created_at: string;
 };
 
 export type CreativeItem = {
   id: string;
   title: string;
-  description: string;
-  type: "Video" | "Podcast" | "Interview" | "Series";
-  thumbnail: string;
+  description?: string;
+  thumbnail_url: string;
+  video_url: string;
+  category: string;
   duration: string;
-  publishDate: string;
-  href: string;
+  published_at: string;
+  summary: string;
   featured?: boolean;
   author?: string;
+  channel_title?: string;
 };

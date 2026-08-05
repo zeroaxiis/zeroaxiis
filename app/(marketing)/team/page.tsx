@@ -1,15 +1,31 @@
 import { Container, Section } from "@/components/layout";
 import { ContactForm, ContactInfo } from "@/components/forms";
 import { Reveal } from "@/components/ui/reveal";
-import { teamMembers, contactItems } from "@/lib/data";
+import { contactItems } from "@/lib/data";
 import { TeamRoster } from "@/components/sections/team-roster";
 import { BackgroundGrid } from "@/components/ui/background-grid";
+import { API_BASE_URL } from "@/lib/config";
+import type { TeamMember } from "@/types";
 
 export const metadata = {
   title: "Team & Contact",
 };
 
-export default function TeamPage() {
+async function fetchTeam(): Promise<TeamMember[] | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/team`, { cache: 'no-store' });
+    if (!res.ok) throw new Error("API not ready");
+    const data = await res.json();
+    return data.data && data.data.length > 0 ? data.data : null;
+  } catch {
+    return null;
+  }
+}
+
+export default async function TeamPage() {
+  const fetchedTeam = await fetchTeam();
+  const team = fetchedTeam || [];
+
   return (
     <main className="pt-32 pb-32 relative bg-surface-container-lowest min-h-[clamp(600px,100svh,1080px)] overflow-hidden">
       {/* Background Grid Pattern */}
@@ -36,7 +52,7 @@ export default function TeamPage() {
 
         <div className="w-full mb-16 relative z-10">
           <Reveal delay={0.1}>
-            <TeamRoster members={teamMembers} />
+            <TeamRoster members={team} />
           </Reveal>
         </div>
 

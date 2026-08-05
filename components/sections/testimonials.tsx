@@ -1,28 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 // import Image from "next/image";
 import { motion, useMotionValue, useAnimationFrame, animate, useMotionValueEvent } from "motion/react";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
-import { testimonials } from "@/lib/data/testimonials";
 import { Reveal } from "@/components/ui/reveal";
 import { CircleButton } from "@/components/ui/circle-button";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
+import type { Testimonial } from "@/lib/data/testimonials";
 
-// We need enough duplicates to fill the screen while scrolling continuously
-const extendedTestimonials = [
-  ...testimonials,
-  ...testimonials,
-  ...testimonials,
-  ...testimonials,
-];
-
-export function Testimonials() {
+export function Testimonials({ items = [] }: { items?: Testimonial[] }) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [itemWidth, setItemWidth] = useState(452); // fallback
+  const testimonials = items;
+
+  // We need enough duplicates to fill the screen while scrolling continuously
+  const extendedTestimonials = testimonials.length > 0 ? [
+    ...testimonials,
+    ...testimonials,
+    ...testimonials,
+    ...testimonials,
+  ] : [];
+
   
   const containerRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -164,12 +166,12 @@ export function Testimonials() {
                     <span className="font-body-md font-bold text-[16px] text-bone">{t.name}</span>
                   </div>
                   <span className="font-body-sm text-[14px] text-bone-mute">
-                    {t.title} <span className="text-accent mx-1">·</span> {t.company}
+                    {t.role} <span className="text-accent mx-1">·</span> {t.company}
                   </span>
                 </div>
 
                 <p className="font-body-md text-[16px] sm:text-[18px] leading-[1.6] text-bone-dim tracking-wide grow">
-                  {t.quote}
+                  {t.comment}
                 </p>
               </article>
             ))}

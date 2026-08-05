@@ -1,61 +1,69 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
-import Link from "next/link";
-import type { Project } from "@/types";
-import { ArrowDiagonalSmallIcon } from "@/components/icons";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
+import type { ProjectItem } from "@/types";
 
-export type ProjectCardProps = Project & {
-  index?: number;
+export type ProjectCardProps = ProjectItem & {
   className?: string;
   priority?: boolean;
 };
 
 export function ProjectCard({
+  id,
   title,
   description,
-  image,
-  imageAlt,
-  icon,
-  href = "#",
+  image_url,
+  project_url,
+  organization,
+  created_at,
   className,
+  priority = false,
 }: ProjectCardProps) {
+  const formattedDate = new Date(created_at).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+
   return (
-    <Link
-      href={href}
+    <div
       className={cn(
-        "group flex flex-col w-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 h-full",
+        "group flex flex-col w-full bg-transparent hover:bg-[#1a1a1a] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 relative z-10 h-full overflow-hidden rounded-none",
         className
       )}
     >
-      {/* Compact thumbnail */}
-      <div className="relative w-full aspect-video overflow-hidden rounded-xl bg-[#1a1c20]">
-        {image ? (
-          <img
-            src={image}
-            alt={imageAlt || title}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-          />
-        ) : icon ? (
-          <div className="w-full h-full flex items-center justify-center">
-            <span className="material-symbols-outlined text-[40px] text-bone-mute opacity-40 group-hover:text-accent group-hover:opacity-100 transition-all duration-400">
-              {icon}
-            </span>
-          </div>
-        ) : null}
+      <div className="relative w-full aspect-video overflow-hidden flex-shrink-0">
+        <Image
+          src={image_url}
+          alt={title}
+          fill
+          priority={priority}
+          className="object-cover transition-all duration-300 ease-out group-hover:opacity-80"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+
+        <div className="absolute top-3 left-3 bg-accent px-2 py-1 z-20">
+          <span className="text-black text-[12px] font-label-mono leading-none flex items-center">
+            {organization || "Project"}
+          </span>
+        </div>
       </div>
 
-      {/* Title + arrow */}
-      <h3 className="text-[15px] font-medium text-bone leading-snug flex items-center gap-1 mt-3 mb-1 group-hover:text-accent transition-colors duration-300">
-        {title}
-        <ArrowDiagonalSmallIcon width={11} height={11} className="text-bone-mute group-hover:text-accent flex-shrink-0 transition-colors duration-300" />
-      </h3>
+      <div className="flex flex-col flex-grow p-5 bg-transparent">
+        <h3
+          className="text-[18px] font-medium text-bone leading-[1.3] mb-4 line-clamp-2 min-h-[46px]"
+          title={title}
+        >
+          {title}
+        </h3>
 
-      {/* Description */}
-      <p className="text-bone-mute text-[12px] leading-[1.5] line-clamp-2">
-        {description}
-      </p>
-    </Link>
+        <div className="flex items-end justify-between gap-4 mt-auto">
+          {description && (
+            <p className="text-bone-mute font-body text-[12px] leading-[1.5] line-clamp-3 flex-grow max-w-[70%]">
+              {description}
+            </p>
+          )}
+
+          <span className="text-bone-mute font-body text-[12px] whitespace-nowrap flex-shrink-0">
+            {formattedDate}
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }
