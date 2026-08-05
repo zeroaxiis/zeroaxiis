@@ -36,23 +36,6 @@ export type Project = {
   categoryLabel?: string;
 };
 
-export type Contributor = {
-  initials: string;
-};
-
-export type OpenSourceTool = {
-  name: string;
-  description: string;
-  language: string;
-  languageColor: string;
-  stars: string;
-  forks: string;
-  updated: string;
-  href?: string;
-  visibility?: "Public" | "Private";
-  contributors?: Contributor[];
-};
-
 export type SocialLink = {
   label: string;
   href: string;
