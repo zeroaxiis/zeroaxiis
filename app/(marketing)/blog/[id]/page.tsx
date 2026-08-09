@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Container } from "@/components/layout";
 import { Reveal } from "@/components/ui/reveal";
 import { ReadingProgress } from "@/components/ui/reading-progress";
 import { CircleButton } from "@/components/ui/circle-button";
@@ -61,7 +60,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <main className="pt-32 pb-32 relative bg-surface-container-lowest min-h-[100svh] overflow-hidden">
+    <main className="select-text pt-32 pb-32 relative bg-surface-container-lowest min-h-[100svh] overflow-hidden">
       <BackgroundGrid />
 
       <div className="relative w-full mx-auto px-5 md:px-8 max-w-5xl z-10 pt-8">

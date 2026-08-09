@@ -28,7 +28,7 @@ export default async function BlogPage() {
 
   if (!blogs) {
     return (
-      <main className="relative flex flex-col justify-center bg-surface-container-lowest min-h-[clamp(600px,100svh,1080px)] overflow-hidden">
+      <main className="select-text relative flex flex-col justify-center bg-surface-container-lowest min-h-[clamp(600px,100svh,1080px)] overflow-hidden">
         <BackgroundGrid maskImage="linear-gradient(to bottom, transparent, black 15%, black 100%)" opacity={50} />
         <Container className="relative z-10">
           <EmptyState title="nothing here!" message="The blog signals are currently lost in the void." />
@@ -38,7 +38,7 @@ export default async function BlogPage() {
   }
 
   return (
-    <main className="pt-32 pb-32 relative bg-surface-container-lowest min-h-[clamp(600px,100svh,1080px)] overflow-hidden">
+    <main className="select-text pt-32 pb-32 relative bg-surface-container-lowest min-h-[clamp(600px,100svh,1080px)] overflow-hidden">
       {/* Background Grid Pattern from Vision */}
       <BackgroundGrid />
 
