@@ -1,4 +1,8 @@
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
+import rehypeRaw from "rehype-raw";
 import { cn } from "@/lib/utils";
 import type { ProjectItem } from "@/types";
 
@@ -54,9 +58,9 @@ export function ProjectCard({
 
         <div className="flex items-end justify-between gap-4 mt-auto">
           {description && (
-            <p className="text-bone-mute font-body text-[12px] leading-[1.5] line-clamp-3 flex-grow max-w-[70%]">
-              {description}
-            </p>
+            <div className="text-bone-mute font-body text-[12px] leading-[1.5] line-clamp-3 flex-grow max-w-[70%] prose prose-invert prose-sm prose-p:my-0 prose-headings:my-0 prose-headings:text-[14px] prose-a:text-accent prose-p:text-[12px] prose-p:text-bone-mute prose-p:font-body">
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]} rehypePlugins={[rehypeRaw]} components={{ p: 'span' }}>{description}</ReactMarkdown>
+            </div>
           )}
 
           <span className="text-bone-mute font-body text-[12px] whitespace-nowrap flex-shrink-0">
