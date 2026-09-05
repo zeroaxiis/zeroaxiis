@@ -7,6 +7,10 @@ import { CircleButton } from "@/components/ui/circle-button";
 import { ArrowLeftIcon } from "@/components/icons";
 import { formatDate } from "@/lib/utils";
 import { BackgroundGrid } from "@/components/ui/background-grid";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
+import rehypeRaw from "rehype-raw";
 import type { BlogItem } from "@/types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.zeroaxiis.tech";
@@ -104,40 +108,8 @@ export default async function BlogPostPage({ params }: Props) {
               </Reveal>
             </header>
 
-            <div className="prose prose-invert max-w-none mt-8">
-              {(post.content || "").split(/\r?\n\r?\n/).map((paragraph, i) => {
-                const p = paragraph.trim();
-                if (!p) return null;
-                
-                if (p.startsWith("## ") || /^\d+\.\s/.test(p)) {
-                  return (
-                    <h2
-                      key={i}
-                      className="font-display text-3xl md:text-4xl text-bone tracking-[-0.02em] mt-16 mb-6 leading-tight"
-                    >
-                      {p.replace(/^##\s*/, "")}
-                    </h2>
-                  );
-                }
-                
-                if (p.startsWith("• ")) {
-                  return (
-                    <div key={i} className="flex gap-4 mb-4 font-body-md text-body-md leading-relaxed text-bone-dim">
-                      <span className="text-accent flex-shrink-0">•</span>
-                      <span>{p.substring(2)}</span>
-                    </div>
-                  );
-                }
-                
-                return (
-                  <p
-                    key={i}
-                    className="font-body-md text-body-md leading-relaxed text-bone-dim mb-6 whitespace-pre-wrap"
-                  >
-                    {p}
-                  </p>
-                );
-              })}
+            <div className="prose prose-invert max-w-none mt-8 prose-p:text-bone-dim prose-headings:text-bone prose-a:text-accent prose-li:text-bone-dim">
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]} rehypePlugins={[rehypeRaw]}>{post.content || ""}</ReactMarkdown>
             </div>
           </article>
         </div>
