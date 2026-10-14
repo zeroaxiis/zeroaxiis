@@ -1,18 +1,19 @@
 "use client";
 
-
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import { GlobeLogoIcon, ArrowUpRightIcon } from "@/components/icons";
 import { Magnetic } from "@/components/ui/magnetic";
 import { useCalModal } from "@/hooks";
+import type { PageEntry } from "@/lib/pages";
+import { PageNav } from "./page-nav";
 import styles from "./top-bar.module.css";
 
-export function TopBar() {
+export function TopBar({ pages }: { pages: PageEntry[] }) {
   const handleOpenModal = useCalModal();
 
   return (
-    <header className={styles.bar} aria-label="Primary">
+    <header className={styles.bar}>
       <div className={styles.inner}>
         <Link href="/" className={styles.logo} aria-label={siteConfig.name}>
           <span className={`${styles.logoMark} -rotate-12`}>
@@ -21,8 +22,11 @@ export function TopBar() {
           <span>{siteConfig.name}</span>
         </Link>
 
+        <PageNav pages={pages} />
+
         <Magnetic strength={0.25}>
           <button
+            type="button"
             onClick={handleOpenModal}
             className={`${styles.connect} group`}
           >

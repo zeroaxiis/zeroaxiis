@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {};
   return {
     title: post.title,
-    description: post.content.substring(0, 150) + "...",
+    description: post.content.replace(/[#*`_\[\]>]/g, '').substring(0, 150) + "...",
   };
 }
 

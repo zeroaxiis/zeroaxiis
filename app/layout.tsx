@@ -4,7 +4,6 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { TopBar } from "@/components/layout/top-bar";
 import { ScrollReset } from "@/components/layout/scroll-reset";
 import { InlinePreloader } from "@/components/layout/inline-preloader";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -57,7 +56,6 @@ export default function RootLayout({
       <body>
         <InlinePreloader />
         <ScrollReset />
-        <TopBar />
         <Header />
         <main className="select-none">{children}</main>
         <Footer />
