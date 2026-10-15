@@ -1,6 +1,4 @@
-<p><img src="app/icon.svg" alt="ZeroAxiis logo" width="88" height="88" /></p>
-
-# ZeroAxiis
+<h1><picture><source media="(prefers-color-scheme: dark)" srcset="public/zeroaxiis-wordmark-dark.svg" /><img src="public/zeroaxiis-wordmark-light.svg" alt="ZeroAxiis" width="272" height="80" /></picture></h1>
 
 Source code for the official ZeroAxiis website. To learn about our company, services, and products, visit **[zeroaxiis.com](https://zeroaxiis.com)**.
 
