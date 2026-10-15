@@ -59,7 +59,15 @@ export function ProjectCard({
         <div className="flex items-end justify-between gap-4 mt-auto">
           {description && (
             <div className="text-bone-mute font-body text-[12px] leading-[1.5] line-clamp-3 flex-grow max-w-[70%] prose prose-invert prose-sm prose-p:my-0 prose-headings:my-0 prose-headings:text-[14px] prose-a:text-accent prose-p:text-[12px] prose-p:text-bone-mute prose-p:font-body">
-              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]} rehypePlugins={[rehypeRaw]} components={{ p: 'span' }}>{description}</ReactMarkdown>
+              <ReactMarkdown 
+                remarkPlugins={[remarkGfm, remarkBreaks]} 
+                rehypePlugins={[rehypeRaw]} 
+                components={{ p: 'span' }}
+                allowedElements={['p', 'span', 'strong', 'em', 'br', 'a', 'text']}
+                unwrapDisallowed={true}
+              >
+                {description}
+              </ReactMarkdown>
             </div>
           )}
 

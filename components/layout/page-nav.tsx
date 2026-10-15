@@ -1,7 +1,9 @@
-"use client";
+﻿"use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronDown } from "lucide-react";
 import type { PageEntry } from "@/lib/pages";
 import styles from "./page-nav.module.css";
 
@@ -9,273 +11,187 @@ interface PageNavProps {
   pages: PageEntry[];
 }
 
-const RADIUS = 260;
-const ANGLE_SPACING = 0.34;
-const WHEEL_DEBOUNCE_MS = 80;
-const SCROLL_LOCK_MS = 420;
-const FADE_OUT_MS = 320;
-
-function isActiveHref(pathname: string, href: string): boolean {
-  if (href === "/") return pathname === "/";
-  return pathname === href || pathname.startsWith(href + "/");
-}
-
-function formatCalcValue(value: number) {
-  const formatted = Math.abs(value).toFixed(3);
-  return value < 0
-    ? `calc(-50% - ${formatted}px)`
-    : `calc(-50% + ${formatted}px)`;
-}
-
 export function PageNav({ pages }: PageNavProps) {
   const pathname = usePathname();
-  const router = useRouter();
 
-  const pathnameIndex = useMemo(() => {
-    const i = pages.findIndex((p) => isActiveHref(pathname, p.href));
-    return i === -1 ? 0 : i;
-  }, [pathname, pages]);
+  return <Navigation key={pathname} pages={pages} pathname={pathname} />;
+}
 
-  const [activeIndex, setActiveIndex] = useState(pathnameIndex);
-  const [currentIndex, setCurrentIndex] = useState(pathnameIndex);
+function Navigation({ pages, pathname }: PageNavProps & { pathname: string }) {
   const [isOpen, setIsOpen] = useState(false);
-  const isScrollingRef = useRef(false);
-  const lastWheelAt = useRef(0);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const servicesRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const serviceLinkRef = useRef<HTMLAnchorElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Sync indices when route changes externally.
-  useEffect(() => {
-    setActiveIndex(pathnameIndex);
-    setCurrentIndex(pathnameIndex);
-  }, [pathnameIndex]);
-
-  // Prefetch real routes.
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      pages.forEach((p) => {
-        if (!p.href.startsWith("#")) router.prefetch(p.href);
-      });
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [pages, router]);
-
-  // Reset main opacity on pathname change (after fade-out navigation).
-  useEffect(() => {
-    const main = document.querySelector("main");
-    if (main) {
-      main.style.transition = "opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1)";
-      main.style.opacity = "1";
-    }
-  }, [pathname]);
-
-  // Lock scroll while dial is open.
-  useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-
-  // Wheel and Touch cycle items inside the hitbox.
-  useEffect(() => {
-    const container = document.getElementById("page-nav-hitbox");
-    if (!container) return;
-
-    const triggerLock = () => {
-      isScrollingRef.current = true;
-      window.setTimeout(() => {
-        isScrollingRef.current = false;
-      }, SCROLL_LOCK_MS);
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const now = performance.now();
-      if (isScrollingRef.current) return;
-      if (now - lastWheelAt.current < WHEEL_DEBOUNCE_MS) return;
-      lastWheelAt.current = now;
-
-      if (e.deltaY > 0 && currentIndex < pages.length - 1) {
-        setCurrentIndex((p) => p + 1);
-        triggerLock();
-      } else if (e.deltaY < 0 && currentIndex > 0) {
-        setCurrentIndex((p) => p - 1);
-        triggerLock();
-      }
-    };
-
-    let touchStartY = 0;
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault(); // Prevent page scroll while interacting with dial
-      if (isScrollingRef.current) return;
-
-      const touchY = e.touches[0].clientY;
-      const deltaY = touchStartY - touchY;
-
-      // Require a minimum swipe distance to prevent accidental triggering
-      if (Math.abs(deltaY) > 20) {
-        if (deltaY > 0 && currentIndex < pages.length - 1) {
-          setCurrentIndex((p) => p + 1);
-          touchStartY = touchY; // Reset origin to allow continuous swipe
-          triggerLock();
-        } else if (deltaY < 0 && currentIndex > 0) {
-          setCurrentIndex((p) => p - 1);
-          touchStartY = touchY;
-          triggerLock();
-        }
-      }
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    container.addEventListener("touchstart", handleTouchStart, { passive: true });
-    container.addEventListener("touchmove", handleTouchMove, { passive: false });
-    
-    return () => {
-      container.removeEventListener("wheel", handleWheel);
-      container.removeEventListener("touchstart", handleTouchStart);
-      container.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, [currentIndex, pages.length]);
-
-  const navigateWithFade = (href: string, newIndex: number) => {
-    setActiveIndex(newIndex);
-    setIsOpen(false);
-
-    if (href.startsWith("#")) {
-      const id = href.replace("#", "");
-      const target = document.getElementById(id);
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-      else router.push(href);
-      return;
-    }
-
-    const main = document.querySelector("main");
-    if (main) {
-      main.style.transition = "opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1)";
-      main.style.opacity = "0";
-      window.setTimeout(() => router.push(href), FADE_OUT_MS);
-    } else {
-      router.push(href);
-    }
+  const cancelClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
   };
 
-  const handleMouseEnter = () => setIsOpen(true);
-
-  const handleMouseLeave = () => {
+  const closeMenu = () => {
+    cancelClose();
     setIsOpen(false);
-    if (currentIndex !== activeIndex) {
-      navigateWithFade(pages[currentIndex].href, currentIndex);
-    } else {
-      setCurrentIndex(activeIndex);
-    }
+    setServicesOpen(false);
   };
 
-  const handleClick = (
-    e: React.MouseEvent,
-    index: number,
-    href: string,
-  ) => {
-    e.preventDefault();
-    if (index !== activeIndex) {
-      navigateWithFade(href, index);
-    } else {
+  useEffect(() => () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }, []);
+
+  useEffect(() => {
+    const breakpoint = window.matchMedia("(max-width: 1000px)");
+    const resetMenus = () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+      closeTimer.current = null;
       setIsOpen(false);
-    }
-  };
+      setServicesOpen(false);
+    };
+    breakpoint.addEventListener("change", resetMenus);
+    return () => breakpoint.removeEventListener("change", resetMenus);
+  }, []);
 
-  // Swallow stray clicks in the hover zone.
-  const handleZoneClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
+  useEffect(() => {
+    if (!isOpen && !servicesOpen) return;
+
+    const handleOutsidePress = (event: PointerEvent) => {
+      if (event.target instanceof Node && !navRef.current?.contains(event.target)) {
+        setIsOpen(false);
+        setServicesOpen(false);
+      }
+    };
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (servicesOpen) {
+        setServicesOpen(false);
+        if (navRef.current?.contains(document.activeElement)) servicesRef.current?.focus();
+      } else {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("pointerdown", handleOutsidePress);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("pointerdown", handleOutsidePress);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen, servicesOpen]);
 
   if (pages.length === 0) return null;
-  const activeLabel = pages[activeIndex]?.label ?? "Menu";
-  const triggerLabel = pages[currentIndex]?.label ?? activeLabel;
 
   return (
-    <>
-      <div
-        className={`${styles.shield} ${isOpen ? styles.shieldOpen : ""}`}
-        aria-hidden="true"
-        onClick={() => setIsOpen(false)}
-      />
-
-      <div
-        id="page-nav-hitbox"
-        className={`${styles.hitbox} ${isOpen ? styles.open : ""}`}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleZoneClick}
+    <nav
+      ref={navRef}
+      className={styles.nav}
+      aria-label="Primary"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) closeMenu();
+      }}
+    >
+      <button
+        ref={toggleRef}
+        type="button"
+        className={styles.toggle}
+        aria-expanded={isOpen}
+        aria-controls="primary-navigation-links"
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        onClick={() => {
+          setIsOpen((open) => !open);
+          setServicesOpen(false);
+        }}
       >
-        {/* Resting edge rail (Desktop) */}
-        <div className={styles.edge} aria-hidden="true">
-          <span className={styles.edgeLabel}>{activeLabel}</span>
-          <div className={styles.edgeCurrent}>
-            <div className={styles.dots}>
-              {pages.map((p, i) => (
-                <span
-                  key={p.href}
-                  className={`${styles.dot} ${i === activeIndex ? styles.dotActive : ""}`}
-                />
-              ))}
-            </div>
-          </div>
-          <span className={styles.edgeHint}>Menu · Scroll</span>
-        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+          <path d={isOpen ? "M6 6l12 12M6 18L18 6" : "M4 6h16M4 12h16M4 18h16"} />
+        </svg>
+        <span>Menu</span>
+      </button>
 
-        {/* Mobile Assistive Ball */}
-        <button
-          className={`${styles.mobileBall} ${isOpen ? styles.mobileBallOpen : ""}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsOpen(!isOpen);
-          }}
-          aria-label="Toggle Menu"
-          aria-expanded={isOpen}
-        >
-          <span className={styles.mobileBallInner} />
-        </button>
+      <ul
+        id="primary-navigation-links"
+        className={`${styles.links} ${isOpen ? styles.open : ""}`}
+      >
+        {pages.map((page) => {
+          const isActive = page.href === "/"
+            ? pathname === "/"
+            : pathname === page.href || pathname.startsWith(`${page.href}/`);
 
-        {/* Italic serif label of the currently-focused dial item */}
-        <div className={styles.trigger}>{triggerLabel}</div>
-
-        <nav className={styles.dial} aria-label="Primary">
-          {pages.map((page, index) => {
-            const offset = index - currentIndex;
-            const angle = Math.PI + offset * ANGLE_SPACING;
-            const x = Math.cos(angle) * RADIUS;
-            const y = -Math.sin(angle) * RADIUS;
-            const isCenter = offset === 0;
-            const isVisible = Math.abs(offset) <= 1;
-            const scale = isCenter ? 1.12 : 0.88;
-            const isActive = index === activeIndex;
-
-            return (
-              <a
-                key={page.href}
+          return (
+            <li key={page.href}>
+              <Link
                 href={page.href}
-                className={`${styles.pill} ${isCenter ? styles.pillFocus : ""} ${isActive ? styles.pillActive : ""}`}
-                onClick={(e) => handleClick(e, index, page.href)}
-                style={{
-                  transform: `translate(${formatCalcValue(x)}, ${formatCalcValue(y)}) scale(${scale})`,
-                  opacity: isVisible ? (isCenter ? 1 : 0.45) : 0,
-                  pointerEvents: isVisible ? "auto" : "none",
-                }}
+                className={`${styles.link} ${isActive ? styles.active : ""}`}
                 aria-current={isActive ? "page" : undefined}
+                onClick={closeMenu}
               >
                 {page.label}
-              </a>
-            );
-          })}
-        </nav>
-      </div>
-    </>
+              </Link>
+            </li>
+          );
+        })}
+        <li
+          className={styles.services}
+          onFocusCapture={cancelClose}
+          onPointerEnter={(event) => {
+            if (event.pointerType === "mouse" && window.matchMedia("(min-width: 1001px)").matches) {
+              cancelClose();
+              setServicesOpen(true);
+            }
+          }}
+          onPointerLeave={(event) => {
+            if (
+              event.pointerType === "mouse" &&
+              window.matchMedia("(min-width: 1001px)").matches &&
+              !event.currentTarget.querySelector(":focus-visible")
+            ) {
+              cancelClose();
+              closeTimer.current = setTimeout(() => setServicesOpen(false), 160);
+            }
+          }}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false);
+          }}
+        >
+          <button
+            ref={servicesRef}
+            type="button"
+            className={`${styles.link} ${styles.servicesToggle}`}
+            aria-expanded={servicesOpen}
+            aria-controls="services-navigation-links"
+            onClick={(event) => {
+              cancelClose();
+              if (event.detail > 0 && window.matchMedia("(min-width: 1001px) and (hover: hover) and (pointer: fine)").matches) {
+                setServicesOpen(true);
+              } else {
+                setServicesOpen((open) => !open);
+              }
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowDown") {
+                event.preventDefault();
+                cancelClose();
+                setServicesOpen(true);
+                requestAnimationFrame(() => serviceLinkRef.current?.focus());
+              }
+            }}
+          >
+            Services
+            <ChevronDown className={styles.chevron} size={12} strokeWidth={1.5} aria-hidden="true" />
+          </button>
+          <div className={styles.dropdown} hidden={!servicesOpen} id="services-navigation-links">
+            <ul className={styles.serviceLinks}>
+              <li>
+                <a ref={serviceLinkRef} href="https://halomail.zeroaxiis.tech" className={styles.serviceLink} onClick={closeMenu}>
+                  Halomail
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
   );
 }

@@ -1,336 +1,228 @@
-/* Vars */
-.hitbox {
-  --accent: #c8ff00;
-  --bone: #f5f1e8;
-  --bone-mute: rgba(245, 241, 232, 0.62);
-  --ink: #0a0a0a;
-  --surface: rgba(10, 10, 10, 0.62);
-  --border: rgba(245, 241, 232, 0.14);
-  --spring: cubic-bezier(0.16, 1, 0.3, 1);
+﻿.nav {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: "Geist", sans-serif;
 }
 
-/* ─── Hitbox ──────────────────────────────────────────────────── */
-
-.hitbox {
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 56px;
-  height: 70vh;
-  z-index: 110;
+.links {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  transition: width 0.4s var(--spring);
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.open {
-  width: 760px;
-}
-
-/* ─── Shield ──────────────────────────────────────────────────── */
-
-.shield {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: transparent;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-
-.shieldOpen {
-  opacity: 1;
-  pointer-events: auto;
-  background: radial-gradient(
-    circle at 100% 50%,
-    rgba(0, 0, 0, 0.65) 0%,
-    rgba(0, 0, 0, 0.35) 35%,
-    rgba(0, 0, 0, 0) 75%
-  );
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-}
-
-/* ─── Resting edge rail ───────────────────────────────────────── */
-
-.edge {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
+.link {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 18px;
-  padding: 18px 6px;
-  z-index: 2;
-  pointer-events: none;
-  transition:
-    opacity 0.5s var(--spring),
-    transform 0.5s var(--spring);
-}
-
-.open .edge {
-  opacity: 0;
-  transform: translate(28px, -50%);
-}
-
-.edgeLabel,
-.edgeHint {
-  font-family: "JetBrains Mono", monospace;
+  min-height: 44px;
+  padding: 10px 12px;
+  color: #a6a39c;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.edgeLabel {
-  color: var(--bone);
-}
-
-/* edge label dash removed */
-
-.edgeHint {
-  color: var(--bone-mute);
-}
-
-.edgeCurrent {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 8px;
-  border: 1px solid var(--border);
-  border-radius: 9999px;
-  background: rgba(10, 10, 10, 0.6);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-}
-
-.dots {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--bone-mute);
-  opacity: 0.55;
-  transition:
-    background-color 0.4s var(--spring),
-    box-shadow 0.4s var(--spring),
-    transform 0.4s var(--spring),
-    opacity 0.4s var(--spring);
-}
-
-.dotActive {
-  background: var(--accent);
-  opacity: 1;
-  box-shadow: 0 0 8px rgba(200, 255, 0, 0.6);
-  transform: scale(1.5);
-}
-
-/* ─── Italic serif preview ────────────────────────────────────── */
-
-.trigger {
-  position: absolute;
-  right: 380px;
-  top: 50%;
-  transform: translate(40px, -50%);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: "Instrument Serif", "Geist", serif;
-  font-style: italic;
-  font-size: 1.8rem;
-  color: var(--bone);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  z-index: 1;
-  transition:
-    opacity 0.4s var(--spring),
-    transform 0.5s var(--spring);
-}
-
-.triggerDash {
-  display: block;
-  width: 44px;
-  height: 1px;
-  background: var(--accent);
-}
-
-.open .trigger {
-  opacity: 1;
-  transform: translate(0, -50%);
-}
-
-/* ─── Radial dial ─────────────────────────────────────────────── */
-
-.dial {
-  position: absolute;
-  right: -250px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 500px;
-  height: 500px;
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.5s var(--spring),
-    visibility 0.5s ease;
-}
-
-.open .dial {
-  opacity: 1;
-  visibility: visible;
-}
-
-.pill {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 30px;
-  border-radius: 9999px;
-  border: 1px solid var(--border);
-  background: rgba(245, 241, 232, 0.04);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  color: rgba(245, 241, 232, 0.7);
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  line-height: 24px;
   text-decoration: none;
   white-space: nowrap;
-  width: max-content;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
-  transition:
-    transform 0.7s var(--spring),
-    opacity 0.5s var(--spring),
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: color 150ms ease;
 }
 
-.pill:hover {
-  background: rgba(245, 241, 232, 0.08);
-  border-color: rgba(245, 241, 232, 0.3);
-  color: var(--bone);
+.link:hover,
+.link.active,
+.servicesToggle[aria-expanded="true"] {
+  color: var(--color-bone);
 }
 
-.pill:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 2px var(--ink),
-    0 0 0 4px var(--accent);
+.link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: var(--color-accent);
 }
 
-/* Focused dial item (center of the arc) */
-.pillFocus {
-  color: var(--bone);
+.link:focus-visible,
+.toggle:focus-visible {
+  outline: 2px solid var(--color-bone);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* Current-page pill (lime fill) */
-.pillActive {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--ink);
-  box-shadow:
-    0 0 0 1px var(--accent),
-    0 0 32px rgba(200, 255, 0, 0.35);
-}
-
-.pillActive:hover {
-  background: var(--accent);
-  color: var(--ink);
-}
-
-/* ─── Mobile Assistive Navbar ───────────────────────────────────── */
-
-.mobileBall {
+.toggle {
   display: none;
 }
 
-@media (max-width: 768px) {
-  /* Hide the resting rail and text preview on mobile */
-  .edge,
-  .trigger {
-    display: none !important;
-  }
+.services {
+  position: relative;
+}
 
-  /* Make sure the dial is shifted slightly so pills don't overflow the left edge */
-  .dial {
-    right: -320px;
-    transform: scale(0.85) translateY(-50%);
-    transform-origin: right center;
-  }
+.servicesToggle {
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
 
-  /* iPhone-style Assistive Touch Ball */
-  .mobileBall {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    right: 16px;
-    transform: translateY(-50%);
-    width: 60px;
-    height: 60px;
-    border-radius: 18px; /* Squircle look */
-    background: rgba(45, 45, 45, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 120;
+.chevron {
+  color: #85827b;
+  transition: transform 180ms ease, color 150ms ease;
+}
+
+.servicesToggle[aria-expanded="true"] .chevron {
+  color: var(--color-bone);
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  right: 0;
+  width: max-content;
+  min-width: 112px;
+  padding-top: 6px;
+}
+
+.dropdown[hidden] {
+  display: none;
+}
+
+.serviceLinks {
+  margin: 0;
+  padding: 2px 16px;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid #35332e;
+  border-radius: 6px;
+  background: #171715;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  animation: dropdownEnter 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-origin: top right;
+}
+
+.serviceLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 0;
+  color: #a6a39c;
+  font-size: 13px;
+  line-height: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 150ms ease;
+}
+
+.serviceLink:hover,
+.serviceLink:focus-visible {
+  color: var(--color-bone);
+}
+
+.serviceLink:focus-visible {
+  outline: 2px solid var(--color-bone);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@keyframes dropdownEnter {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1000px) {
+  .toggle {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px;
+    border: 0;
+    background: transparent;
+    color: var(--color-bone);
+    font: inherit;
+    font-size: 13px;
     cursor: pointer;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-                0 10px 40px rgba(0, 0, 0, 0.5);
-    transition: transform 0.25s var(--spring), opacity 0.3s ease;
-  }
-  
-  .mobileBall:active {
-    background: rgba(65, 65, 65, 0.7);
-  }
-  
-  /* Hide the ball when the radial dial is open */
-  .mobileBallOpen {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-50%) scale(0.8);
   }
 
-  /* The iconic inner white circle */
-  .mobileBallInner {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3),
-                0 0 10px rgba(255, 255, 255, 0.2);
-    transition: transform 0.25s var(--spring);
+  .links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    gap: 0;
+    padding: 8px var(--bar-padding-inline) max(16px, env(safe-area-inset-bottom));
+    border-bottom: 1px solid #30302a;
+    background: #111110;
+    max-height: calc(100dvh - var(--bar-height));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
   }
 
-  .mobileBall:active .mobileBallInner {
-    transform: scale(0.9);
+  .links.open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    animation: dropdownEnter 160ms ease;
+  }
+
+  .links > li {
+    flex-shrink: 0;
+  }
+
+  .links > li + li {
+    border-top: 1px solid #252520;
+  }
+
+  .link {
+    min-height: 52px;
+    padding: 12px 0;
+    font-size: 15px;
+  }
+
+  .link.active {
+    color: var(--color-accent);
+  }
+
+  .link.active::after {
+    display: none;
+  }
+
+  .servicesToggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown {
+    position: static;
+    padding: 0 0 4px;
+  }
+
+  .serviceLinks {
+    box-shadow: none;
+  }
+
+  .serviceLink {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toggle span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav *,
+  .nav *::after {
+    animation: none;
+    transition: none;
   }
 }

@@ -1,7 +1,7 @@
 import { getPages } from "@/lib/pages";
-import { PageNav } from "./page-nav";
+import { TopBar } from "./top-bar";
 
 export function Header() {
   const pages = getPages();
-  return <PageNav pages={pages} />;
+  return <TopBar pages={pages} />;
 }
