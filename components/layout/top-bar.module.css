@@ -1,11 +1,14 @@
 .bar {
+  --bar-padding-block: 20px;
+  --bar-padding-inline: clamp(24px, 5vw, 80px);
+  --bar-height: calc(44px + var(--bar-padding-block) * 2);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 90;
   width: 100%;
-  padding: 20px clamp(24px, 5vw, 80px);
+  padding: var(--bar-padding-block) var(--bar-padding-inline);
   background: linear-gradient(
     to bottom,
     rgba(10, 10, 10, 0.72) 0%,
@@ -19,10 +22,12 @@
 
 .inner {
   max-width: 1440px;
+  min-height: 44px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: clamp(8px, 1.5vw, 24px);
   pointer-events: auto;
 }
 
@@ -57,6 +62,7 @@
   display: inline-block;
   width: 28px;
   height: 28px;
+  flex-shrink: 0;
 }
 
 .status {
@@ -101,7 +107,12 @@
   }
 }
 
+.action {
+  flex-shrink: 0;
+}
+
 .connect {
+  min-height: 44px;
   font-family: "Geist", sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -131,7 +142,8 @@
 
 @media (max-width: 768px) {
   .bar {
-    padding: 14px 20px;
+    --bar-padding-block: 14px;
+    --bar-padding-inline: 20px;
   }
   .status {
     display: none;
@@ -145,11 +157,29 @@
 
 @media (max-width: 480px) {
   .bar {
-    padding: 12px 16px;
+    --bar-padding-block: 12px;
+    --bar-padding-inline: clamp(12px, 4vw, 16px);
+  }
+  .inner {
+    gap: 8px;
+  }
+  .logo {
+    gap: 6px;
+    font-size: 14px;
+  }
+  .logoMark {
+    width: 24px;
+    height: 24px;
   }
   .connect {
     padding: 4px 6px 4px 12px;
     font-size: 11px;
     gap: 4px;
+  }
+}
+
+@media (max-width: 300px) {
+  .logo > span + span {
+    display: none;
   }
 }

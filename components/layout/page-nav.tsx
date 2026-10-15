@@ -44,6 +44,8 @@ function Navigation({ pages, pathname }: PageNavProps & { pathname: string }) {
   useEffect(() => {
     const breakpoint = window.matchMedia("(max-width: 1000px)");
     const resetMenus = () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+      closeTimer.current = null;
       setIsOpen(false);
       setServicesOpen(false);
     };
@@ -134,13 +136,17 @@ function Navigation({ pages, pathname }: PageNavProps & { pathname: string }) {
           className={styles.services}
           onFocusCapture={cancelClose}
           onPointerEnter={(event) => {
-            if (event.pointerType === "mouse") {
+            if (event.pointerType === "mouse" && window.matchMedia("(min-width: 1001px)").matches) {
               cancelClose();
               setServicesOpen(true);
             }
           }}
           onPointerLeave={(event) => {
-            if (event.pointerType === "mouse" && !event.currentTarget.querySelector(":focus-visible")) {
+            if (
+              event.pointerType === "mouse" &&
+              window.matchMedia("(min-width: 1001px)").matches &&
+              !event.currentTarget.querySelector(":focus-visible")
+            ) {
               cancelClose();
               closeTimer.current = setTimeout(() => setServicesOpen(false), 160);
             }
@@ -157,7 +163,7 @@ function Navigation({ pages, pathname }: PageNavProps & { pathname: string }) {
             aria-controls="services-navigation-links"
             onClick={(event) => {
               cancelClose();
-              if (event.detail > 0 && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+              if (event.detail > 0 && window.matchMedia("(min-width: 1001px) and (hover: hover) and (pointer: fine)").matches) {
                 setServicesOpen(true);
               } else {
                 setServicesOpen((open) => !open);

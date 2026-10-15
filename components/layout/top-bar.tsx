@@ -24,7 +24,7 @@ export function TopBar({ pages }: { pages: PageEntry[] }) {
 
         <PageNav pages={pages} />
 
-        <Magnetic strength={0.25}>
+        <Magnetic strength={0.25} className={styles.action}>
           <button
             type="button"
             onClick={handleOpenModal}

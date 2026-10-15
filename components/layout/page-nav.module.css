@@ -1,6 +1,6 @@
 ﻿.nav {
+  flex-shrink: 0;
   margin-left: auto;
-  margin-right: 24px;
   font-family: "Geist", sans-serif;
 }
 
@@ -82,8 +82,9 @@
   z-index: 1;
   top: 100%;
   right: 0;
-  width: 132px;
-  padding-top: 8px;
+  width: max-content;
+  min-width: 112px;
+  padding-top: 6px;
 }
 
 .dropdown[hidden] {
@@ -92,7 +93,7 @@
 
 .serviceLinks {
   margin: 0;
-  padding: 5px;
+  padding: 2px 16px;
   overflow: hidden;
   list-style: none;
   border: 1px solid #35332e;
@@ -104,26 +105,26 @@
 }
 
 .serviceLink {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   min-height: 36px;
-  padding: 8px 12px;
-  border-radius: 3px;
-  color: var(--color-bone);
+  padding: 8px 0;
+  color: #a6a39c;
   font-size: 13px;
   line-height: 20px;
   text-decoration: none;
-  transition: background-color 150ms ease;
+  white-space: nowrap;
+  transition: color 150ms ease;
 }
 
 .serviceLink:hover,
 .serviceLink:focus-visible {
-  background: #20201c;
+  color: var(--color-bone);
 }
 
 .serviceLink:focus-visible {
   outline: 2px solid var(--color-bone);
-  outline-offset: -3px;
+  outline-offset: 2px;
   border-radius: 3px;
 }
 
@@ -133,10 +134,6 @@
 }
 
 @media (max-width: 1000px) {
-  .nav {
-    margin-right: 16px;
-  }
-
   .toggle {
     display: inline-flex;
     align-items: center;
@@ -144,7 +141,7 @@
     gap: 8px;
     min-width: 44px;
     min-height: 44px;
-    padding: 8px 0 8px 8px;
+    padding: 8px;
     border: 0;
     background: transparent;
     color: var(--color-bone);
@@ -160,11 +157,12 @@
     left: 0;
     right: 0;
     gap: 0;
-    padding: 12px 24px 24px;
+    padding: 8px var(--bar-padding-inline) max(16px, env(safe-area-inset-bottom));
     border-bottom: 1px solid #30302a;
     background: #111110;
-    max-height: calc(100dvh - 84px);
+    max-height: calc(100dvh - var(--bar-height));
     overflow-y: auto;
+    overscroll-behavior-y: contain;
   }
 
   .links.open {
@@ -172,6 +170,10 @@
     flex-direction: column;
     align-items: stretch;
     animation: dropdownEnter 160ms ease;
+  }
+
+  .links > li {
+    flex-shrink: 0;
   }
 
   .links > li + li {
@@ -199,7 +201,6 @@
 
   .dropdown {
     position: static;
-    width: 132px;
     padding: 0 0 4px;
   }
 
@@ -216,11 +217,6 @@
   .toggle span {
     display: none;
   }
-
-  .links {
-    padding-inline: 20px;
-  }
-
 }
 
 @media (prefers-reduced-motion: reduce) {
